@@ -11,13 +11,13 @@ public class Login : MonoBehaviour
 
 
     void Start(){
-        DevLoginActivate();
+        // StudentLoginActivate();
     }
-    public void DevLoginActivate() {
+    public void StudentLoginActivate(string customID) {
         var request = new LoginWithCustomIDRequest {
-        CustomId = "Student1"
+        CustomId = customID
         };
-        PlayFabClientAPI.LoginWithCustomID(request, DevOnLoginSuccess, OnError);
+        PlayFabClientAPI.LoginWithCustomID(request, StudentOnLoginSuccess, OnError);
         
         Debug.Log("Login sent");
 
@@ -25,7 +25,7 @@ public class Login : MonoBehaviour
 
 
 
-     void DevOnLoginSuccess(LoginResult result) {
+     void StudentOnLoginSuccess(LoginResult result) {
         Debug.Log("Login success!");
     }
 

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0199c11aa6f514784c5c69cd8378d8, type: 3}
   m_Name: PlayFabEditorPrefsSO
   m_EditorClassIdentifier: 
-  DevAccountEmail: asl.aspire.app@gmail.com
-  DevAccountToken: umzbgoe9hhm4siha5maekqhm5zc8s677ggchfjucdcwjz4q4oz6j5tcd9qbxateaka8tsrpt6xt1145iif3fnmx46b7jzhkqy78kero6zk3shbpar9ejoqax8w8ue3ina5o9wazuaieafpmrf95qrbsozsmbjm7nmdkeob4p3iana37axdf1a5e75f7pake68em5eodh
+  DevAccountEmail: 
+  DevAccountToken: 
   AadAuthorization: 
-  SelectedStudio: ASL Aspire
-  SdkPath: Assets/PlayFabSDK
+  SelectedStudio: 
+  SdkPath: 
   EdExPath: 
   LocalCloudScriptPath: 
   PanelIsShown: 0
-  curMainMenuIdx: 2
+  curMainMenuIdx: 0
   curSubMenuIdx: 0
