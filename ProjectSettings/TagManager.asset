@@ -3,16 +3,42 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SICI-basket
+  - SICI-ground
+  - SICI-burger
+  - SICI-lightning_bolt
+  - SICI-multiplication
+  - SICI-stopwatch
+  - SICI-word
+  - SICI-word_greyed
+  - MR-Player
+  - MR-Pillar
+  - MR-Floor
+  - MR-Wall
+  - MR-PatrolEnemy
+  - MR-Coin
+  - MR-Spike
+  - MR-Powerup_Clock
+  - MR-Powerup_Shield
+  - SS-HealthPowerup
+  - SS-NoJumpZone
+  - SS-NoLaneSwitchZone
+  - SS-Obstacle
+  - SS-Ramp
+  - SS-WrongAnswerTrigger
+  - SS-Obstacle-Untouchable
+  - SS-Obstacle-Touchable
+  - SS-TriggerUIQuestion
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Background
   - Water
   - UI
-  - 
-  - 
+  - MR-Default
+  - MR-Shield
   - 
   - 
   - 
@@ -40,4 +66,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: SICI-Background
+    uniqueID: 2194872023
+    locked: 0
+  - name: SICI-Player
+    uniqueID: 682191379
+    locked: 0
+  - name: SICI-Collectible
+    uniqueID: 3283492067
     locked: 0
