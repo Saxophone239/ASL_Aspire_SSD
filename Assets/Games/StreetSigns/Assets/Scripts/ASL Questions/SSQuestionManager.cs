@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-public class QuestionManager : MonoBehaviour
+public class SSQuestionManager : MonoBehaviour
 {
 	[SerializeField] private StreetSignsUIManager uiManager;
     public List<string> VocabWords;

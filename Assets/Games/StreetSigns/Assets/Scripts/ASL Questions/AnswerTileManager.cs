@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AnswerTileManager : MonoBehaviour
 {
-    private QuestionManager qM;
+    private SSQuestionManager qM;
     [SerializeField] private GameObject[] arches;
     private TextMeshProUGUI[] texts;
     private int correctArch;
@@ -13,7 +13,7 @@ public class AnswerTileManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        qM = GameObject.FindObjectOfType<QuestionManager>();
+        qM = GameObject.FindObjectOfType<SSQuestionManager>();
 
         texts = new TextMeshProUGUI[arches.Length];
         for (int i = 0; i < texts.Length; i++)

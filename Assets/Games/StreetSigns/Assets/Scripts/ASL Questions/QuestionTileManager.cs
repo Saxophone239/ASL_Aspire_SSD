@@ -5,13 +5,13 @@ using UnityEngine.Video;
 
 public class QuestionTileManager : MonoBehaviour
 {
-    private QuestionManager qM;
+    private SSQuestionManager qM;
     private VideoPlayer vp;
 
     // Start is called before the first frame update
     void Start()
     {
-        qM = GameObject.FindObjectOfType<QuestionManager>();
+        qM = GameObject.FindObjectOfType<SSQuestionManager>();
         vp = GetComponent<VideoPlayer>();
         vp.url = qM.GetWordURL();
     }
