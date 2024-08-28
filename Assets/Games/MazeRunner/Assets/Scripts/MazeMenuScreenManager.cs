@@ -24,12 +24,6 @@ public class MazeMenuScreenManager : MonoBehaviour
         Time.timeScale = 1.0f;
 		cameraController.BeginIntroAnimation();
     }
-
-    public void BackToArcadeButton()
-	{
-        //UpdateGlobalCoins(true);
-		Debug.Log("Quit Game"); // TODO: implement back to arcade button
-    }
     
     // public void UpdateGlobalCoins(bool gameFinished = true)
 	// {
@@ -80,5 +74,21 @@ public class MazeMenuScreenManager : MonoBehaviour
 	public void OnBackToMenuButtonPress()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+	}
+
+	public void BackToArcadeButton()
+	{
+        //UpdateGlobalCoins(true);
+		StartCoroutine(LoadMainSceneAsync());
+    }
+
+	private IEnumerator LoadMainSceneAsync()
+	{
+		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(0);
+
+		while (!asyncLoad.isDone)
+		{
+			yield return null;
+		}
 	}
 }

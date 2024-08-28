@@ -30,31 +30,39 @@ public class VocabularyData
 
 public class VocabularyLoader : MonoBehaviour
 {
-	private static VocabularyLoader instance;
-	public static VocabularyLoader Instance
-	{
-		get
-		{
-			if (instance != null) return instance;
+	// private static VocabularyLoader instance;
+	// public static VocabularyLoader Instance
+	// {
+	// 	get
+	// 	{
+	// 		if (instance != null) return instance;
 
-			instance = FindObjectOfType<VocabularyLoader>();
-			if (instance == null)
-			{
-				Debug.LogWarning("No VocabularyLoader in the scene!");
-				return null;
-			}
+	// 		instance = FindObjectOfType<VocabularyLoader>();
+	// 		if (instance == null)
+	// 		{
+	// 			Debug.LogWarning("No VocabularyLoader in the scene!");
+	// 			return null;
+	// 		}
 
-			return instance;
-		}
-	}
+	// 		return instance;
+	// 	}
+	// }
+
+	public static VocabularyLoader Instance;
 
     public TextAsset vocabularyJson; // Assign the .txt file here via the Inspector
     public VocabularyData VocabularyData;
 	
 	private void Awake()
 	{
-		// This object will persist across scenes
-        DontDestroyOnLoad(gameObject);
+		if (Instance != null)
+		{
+			Destroy(gameObject);
+			return;
+		}
+
+		Instance = this;
+		DontDestroyOnLoad(gameObject);
 	}
 
     void Start()
