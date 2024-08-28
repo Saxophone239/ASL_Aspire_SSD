@@ -52,6 +52,7 @@ public class MazeQuestionLoader : MonoBehaviour
 	public enum MazeQuestionType
 	{
 		ASLSignToEnglishWord,
+		ASLDefinitionToEnglishWord,
 		EnglishDefinitionToEnglishWord,
 		EnglishWordToEnglishDefinition,
 		ASLDefinitionToEnglishDefinition,
@@ -108,23 +109,27 @@ public class MazeQuestionLoader : MonoBehaviour
 		switch (selectedQuestionType)
 		{
 			case MazeQuestionType.ASLSignToEnglishWord:
-				UpdateQuestionVideoPanel("What is this sign?", correctEntry.ASL_Sign);
+				UpdateQuestionVideoPanel("What is this sign?", correctEntry.ASL_Sign, 15);
+				RenderButtonText(correctEntry, false);
+				break;
+			case MazeQuestionType.ASLDefinitionToEnglishWord:
+				UpdateQuestionVideoPanel("What word goes with this definition?", correctEntry.ASL_Definition, 30);
 				RenderButtonText(correctEntry, false);
 				break;
 			case MazeQuestionType.EnglishDefinitionToEnglishWord:
-				UpdateQuestionOnlyPanel($"{correctEntry.English_Definition}...");
+				UpdateQuestionOnlyPanel($"{correctEntry.English_Definition}...", 15);
 				RenderButtonText(correctEntry, false);
 				break;
-			case MazeQuestionType.EnglishWordToEnglishDefinition:
-				UpdateQuestionOnlyPanel($"{correctEntry.English_Word}...");
-				RenderButtonText(correctEntry, true);
-				break;
-			case MazeQuestionType.ASLDefinitionToEnglishDefinition:
-				UpdateQuestionVideoPanel("This definition pairs with...", correctEntry.ASL_Definition);
-				RenderButtonText(correctEntry, true);
-				break;
+			// case MazeQuestionType.EnglishWordToEnglishDefinition:
+			// 	UpdateQuestionOnlyPanel($"{correctEntry.English_Word}...");
+			// 	RenderButtonText(correctEntry, true);
+			// 	break;
+			// case MazeQuestionType.ASLDefinitionToEnglishDefinition:
+			// 	UpdateQuestionVideoPanel("This definition pairs with...", correctEntry.ASL_Definition);
+			// 	RenderButtonText(correctEntry, true);
+			// 	break;
 			case MazeQuestionType.IconToEnglishWord:
-				UpdateQuestionIconPanel("This image shows...", defaultIconToShow);
+				UpdateQuestionIconPanel("This image shows...", defaultIconToShow, 15);
 				RenderButtonText(correctEntry, false);
 				break;
 		}
@@ -135,17 +140,17 @@ public class MazeQuestionLoader : MonoBehaviour
 		// RenderButtonText();
 	}
 
-	public void UpdateQuestionOnlyPanel(string text)
+	public void UpdateQuestionOnlyPanel(string text, float timerTime)
 	{
 		currentActiveQuestionPanel = QuestionOnlyPanel;
 		currentActiveQuestionPanel.SetActive(true);
 
 		QuestionOnlyText.text = text;
 
-		timer.RestartTimer();
+		timer.RestartTimer(timerTime);
 	}
 
-	public void UpdateQuestionIconPanel(string questionText, Sprite icon)
+	public void UpdateQuestionIconPanel(string questionText, Sprite icon, float timerTime)
 	{
 		currentActiveQuestionPanel = QuestionIconPanel;
 		currentActiveQuestionPanel.SetActive(true);
@@ -153,10 +158,10 @@ public class MazeQuestionLoader : MonoBehaviour
 		QuestionIconText.text = questionText;
 		QuestionIconImage.sprite = icon;
 
-		timer.RestartTimer();
+		timer.RestartTimer(timerTime);
 	}
 
-	public void UpdateQuestionVideoPanel(string questionText, string videoURL)
+	public void UpdateQuestionVideoPanel(string questionText, string videoURL, float timerTime)
 	{
 		currentActiveQuestionPanel = QuestionVideoPanel;
 		currentActiveQuestionPanel.SetActive(true);
@@ -164,15 +169,15 @@ public class MazeQuestionLoader : MonoBehaviour
 		QuestionVideoText.text = questionText;
 		QuestionVideoVideoplayer.url = videoURL;
 		QuestionVideoVideoplayer.Prepare();
-		QuestionVideoVideoplayer.prepareCompleted += playVideoAndStartTimer;
+		QuestionVideoVideoplayer.prepareCompleted += (videoPlayer) => {playVideoAndStartTimer(videoPlayer, timerTime);};
 	}
 
 	// When prepareCompleted event is received, start the timer
-    public void playVideoAndStartTimer(object sender)
+    public void playVideoAndStartTimer(VideoPlayer sender, float timerTime)
 	{
         QuestionVideoVideoplayer.Play();
 
-        timer.RestartTimer();
+        timer.RestartTimer(timerTime);
     }
 
     // /// <summary>

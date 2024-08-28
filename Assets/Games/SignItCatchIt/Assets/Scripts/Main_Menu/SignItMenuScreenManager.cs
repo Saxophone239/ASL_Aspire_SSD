@@ -69,8 +69,18 @@ public class SignItMenuScreenManager : MonoBehaviour
         UpdateGlobalCoins(true);
 
         // SceneManager.LoadScene("Arcade");
-		Debug.Log("Quit game!");
+		StartCoroutine(LoadMainSceneAsync());
     }
+
+	private IEnumerator LoadMainSceneAsync()
+	{
+		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(0);
+
+		while (!asyncLoad.isDone)
+		{
+			yield return null;
+		}
+	}
 
     public void UpdateGlobalCoins(bool gameFinished = true){
 ;

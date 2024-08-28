@@ -51,10 +51,11 @@ public class TimerBar : MonoBehaviour
         mask.fillAmount = fillAmount;
     }
 
-    public void RestartTimer()
+    public void RestartTimer(float initialTimeSeconds)
 	{
         timerIsRunning = true;
-		timeRemaining = InitialTime;
+		timeRemaining = initialTimeSeconds;
+		InitialTime = initialTimeSeconds;
     }
 
     public void StopTimer()

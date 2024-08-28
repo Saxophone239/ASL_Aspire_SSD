@@ -23,8 +23,6 @@ public class AnswerTileManager : MonoBehaviour
 
         AssignWordsToText();
         SpawnObstacles();
-
-        qM.SelectNewWord();
     }
 
     // Update is called once per frame
@@ -35,7 +33,7 @@ public class AnswerTileManager : MonoBehaviour
 
     private void AssignWordsToText()
     {
-        List<string> availableWords = new List<string>(qM.VocabWords);
+        List<string> availableWords = new List<string>(qM.AllPossibleVocabWords);
         List<string> threeWords = new List<string>();
 
         // Choose 3 words, one of them being the correct word
@@ -55,7 +53,7 @@ public class AnswerTileManager : MonoBehaviour
         var last = count - 1;
         for (var i = 0; i < last; ++i)
         {
-            var r = UnityEngine.Random.Range(i, count);
+            var r = Random.Range(i, count);
             var tmp = threeWords[i];
             threeWords[i] = threeWords[r];
             threeWords[r] = tmp;

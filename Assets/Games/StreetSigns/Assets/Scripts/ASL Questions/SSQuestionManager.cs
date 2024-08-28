@@ -8,8 +8,15 @@ using UnityEngine;
 public class SSQuestionManager : MonoBehaviour
 {
 	[SerializeField] private StreetSignsUIManager uiManager;
-    public List<string> VocabWords;
+	[SerializeField] private Sprite defaultIconToShow;
+    // public List<string> VocabWords;
+	public List<VocabularyEntry> AllPossibleVocabEntries;
+	public List<string> AllPossibleVocabWords;
     public string CorrectWord;
+	public VocabularyEntry CorrectEntry;
+
+	private SSQuestionType selectedQuestionType;
+	private bool isPlayerAnsweringQuestion;
 
 	public enum SSQuestionType
 	{
@@ -21,53 +28,67 @@ public class SSQuestionManager : MonoBehaviour
 	private int questionTypeCount;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
 		questionTypeCount = System.Enum.GetNames(typeof(SSQuestionType)).Length;
 
-        VocabWords = new List<string>(VideoManager.VocabWordToPathDict.Keys);
-        SelectNewWord();
+		// Generate list of VocabularyEntries to use in game
+		AllPossibleVocabEntries = VocabularyLoader.Instance.CreateVocabularyEntryListToUse(GlobalManager.Instance.CurrentPacket, GlobalManager.Instance.ReviewPreviousPackets);
+
+		SelectNewWord();
+
+		// Generate list of words from AllPossibleVocabEntries, so we don't need to recompute this everytime we have a new question
+		foreach (VocabularyEntry entry in AllPossibleVocabEntries)
+		{
+			AllPossibleVocabWords.Add(entry.English_Word);
+		}
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-	public void LoadRandomQuestion()
+	public void LoadQuestionToUI()
 	{
-		// // Make panel randomly select question type
-		// SSQuestionType selectedQuestionType = (SSQuestionType) UnityEngine.Random.Range(0, questionTypeCount);
-
-		// // Populate panel according to question type
-		// switch (selectedQuestionType)
-		// {
-		// 	case SSQuestionType.ASLSignToEnglishWord:
-		// 		UpdateQuestionVideoPanel("What is this sign?", "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
-		// 		break;
-		// 	case SSQuestionType.EnglishDefinitionToEnglishWord:
-		// 		UpdateQuestionOnlyPanel("The powerhouse of the cell is...");
-		// 		break;
-		// 	case SSQuestionType.IconToEnglishWord:
-		// 		UpdateQuestionIconPanel("This image shows...", defaultIconToShow);
-		// 		break;
-		// }
-
-		// // Populate buttons according to question
-		// listOfAllPotentialAnswers = new List<string>{"correctAnswer", "mitochondria", "vacuole", "DNA", "ribosome"};
-		// correctAnswer = "correctAnswer";
-		// RenderButtonText();
+		// Populate panel according to question type
+		switch (selectedQuestionType)
+		{
+			case SSQuestionType.ASLSignToEnglishWord:
+				uiManager.UpdateQuestionVideoPanel("What is this sign?", CorrectEntry.ASL_Sign);
+				break;
+			case SSQuestionType.EnglishDefinitionToEnglishWord:
+				uiManager.UpdateQuestionOnlyPanel($"{CorrectEntry.English_Definition}...");
+				break;
+			case SSQuestionType.IconToEnglishWord:
+				uiManager.UpdateQuestionIconPanel("This image shows...", defaultIconToShow);
+				break;
+		}
 	}
 
     public void SelectNewWord()
     {
-        int randomIndex = Random.Range(0, VocabWords.Count);
-        CorrectWord = VocabWords[randomIndex];
+        // Make panel randomly select question type
+		selectedQuestionType = (SSQuestionType) Random.Range(0, questionTypeCount);
+
+		// Randomly select correct answer
+		CorrectEntry = AllPossibleVocabEntries[Random.Range(0, AllPossibleVocabEntries.Count)];
+		CorrectWord = CorrectEntry.English_Word;
     }
 
-    public string GetWordURL()
-    {
-        return VideoManager.VocabWordToPathDict[CorrectWord];
-    }
+	public void HandleToggleShowQuestion()
+	{
+		if (isPlayerAnsweringQuestion)
+		{
+			isPlayerAnsweringQuestion = false;
+			SelectNewWord();
+			uiManager.ToggleShowQuestionUIPanel(true);
+		}
+		else
+		{
+			isPlayerAnsweringQuestion = true;
+			LoadQuestionToUI();
+			uiManager.ToggleShowQuestionUIPanel(false);
+		}
+	}
+
+    // public string GetWordURL()
+    // {
+    //     return VideoManager.VocabWordToPathDict[CorrectWord];
+    // }
 }

@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [Header("Managers")]
     [SerializeField] private GameMechanics gameMechanics;
     [SerializeField] private SwipeManager swipeManager;
+	[SerializeField] private SSQuestionManager questionManager;
 
     [Header("Player parameters")]
     public float ForwardSpeed = 4;
@@ -268,6 +269,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("went into wrong tunnel, losing life");
             gameMechanics.LoseLife();
+			Instantiate(dustExplosion, transform.position, Quaternion.identity);
         }
         if (other.gameObject.tag.Equals("SS-RightAnswerTrigger"))
         {
@@ -287,6 +289,7 @@ public class PlayerController : MonoBehaviour
 		if (other.gameObject.tag.Equals("SS-TriggerUIQuestion"))
 		{
 			Debug.Log("Toggling show question UI panel");
+			questionManager.HandleToggleShowQuestion();
 		}
     }
 

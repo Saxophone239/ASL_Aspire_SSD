@@ -15,6 +15,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject tutorialPanel;
     [SerializeField] private GameObject exitButton;
 	[SerializeField] private GameObject pauseButton;
+	[SerializeField] private Texture2D cursorLoadingTexture;
 
     // Start is called before the first frame update
     void Start()
@@ -28,16 +29,16 @@ public class MainMenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            // Start the game
-            gameMechanics.IsMainMenu = false;
-            gameMechanics.SetScoreCorrection((int) player.transform.position.z);
-            cam.SwitchToGameplayCamera();
-            tileSpawner.GenerateGameplayTiles();
-            uiManager.ShowGameplayDisplay();
-            Debug.Log("IsMainMenu is false, switching to gameplay");
-        }
+        // if (Input.GetKeyDown(KeyCode.G))
+        // {
+        //     // Start the game
+        //     gameMechanics.IsMainMenu = false;
+        //     gameMechanics.SetScoreCorrection((int) player.transform.position.z);
+        //     cam.SwitchToGameplayCamera();
+        //     tileSpawner.GenerateGameplayTiles();
+        //     uiManager.ShowGameplayDisplay();
+        //     Debug.Log("IsMainMenu is false, switching to gameplay");
+        // }
     }
 
     private IEnumerator StartMainMenuAnimations()
@@ -94,6 +95,16 @@ public class MainMenuController : MonoBehaviour
         Debug.Log("Quit button pressed");
         uiManager.UpdateGlobalCoins(true);
         // GlobalManager.currentLesson.game_completed = true;
-        // SceneManager.LoadScene("Arcade"); // TODO: implement back to arcade logic
+		StartCoroutine(LoadMainSceneAsync());
     }
+
+	private IEnumerator LoadMainSceneAsync()
+	{
+		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(0);
+
+		while (!asyncLoad.isDone)
+		{
+			yield return null;
+		}
+	}
 }
