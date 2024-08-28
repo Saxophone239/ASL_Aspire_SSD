@@ -30,8 +30,32 @@ public class VocabularyData
 
 public class VocabularyLoader : MonoBehaviour
 {
+	private static VocabularyLoader instance;
+	public static VocabularyLoader Instance
+	{
+		get
+		{
+			if (instance != null) return instance;
+
+			instance = FindObjectOfType<VocabularyLoader>();
+			if (instance == null)
+			{
+				Debug.LogWarning("No VocabularyLoader in the scene!");
+				return null;
+			}
+
+			return instance;
+		}
+	}
+
     public TextAsset vocabularyJson; // Assign the .txt file here via the Inspector
-    private VocabularyData vocabularyData;
+    public VocabularyData VocabularyData;
+	
+	private void Awake()
+	{
+		// This object will persist across scenes
+        DontDestroyOnLoad(gameObject);
+	}
 
     void Start()
     {
@@ -43,14 +67,14 @@ public class VocabularyLoader : MonoBehaviour
         if (vocabularyJson != null)
         {
             string jsonContent = vocabularyJson.text;
-            vocabularyData = JsonUtility.FromJson<VocabularyData>(jsonContent);
+            VocabularyData = JsonUtility.FromJson<VocabularyData>(jsonContent);
 
-            if (vocabularyData != null && vocabularyData.Packets != null)
+            if (VocabularyData != null && VocabularyData.Packets != null)
             {
                 Debug.Log("Vocabulary data loaded successfully!");
 
                 // Example: Accessing data
-                foreach (var packet in vocabularyData.Packets)
+                foreach (var packet in VocabularyData.Packets)
                 {
                     Debug.Log($"Packet: {packet.PacketName}");
                     foreach (var entry in packet.Entries)
@@ -69,4 +93,29 @@ public class VocabularyLoader : MonoBehaviour
             Debug.LogError("Vocabulary JSON not assigned!");
         }
     }
+
+	public List<VocabularyEntry> CreateVocabularyEntryListToUse(int currentPacket, bool shouldReviewPreviousPackets)
+	{
+		List<VocabularyEntry> toReturn = new List<VocabularyEntry>();
+
+		List<int> packetsIndicesToLookThrough = new List<int>();
+		if (shouldReviewPreviousPackets)
+		{
+			for (int i = 0; i < currentPacket; i++)
+			{
+				packetsIndicesToLookThrough.Add(i);
+			}
+		}
+		packetsIndicesToLookThrough.Add(currentPacket);
+
+		foreach (int packetIndex in packetsIndicesToLookThrough)
+		{
+			foreach (VocabularyEntry entry in VocabularyData.Packets[packetIndex].Entries)
+			{
+				toReturn.Add(entry);
+			}
+		}
+
+		return toReturn;
+	}
 }

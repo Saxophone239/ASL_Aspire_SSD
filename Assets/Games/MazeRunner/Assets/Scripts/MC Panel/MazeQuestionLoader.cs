@@ -6,6 +6,7 @@ using UnityEngine.Video;
 using UnityEngine.UI;
 using TMPro;
 using System.Threading.Tasks;
+using PlayFab.MultiplayerModels;
 
 public class MazeQuestionLoader : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class MazeQuestionLoader : MonoBehaviour
     public Button ButtonAnswer1;
     public Button ButtonAnswer2;
     public Button ButtonAnswer3;
-    public Button ButtonAnswer4;
+    // public Button ButtonAnswer4;
 
 	[Header("References")]
 	[SerializeField] private Animator canvasAnimator;
@@ -43,7 +44,8 @@ public class MazeQuestionLoader : MonoBehaviour
 
     // Private vars
     private string correctAnswer; // the current word that's being asked
-    private List<string> listOfAllPotentialAnswers;
+	private VocabularyEntry correctEntry;
+	private List<VocabularyEntry> allPossibleVocabEntries;
     public TimerBar timer;
 	private int questionTypeCount;
 
@@ -89,6 +91,9 @@ public class MazeQuestionLoader : MonoBehaviour
         // VideoPlayerController.videoPlayer.prepareCompleted += playVideoAndStartTimer;
 
 		questionTypeCount = System.Enum.GetNames(typeof(MazeQuestionType)).Length;
+
+		// Generate list of VocabularyEntries to use in game
+		allPossibleVocabEntries = VocabularyLoader.Instance.CreateVocabularyEntryListToUse(GlobalManager.Instance.CurrentPacket, GlobalManager.Instance.ReviewPreviousPackets);
     }
 
 	public void LoadRandomQuestion()
@@ -96,30 +101,38 @@ public class MazeQuestionLoader : MonoBehaviour
 		// Make panel randomly select question type
 		MazeQuestionType selectedQuestionType = (MazeQuestionType) UnityEngine.Random.Range(0, questionTypeCount);
 
+		// Randomly select correct answer
+		correctEntry = allPossibleVocabEntries[Random.Range(0, allPossibleVocabEntries.Count)];
+
 		// Populate panel according to question type
 		switch (selectedQuestionType)
 		{
 			case MazeQuestionType.ASLSignToEnglishWord:
-				UpdateQuestionVideoPanel("What is this sign?", "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
+				UpdateQuestionVideoPanel("What is this sign?", correctEntry.ASL_Sign);
+				RenderButtonText(correctEntry, false);
 				break;
 			case MazeQuestionType.EnglishDefinitionToEnglishWord:
-				UpdateQuestionOnlyPanel("The powerhouse of the cell is...");
+				UpdateQuestionOnlyPanel($"{correctEntry.English_Definition}...");
+				RenderButtonText(correctEntry, false);
 				break;
 			case MazeQuestionType.EnglishWordToEnglishDefinition:
-				UpdateQuestionOnlyPanel("The mitochondria is...");
+				UpdateQuestionOnlyPanel($"{correctEntry.English_Word}...");
+				RenderButtonText(correctEntry, true);
 				break;
 			case MazeQuestionType.ASLDefinitionToEnglishDefinition:
-				UpdateQuestionVideoPanel("This definition pairs with...", "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
+				UpdateQuestionVideoPanel("This definition pairs with...", correctEntry.ASL_Definition);
+				RenderButtonText(correctEntry, true);
 				break;
 			case MazeQuestionType.IconToEnglishWord:
 				UpdateQuestionIconPanel("This image shows...", defaultIconToShow);
+				RenderButtonText(correctEntry, false);
 				break;
 		}
 
 		// Populate buttons according to question
-		listOfAllPotentialAnswers = new List<string>{"correctAnswer", "mitochondria", "vacuole", "DNA", "ribosome"};
-		correctAnswer = "correctAnswer";
-		RenderButtonText();
+		// listOfAllPotentialAnswers = new List<string>{"correctAnswer", "mitochondria", "vacuole", "DNA", "ribosome"};
+		// correctAnswer = "correctAnswer";
+		// RenderButtonText();
 	}
 
 	public void UpdateQuestionOnlyPanel(string text)
@@ -206,36 +219,50 @@ public class MazeQuestionLoader : MonoBehaviour
     /// Creates 4 random answers, one of them being correct, and assigns them to random buttons
     /// </summary>
     /// <param name="question">Word we're asking about</param>
-    public void RenderButtonText()
+    public void RenderButtonText(VocabularyEntry correctEntry, bool isAnswerDefinition)
     {
-        List<string> answersShuffled = GetRandomAnswers(listOfAllPotentialAnswers, correctAnswer);
+        List<VocabularyEntry> answersShuffled = GetRandomAnswers(allPossibleVocabEntries, correctEntry, 3);
+		print($"Length of list of answers is {answersShuffled.Count}");
 
-        ButtonAnswer1.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[0]);
-        ButtonAnswer2.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[1]);
-        ButtonAnswer3.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[2]);
-        ButtonAnswer4.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[3]);
+		if (isAnswerDefinition)
+		{
+			correctAnswer = correctEntry.English_Definition;
+			ButtonAnswer1.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[0].English_Definition);
+			ButtonAnswer2.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[1].English_Definition);
+			ButtonAnswer3.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[2].English_Definition);
+			// ButtonAnswer4.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[3].English_Definition);
+		}
+		else
+		{
+			correctAnswer = correctEntry.English_Word;
+			ButtonAnswer1.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[0].English_Word);
+			ButtonAnswer2.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[1].English_Word);
+			ButtonAnswer3.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[2].English_Word);
+			// ButtonAnswer4.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[3].English_Word);
+		}
     }
 
 	/// <summary>
-    /// Takes a list of vocab words and randomly selects 4 words, one of them being the correct answer
+    /// Takes a list of VocabularyEntries and randomly selects 4 words, one of them being the correct answer
     /// </summary>
     /// <param name="vocabList">List of vocab words</param>
     /// <param name="correctAns">The correct vocab word</param>
     /// <returns>Returns a size 4 array of vocab words, one of them being correct</returns>
-    public List<string> GetRandomAnswers(List<string> vocabList, string correctAns)
+    public List<VocabularyEntry> GetRandomAnswers(List<VocabularyEntry> vocabList, VocabularyEntry correctAns, int numberOfAnswers)
     {
-        List<string> toReturn = new List<string>();
+        List<VocabularyEntry> toReturn = new List<VocabularyEntry>();
 
         // Make list of 4 random words, including current one
-        List<string> inputList = new List<string>();
+        List<VocabularyEntry> inputList = new List<VocabularyEntry>();
         for (int i = 0; i < vocabList.Count; i++)
         {
             inputList.Add(vocabList[i]);
         }
+
         toReturn.Add(correctAns);
         inputList.Remove(correctAns);
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < numberOfAnswers-1; i++)
         {
             int rndNum = Random.Range(0, inputList.Count);
             toReturn.Add(inputList[rndNum]);
@@ -245,7 +272,7 @@ public class MazeQuestionLoader : MonoBehaviour
         // Randomize list
         for (int i = 0; i < toReturn.Count; i++)
         {
-            string temp = toReturn[i];
+            VocabularyEntry temp = toReturn[i];
             int randomIndex = Random.Range(i, toReturn.Count);
             toReturn[i] = toReturn[randomIndex];
             toReturn[randomIndex] = temp;
@@ -253,6 +280,44 @@ public class MazeQuestionLoader : MonoBehaviour
 
         return toReturn;
     }
+
+	// /// <summary>
+    // /// Takes a list of vocab words and randomly selects 4 words, one of them being the correct answer
+    // /// </summary>
+    // /// <param name="vocabList">List of vocab words</param>
+    // /// <param name="correctAns">The correct vocab word</param>
+    // /// <returns>Returns a size 4 array of vocab words, one of them being correct</returns>
+    // public List<string> GetRandomAnswers(List<string> vocabList, string correctAns)
+    // {
+    //     List<string> toReturn = new List<string>();
+
+    //     // Make list of 4 random words, including current one
+    //     List<string> inputList = new List<string>();
+    //     for (int i = 0; i < vocabList.Count; i++)
+    //     {
+    //         inputList.Add(vocabList[i]);
+    //     }
+    //     toReturn.Add(correctAns);
+    //     inputList.Remove(correctAns);
+
+    //     for (int i = 0; i < 3; i++)
+    //     {
+    //         int rndNum = Random.Range(0, inputList.Count);
+    //         toReturn.Add(inputList[rndNum]);
+    //         inputList.Remove(inputList[rndNum]);
+    //     }
+
+    //     // Randomize list
+    //     for (int i = 0; i < toReturn.Count; i++)
+    //     {
+    //         string temp = toReturn[i];
+    //         int randomIndex = Random.Range(i, toReturn.Count);
+    //         toReturn[i] = toReturn[randomIndex];
+    //         toReturn[randomIndex] = temp;
+    //     }
+
+    //     return toReturn;
+    // }
 
     /// <summary>
     /// Render the video associated with the question we're asking
@@ -302,6 +367,7 @@ public class MazeQuestionLoader : MonoBehaviour
         player.UnpauseShieldTimer();
         player.IsCoinTouched = false;
         gameMechanics.IsGameplayActive = true;
+		StartCoroutine(TurnOffActiveQuestionPanel());
     }
 
 	private IEnumerator TurnOffActiveQuestionPanel()
