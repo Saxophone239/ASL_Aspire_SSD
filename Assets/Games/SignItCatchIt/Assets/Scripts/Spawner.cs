@@ -31,7 +31,9 @@ public class Spawner : MonoBehaviour
     private int currentWordsToSpawnSize = 6;
 
     // Specific correct word/link chosen at period
+	private List<VocabularyEntry> allPossibleVocabEntries;
     public string CorrectWord = "";
+	private VocabularyEntry CorrectEntry;
     private bool isSpawnerActive;
 
 	public enum SICIQuestionType
@@ -65,6 +67,9 @@ public class Spawner : MonoBehaviour
                 spawnRate = 0.8f;
 				break;
 		}
+
+		// Generate list of VocabularyEntries to use in game
+		allPossibleVocabEntries = VocabularyLoader.Instance.CreateVocabularyEntryListToUse(GlobalManager.Instance.CurrentPacket, GlobalManager.Instance.ReviewPreviousPackets);
 
 		gameManager.OnGameActivated += StartSpawningWords;
     }
@@ -137,16 +142,24 @@ public class Spawner : MonoBehaviour
     public void ChangeCorrectWord()
     {
         // List<string> levelVocabList = LevelOperator.CurrentLevelVocabList; // TODO: set levelVocabList to list of words to show
-		List<string> levelVocabList = new List<string>{"mitochondria", "chromosome", "DNA"};
+		// List<string> levelVocabList = new List<string>{"mitochondria", "chromosome", "DNA"};
+		List<VocabularyEntry> levelVocabList = allPossibleVocabEntries;
         
         int randomWordIndex = Random.Range(0, levelVocabList.Count);
-        string randomWord = levelVocabList[randomWordIndex];
-        CorrectWord = randomWord;
+        // string randomWord = levelVocabList[randomWordIndex];
+		VocabularyEntry randomWord = levelVocabList[randomWordIndex];
+        // CorrectWord = randomWord;
+		CorrectEntry = randomWord;
+		CorrectWord = randomWord.English_Word;
         currentWordsToSpawn.Clear();
     
         if (levelVocabList.Count <= currentWordsToSpawnSize)
         {
-            currentWordsToSpawn.AddRange(levelVocabList);
+			foreach (VocabularyEntry entry in levelVocabList)
+			{
+				currentWordsToSpawn.Add(entry.English_Word);
+			}
+            // currentWordsToSpawn.AddRange(levelVocabList);
         }
         else
         {
@@ -155,7 +168,7 @@ public class Spawner : MonoBehaviour
             for (int i = 0; i < currentWordsToSpawnSize; i++)
             {
                 int randomVocabWordIndex = Random.Range(0, levelVocabList.Count);
-                currentWordsToSpawn.Add(levelVocabList[randomVocabWordIndex]);
+                currentWordsToSpawn.Add(levelVocabList[randomVocabWordIndex].English_Word);
             }
         }
 
@@ -167,8 +180,7 @@ public class Spawner : MonoBehaviour
 			imageHolder.gameObject.SetActive(false);
 			videoPlayer.gameObject.SetActive(true);
 			Debug.Log($"About to play video: {CorrectWord}");
-			// videoPlayer.url = VideoManager.VocabWordToPathDict[CorrectWord];
-			videoPlayer.url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+			videoPlayer.url = CorrectEntry.ASL_Sign;
 			videoPlayer.Play();
 		}
 		else

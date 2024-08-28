@@ -33,7 +33,7 @@ public class MRCameraController : MonoBehaviour
 		cameraGameplayRotation = new Vector3(75, 0, 0);
     }
 
-	private void LateUpdate()
+	private void FixedUpdate()
 	{
 		if (beginPlayerCameraTracking)
 		{
@@ -60,7 +60,8 @@ public class MRCameraController : MonoBehaviour
 			elapsedTime += Time.deltaTime;
 			transform.position = Vector3.Slerp(transform.position, endingPositionVals, (elapsedTime / durationSeconds));
 			transform.rotation = Quaternion.Slerp(transform.rotation, endingRotationVals, 0.2f);
-			yield return new WaitForEndOfFrame();
+			// yield return new WaitForEndOfFrame();
+			yield return null;
 		}
 
 		canvasAnimator.SetTrigger("TriggerMenuScreen");
