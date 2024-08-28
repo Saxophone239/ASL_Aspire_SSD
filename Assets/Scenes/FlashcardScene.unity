@@ -160,13 +160,12 @@ VideoPlayer:
   m_AspectRatio: 2
   m_DataSource: 1
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
+  m_AudioOutputMode: 0
   m_TargetAudioSources:
   - {fileID: 0}
   m_DirectAudioVolumes:
   - 0
-  m_Url: https://asl-aspire-videos-bucket-prod.s3.amazonaws.com/biology/photosynthesis/How
-    Plants Grow/Sign Videos/air pollution sndry.mp4
+  m_Url: 
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 01
   m_ControlledAudioTrackCount: 1
@@ -1097,54 +1096,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27abfb457b704f34392179cacf89d448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashcardArr:
-  - id: 0
-    word: Mitochondria
-    definitionText: The powerhouse of the cell
-    wordVideoURL: https://asl-aspire-videos-bucket-prod.s3.amazonaws.com/biology/photosynthesis/How
-      Plants Grow/Sign Videos/air pollution sndry.mp4
-    definitionVideoURL: https://asl-aspire-videos-bucket-prod.s3.amazonaws.com/biology/photosynthesis/How
-      Plants Grow/Definition Videos/Air_pollution_try2.mp4
-    icon: {fileID: 21300000, guid: 584de43a740096c429a376de65b7af9f, type: 3}
-  - id: 1
-    word: Ribosome
-    definitionText: A structure that makes proteins
-    wordVideoURL: https://asl-aspire-videos-bucket-prod.s3.amazonaws.com/biology/photosynthesis/How
-      Plants Grow/Sign Videos/O2.mov.mp4
-    definitionVideoURL: https://asl-aspire-videos-bucket-prod.s3.amazonaws.com/biology/photosynthesis/How
-      Plants Grow/Definition Videos/O2_definition.mp4
-    icon: {fileID: 21300000, guid: a8ed6383c1ec5ed41b28540646cca979, type: 3}
-  - id: 2
-    word: Cell Wall
-    definitionText: Outside of cell or something
-    wordVideoURL: https://asl-aspire-videos-bucket-prod.s3.amazonaws.com/biology/photosynthesis/How
-      Plants Grow/Sign Videos/O2.mov.mp4
-    definitionVideoURL: https://asl-aspire-videos-bucket-prod.s3.amazonaws.com/biology/photosynthesis/How
-      Plants Grow/Definition Videos/O2_definition.mp4
-    icon: {fileID: 21300000, guid: 584de43a740096c429a376de65b7af9f, type: 3}
-  - id: 3
-    word: Nucleus
-    definitionText: Brain of cell
-    wordVideoURL: https://asl-aspire-videos-bucket-prod.s3.amazonaws.com/biology/photosynthesis/How
-      Plants Grow/Sign Videos/O2.mov.mp4
-    definitionVideoURL: https://asl-aspire-videos-bucket-prod.s3.amazonaws.com/biology/photosynthesis/How
-      Plants Grow/Definition Videos/O2_definition.mp4
-    icon: {fileID: 21300000, guid: a8ed6383c1ec5ed41b28540646cca979, type: 3}
+  flashcardList: []
   headerText: {fileID: 376637189}
   definitionText: {fileID: 131741390}
   flashcardIcon: {fileID: 1211553568}
-  wordVideoPlayer: {fileID: 13103671}
-  definitionVideoPlayer: {fileID: 2002240533}
   screenParent: {fileID: 1676380538}
   frontScreen: {fileID: 1303097469}
   backScreen: {fileID: 2009676914}
+  wordVideoPlayer: {fileID: 13103671}
+  definitionVideoPlayer: {fileID: 2002240533}
   progressBar: {fileID: 1584576588}
   progressMask: {fileID: 1313528241}
   starsFolder: {fileID: 812624314}
   starPrefab: {fileID: 5335652323983149484, guid: 639b55802e1aeba43a62daf86a1f2214, type: 3}
   flashcardMask: {fileID: 1752363982}
+  inputDisabler: {fileID: 1619002609}
   winScreen: {fileID: 1908074365}
   nextArrow: {fileID: 1472934279}
+  flipAnimCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  devIcon: {fileID: 21300000, guid: 6b37eed269a9b284eb34f908ffd82556, type: 3}
 --- !u!4 &1288192198
 Transform:
   m_ObjectHideFlags: 0
@@ -1726,6 +1719,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1584576587}
   m_CullTransparentMesh: 1
+--- !u!1 &1619002609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1619002610}
+  - component: {fileID: 1619002612}
+  - component: {fileID: 1619002611}
+  m_Layer: 5
+  m_Name: InputDisabler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1619002610
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619002609}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1847727438}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1619002611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619002609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1619002612
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619002609}
+  m_CullTransparentMesh: 1
 --- !u!1 &1651442366
 GameObject:
   m_ObjectHideFlags: 0
@@ -2023,6 +2092,7 @@ RectTransform:
   - {fileID: 1346108698}
   - {fileID: 1908074365}
   - {fileID: 2129467510}
+  - {fileID: 1619002610}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2178,7 +2248,7 @@ VideoPlayer:
   m_AspectRatio: 2
   m_DataSource: 1
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
+  m_AudioOutputMode: 0
   m_TargetAudioSources:
   - {fileID: 0}
   m_DirectAudioVolumes:
