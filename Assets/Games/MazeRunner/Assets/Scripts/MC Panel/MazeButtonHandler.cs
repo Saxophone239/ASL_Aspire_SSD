@@ -12,15 +12,21 @@ public class MazeButtonHandler : MonoBehaviour
 	[SerializeField] private GameObject confettiParticleSystem;
 	[SerializeField] private MazeQuestionLoader ql;
 	[SerializeField] private TextMeshProUGUI answerText;
-	[SerializeField] private Player player;
+	[SerializeField] private MRPlayer player;
 
 	[Header("Settings")]
-	public float AnimationTime = 0.1f;
+	public float AnimationTime = 1.0f;
     
 
+	private Image buttonImage;
     private Button _button;
-
+	public bool IsClicked = false;
     private string currentText;
+
+	private void Start()
+	{
+		buttonImage = GetComponent<Image>();
+	}
 
     /// <summary>
     /// Sets the text of the button
@@ -32,11 +38,22 @@ public class MazeButtonHandler : MonoBehaviour
         currentText = txt;
     }
 
+	public void ResetButton(string buttonText)
+	{
+		IsClicked = false;
+
+		SetText(buttonText);
+		SetColor(Color.white);
+	}
+
     /// <summary>
     /// Handles a MC button click and handles logic according to whether that was the correct answer
     /// </summary>
     public void HandleClick()
 	{
+		if (IsClicked) return;
+		ql.SetAllButtonsUnclickable();
+
         if (ql.IsAnswerCorrect(currentText))
 		{
             StartCoroutine(CorrectAnswer());
@@ -46,11 +63,12 @@ public class MazeButtonHandler : MonoBehaviour
             StartCoroutine(WrongAnswer());
         }
 
-        Invoke("ResetToWhite", AnimationTime);
+        // Invoke("ResetToWhite", AnimationTime);
     }
 
-    public void ResetToWhite()
+    public IEnumerator ResetToWhite()
 	{
+		yield return new WaitForSeconds(AnimationTime);
         SetColor(Color.white);
     }
 
@@ -60,14 +78,13 @@ public class MazeButtonHandler : MonoBehaviour
     /// <param name="c">Color to set to</param>
     public void SetColor(Color c)
 	{
-        var bg = GetComponent<Image>();
-        bg.color = c;
+        buttonImage.color = c;
     }
 
     private IEnumerator CorrectAnswer()
     {
         SetColor(Color.green);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
 
         ql.HandleEndOfPanelLogic(true);
 
@@ -80,7 +97,8 @@ public class MazeButtonHandler : MonoBehaviour
     private IEnumerator WrongAnswer()
     {
         SetColor(Color.red);
-        yield return new WaitForSeconds(0.5f);
+		ql.CorrectButton.GetComponent<MazeButtonHandler>().SetColor(Color.green);
+        yield return new WaitForSeconds(1.0f);
 
         ql.HandleEndOfPanelLogic(false);
     }

@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using TMPro;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour {
+public class MRPlayer : MonoBehaviour {
 
 	[Header("External Components")]
 	// public GameObject ViewCamera = null;
@@ -30,13 +30,14 @@ public class Player : MonoBehaviour {
 	private Renderer playerRenderer = null;
 	private int isRunningHash = 0;
 	[SerializeField] private GameObject shield = null;
+	[SerializeField] private LayerMask whatIsGround;
 
     // Parameters
     private const float SLERP_DISTANCE_THRESHOLD = 1.0f;
 
 	private Vector2 previousMovementInput;
-    [SerializeField] private bool isFloorTouched = false;
-    private int numFloorsTouched = 0;
+    // [SerializeField] private bool isFloorTouched = false;
+    // private int numFloorsTouched = 0;
     public bool IsCoinTouched = false;
     // private Vector3 cameraEndPoint; // Direction from (0, 0, 0)
     // private Vector3 cameraDirection; // Direction from player
@@ -70,20 +71,20 @@ public class Player : MonoBehaviour {
 		// ViewCamera.transform.LookAt(transform.position);
 
 		// Others
-		numFloorsTouched = 0;
+		// numFloorsTouched = 0;
 
 	}
 
     private void Update()
     {
-        // Handle isFloorTouched
-		if (numFloorsTouched > 0)
-		{
-			isFloorTouched = true;
-		} else
-		{
-			isFloorTouched = false;
-		}
+        // // Handle isFloorTouched
+		// if (numFloorsTouched > 0)
+		// {
+		// 	isFloorTouched = true;
+		// } else
+		// {
+		// 	isFloorTouched = false;
+		// }
 
 		// Handle jumping input
 		// if (Input.GetButtonDown("Jump") && isFloorTouched) isJump = true;
@@ -114,6 +115,8 @@ public class Player : MonoBehaviour {
 
 	public void HandleJump(InputAction.CallbackContext context)
 	{
+		if (!context.performed) return;
+
 		onJumpButtonPress();
 	}
 
@@ -178,13 +181,13 @@ public class Player : MonoBehaviour {
 
 	private void OnCollisionEnter(Collision coll)
 	{
-		if (coll.gameObject.tag.Equals("MR-Floor"))
-		{
-			numFloorsTouched++;
-			// if (audioSource != null && HitSound != null && coll.relativeVelocity.y > .5f) {
-			// 	audioSource.PlayOneShot (HitSound, coll.relativeVelocity.magnitude);
-			// }
-		} 
+		// if (coll.gameObject.tag.Equals("MR-Floor"))
+		// {
+		// 	numFloorsTouched++;
+		// 	// if (audioSource != null && HitSound != null && coll.relativeVelocity.y > .5f) {
+		// 	// 	audioSource.PlayOneShot (HitSound, coll.relativeVelocity.magnitude);
+		// 	// }
+		// } 
 
 		if (coll.gameObject.tag.Equals("MR-Spike"))
 		{
@@ -252,10 +255,10 @@ public class Player : MonoBehaviour {
 
 	private void OnCollisionExit(Collision coll)
 	{
-		if (coll.gameObject.tag.Equals("MR-Floor"))
-		{
-			numFloorsTouched--;
-		}
+		// if (coll.gameObject.tag.Equals("MR-Floor"))
+		// {
+		// 	numFloorsTouched--;
+		// }
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -331,11 +334,19 @@ public class Player : MonoBehaviour {
 	/// </summary>
 	public void onJumpButtonPress()
 	{
-		if (!isFloorTouched || !gameMechanics.IsGameplayActive)
+		if (!gameMechanics.IsGameplayActive) return;
+		
+		if (Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, 0.2f, whatIsGround))
 		{
-			return;
+			// we are currently grounded
+			rigidBody.AddForce(Vector3.up * JumpAmount, ForceMode.Impulse);
 		}
-		isFloorTouched = false;
-        rigidBody.AddForce(Vector3.up * JumpAmount, ForceMode.Impulse);
+
+		// if (!isFloorTouched || !gameMechanics.IsGameplayActive)
+		// {
+		// 	return;
+		// }
+		// isFloorTouched = false;
+        // rigidBody.AddForce(Vector3.up * JumpAmount, ForceMode.Impulse);
 	}
 }
