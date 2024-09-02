@@ -36,6 +36,7 @@ public class FlashcardManager : MonoBehaviour
     [SerializeField] private GameObject starPrefab;
     private float starOffset = 30f;
     private ProgressStar[] progressStars;
+    [SerializeField] private ParticleSystem confettiParticles;
 
     [SerializeField] private RectTransform flashcardMask;
     [SerializeField] private GameObject inputDisabler;
@@ -44,6 +45,7 @@ public class FlashcardManager : MonoBehaviour
 
     [SerializeField] private AnimationCurve flipAnimCurve;
     private float flipTime = 0.8f;
+    [SerializeField] private DialogueAnimator definitionAnimator;
 
     // Dev variables
     [SerializeField] private Sprite devIcon;
@@ -58,6 +60,9 @@ public class FlashcardManager : MonoBehaviour
         currentWord = -1;
         progressStars = new ProgressStar[flashcardList.Count];
         InstantiateStars();
+        wordVideoPlayer.url = flashcardList[0].wordVideoURL;
+        wordVideoPlayer.Pause();
+        wordVideoPlayer.frame = 0;
     }
 
     private void LoadWords()
@@ -146,6 +151,7 @@ public class FlashcardManager : MonoBehaviour
         definitionVideoPlayer.Play();
         frontScreen.gameObject.SetActive(false);
         definitionText.gameObject.SetActive(true);
+        definitionAnimator.PlayAnimation();
         inputDisabler.SetActive(false);
 
         if (currentWord < flashcardList.Count - 1)
@@ -187,6 +193,7 @@ public class FlashcardManager : MonoBehaviour
         progressMask.fillAmount = 1;
         progressStars[progressStars.Length - 1].SetAchieved();
         winScreen.gameObject.SetActive(true);
+        confettiParticles.Play();
     }
 
     public void ExitToMap()
