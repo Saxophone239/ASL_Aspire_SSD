@@ -60,9 +60,7 @@ public class FlashcardManager : MonoBehaviour
         currentWord = -1;
         progressStars = new ProgressStar[flashcardList.Count];
         InstantiateStars();
-        wordVideoPlayer.url = flashcardList[0].wordVideoURL;
-        wordVideoPlayer.Pause();
-        wordVideoPlayer.frame = 0;
+        PrepWordVideo(flashcardList[0].wordVideoURL);
     }
 
     private void LoadWords()
@@ -156,11 +154,16 @@ public class FlashcardManager : MonoBehaviour
 
         if (currentWord < flashcardList.Count - 1)
         {
-            wordVideoPlayer.url = flashcardList[currentWord + 1].wordVideoURL;
-            wordVideoPlayer.Pause();
-            wordVideoPlayer.frame = 0;
+            PrepWordVideo(flashcardList[currentWord + 1].wordVideoURL);
         }
         yield break;
+    }
+
+    private void PrepWordVideo(string url)
+    {
+        wordVideoPlayer.url = url;
+        wordVideoPlayer.Pause();
+        wordVideoPlayer.frame = 0;
     }
 
     private void NextWord()
@@ -175,7 +178,6 @@ public class FlashcardManager : MonoBehaviour
         headerText.text = currentFlashcard.word;
         definitionText.text = currentFlashcard.definitionText;
         flashcardIcon.sprite = currentFlashcard.icon;
-        if (currentWord == 0) wordVideoPlayer.url = currentFlashcard.wordVideoURL;
         definitionVideoPlayer.url = currentFlashcard.definitionVideoURL;
 
         frontScreen.gameObject.SetActive(true);
