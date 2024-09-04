@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapManager : MonoBehaviour
 {
@@ -20,5 +21,11 @@ public class MapManager : MonoBehaviour
     public void StartArcade()
     {
         stateManager.ChangeState(MenuState.Arcade);
+    }
+
+    public void EnterFlashcards(int packetNum)
+    {
+        GlobalManager.Instance.CurrentPacket = packetNum;
+        SceneManager.LoadScene("FlashcardScene");
     }
 }
