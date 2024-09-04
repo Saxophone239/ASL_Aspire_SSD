@@ -7,15 +7,18 @@ public class DataUnitTests : MonoBehaviour     //Testing models and routes witho
 
     public Login login;
     public  PlayfabPostManager postManager;
+    public PlayfabGetManager getManager;
  
     void Start(){
         login.StudentLoginActivate("Student1");
     }
  
 
-    public void LessonDataTest(){
-        LessonData lesson = new LessonData();
 
+    //Post Route Testing
+    public void PostLessonDataTest(){
+        LessonData lesson = new LessonData();
+        lesson.packetID = 100;
         // Populating flashcardData with example word IDs and time spent
         lesson.flashcardData.Add(101, 3.5f); // wordID: 101, timeSpent: 3.5 seconds
         lesson.flashcardData.Add(102, 5.0f); // wordID: 102, timeSpent: 5.0 seconds
@@ -87,6 +90,13 @@ public class DataUnitTests : MonoBehaviour     //Testing models and routes witho
     }
 
 
+    //Get Route Testing
+
+    public void GetLessonTest(int packetID){
+        getManager.GetLessonData(packetID);
+
+
+    }
 
 
 }

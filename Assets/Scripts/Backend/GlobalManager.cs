@@ -29,6 +29,7 @@ public class GlobalManager : MonoBehaviour
 
 	// Data to pass into arcade games
 	public int CurrentPacket = 0; // Packet_1 starts at index 0
+
 	public bool ReviewPreviousPackets = false;
 
 	private void Awake()

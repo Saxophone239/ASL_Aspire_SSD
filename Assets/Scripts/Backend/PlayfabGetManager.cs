@@ -31,4 +31,23 @@ public class PlayfabGetManager : MonoBehaviour
     //     }
 
     // }
+
+public bool GetLessonData(int packetID) {
+    PlayFabClientAPI.GetUserData(new GetUserDataRequest(),
+        result => OnLessonDataReceived(result, packetID),
+        OnError);
+    return true;
+}
+
+void OnLessonDataReceived(GetUserDataResult result, int packetID) {
+    if (result.Data != null && result.Data.ContainsKey($"Lesson {packetID}")) {
+        Debug.Log($"Received student lesson data for lesson {packetID}!");
+        LessonData lessonData = JsonUtility.FromJson<LessonData>(result.Data[$"Lesson {packetID}"].Value); 
+        Debug.Log(lessonData.packetID);
+    }
+}
+
+void OnError(PlayFabError error) {
+    Debug.Log(error);
+}
 }

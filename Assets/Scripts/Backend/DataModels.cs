@@ -19,6 +19,7 @@ using UnityEngine;
     [System.Serializable]
     public class LessonData
     {
+		public int packetID; 
         public Dictionary<int,float> flashcardData;   //Will populate with wordID:TIMESPENT in flashcard area
 		public Dictionary<int,Dictionary<string,int>> gameVocabCountDict; //Will populate with wordID:Dict<TypeOfRepresentationOfWord:Counts>
 		

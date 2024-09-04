@@ -20,11 +20,11 @@ public class PlayfabPostManager : MonoBehaviour
     }
 
 
-	public void PostLesson(LessonData lessonData, string lessonName = "TestLesson")
+	public void PostLesson(LessonData lessonData)
 	{
 		var request = new UpdateUserDataRequest{
             Data = new Dictionary<string,string>{
-                {lessonName,JsonConvert.SerializeObject(lessonData)}
+                {$"Lesson {lessonData.packetID}",JsonConvert.SerializeObject(lessonData)}
             }
         
         };
