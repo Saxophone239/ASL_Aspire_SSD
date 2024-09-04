@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 public class PlayfabPostManager : MonoBehaviour
 {
 
+
+	//Lesson specific routes and management
 	public void PostLesson(LessonData lessonData)
 	{
 		var request = new UpdateUserDataRequest{
@@ -25,6 +27,12 @@ public class PlayfabPostManager : MonoBehaviour
      void OnLessonDataSend(UpdateUserDataResult result){
         Debug.Log("Successful lesson user data sent!");
     }
+
+	
+
+
+
+
 
 
 	public void PostReview(ReviewData reviewData){

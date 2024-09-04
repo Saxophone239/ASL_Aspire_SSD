@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class DataUnitTests : MonoBehaviour     //Testing models and routes without requiring the full app loaded
 {
@@ -8,6 +9,7 @@ public class DataUnitTests : MonoBehaviour     //Testing models and routes witho
     public Login login;
     public  PlayfabPostManager postManager;
     public PlayfabGetManager getManager;
+    public DataModels dataModels;
  
     void Start(){
         login.StudentLoginActivate("Student1");
@@ -23,6 +25,12 @@ public class DataUnitTests : MonoBehaviour     //Testing models and routes witho
     public void CheckGlobalReview(){
         int currentID = GlobalManager.Instance.currentReviewData.reviewID;
         Debug.Log($"Current Global Review: {currentID}");
+    }
+
+    public void CheckEmptyLessonCreation(){
+        int lessonID = 1; 
+        LessonData emptyLesson = dataModels.InitializeLessonFromVocabulary(lessonID);
+        postManager.PostLesson(emptyLesson);
     }
 
     //Post Route Testing

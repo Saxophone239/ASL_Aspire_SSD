@@ -70,36 +70,38 @@ public class VocabularyLoader : MonoBehaviour
         LoadVocabularyData();
     }
 
-    void LoadVocabularyData()
+    void LoadVocabularyData(bool Verbose=false)
     {
         if (vocabularyJson != null)
         {
             string jsonContent = vocabularyJson.text;
             VocabularyData = JsonUtility.FromJson<VocabularyData>(jsonContent);
+			if (Verbose){
+				if (VocabularyData != null && VocabularyData.Packets != null)
+				{
+					Debug.Log("Vocabulary data loaded successfully!");
 
-            if (VocabularyData != null && VocabularyData.Packets != null)
-            {
-                Debug.Log("Vocabulary data loaded successfully!");
-
-                // Example: Accessing data
-                foreach (var packet in VocabularyData.Packets)
-                {
-                    Debug.Log($"Packet: {packet.PacketName}");
-                    foreach (var entry in packet.Entries)
-                    {
-                        Debug.Log($"Word: {entry.English_Word}, Definition: {entry.English_Definition}");
-                    }
-                }
-            }
-            else
-            {
-                Debug.LogError("Failed to parse JSON. Check the JSON structure.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Vocabulary JSON not assigned!");
-        }
+					// Example: Accessing data
+					foreach (var packet in VocabularyData.Packets)
+					{
+						Debug.Log($"Packet: {packet.PacketName}");
+						foreach (var entry in packet.Entries)
+						{
+							Debug.Log($"Word: {entry.English_Word}, Definition: {entry.English_Definition}");
+						}
+					}
+				}
+				else
+				{
+					Debug.LogError("Failed to parse JSON. Check the JSON structure.");
+				}
+			}
+		}
+		else
+		{
+			Debug.LogError("Vocabulary JSON not assigned!");
+		}
+	
     }
 
 	public List<VocabularyEntry> CreateVocabularyEntryListToUse(int currentPacket, bool shouldReviewPreviousPackets)

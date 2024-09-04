@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 
@@ -101,5 +102,44 @@ using UnityEngine;
 
 public class DataModels : MonoBehaviour
 {
-	
+
+	public VocabularyLoader vocabLoader; 
+	//Initializing lessons and reviews
+	public LessonData InitializeLessonFromVocabulary(int lessonPacket)
+    {
+        // Create a new LessonData object
+        LessonData lesson = new LessonData
+        {
+            flashcardData = new Dictionary<int, float>(),
+            gameVocabCountDict = new Dictionary<int, Dictionary<string, int>>(),
+            isUnlocked = true, // Or set this based on your logic
+            gameSessionComplete = false,
+            flashcardsComplete = false,
+            lessonComplete = false
+        };
+
+        // Filter entries based on the lessonPacket
+        var relevantEntries = vocabLoader.VocabularyData.Packets
+            .SelectMany(packet => packet.Entries)
+            .Where(entry => entry.Packet == lessonPacket);
+
+        // Populate flashcardData and gameVocabCountDict based on filtered entries
+        foreach (var entry in relevantEntries)
+        {
+            // Populate the flashcardData dictionary
+            lesson.flashcardData.Add(entry.Vocabulary_ID, 0f); // Initial time spent is set to 0
+
+            // Populate the gameVocabCountDict dictionary
+            lesson.gameVocabCountDict.Add(entry.Vocabulary_ID, new Dictionary<string, int>
+            {
+                {"ASL_Sign_and_Spelled", 0},
+                {"ASL_Definition", 0},
+                {"ASL_Sign", 0},
+                {"ASL_Spelled", 0},
+                {"English_Definition", 0}
+            });
+        }
+
+        return lesson;
+    }
 }
