@@ -13,7 +13,17 @@ public class DataUnitTests : MonoBehaviour     //Testing models and routes witho
         login.StudentLoginActivate("Student1");
     }
  
+    //General Tests
 
+    public void CheckGlobalLesson(){
+        int currentID = GlobalManager.Instance.currentLessonData.packetID;
+        Debug.Log($"Current Global Lesson: {currentID}");
+    }
+
+    public void CheckGlobalReview(){
+        int currentID = GlobalManager.Instance.currentReviewData.reviewID;
+        Debug.Log($"Current Global Review: {currentID}");
+    }
 
     //Post Route Testing
     public void PostLessonDataTest(){
@@ -90,12 +100,86 @@ public class DataUnitTests : MonoBehaviour     //Testing models and routes witho
     }
 
 
+ public void PostReviewTest()
+    {
+        ReviewData review = new ReviewData();
+        review.reviewID = 12;
+        // Populating gameVocabCountDict with example word IDs and their representations
+        review.gameVocabCountDict.Add(101, new Dictionary<string, int>
+        {
+            {"ENGDEF-ENGWORD", 3},  
+            {"ICON-ENGWORD", 2}   
+        });
+
+        review.gameVocabCountDict.Add(102, new Dictionary<string, int>
+        {
+            {"ASLSIGN-ENGWORD", 1},  
+            {"ASLDEF-ENGWORD", 4}   
+        });
+
+        review.quizDataDictionary.Add(1, new QuizQuestionObject
+        {
+            successfulAnswer = true,
+            numAttempts = 1,
+            vocabID = 101,
+            supplementaryPresent = true,
+            supplementaryAccessed = false
+        });
+
+        review.quizDataDictionary.Add(2, new QuizQuestionObject
+        {
+            successfulAnswer = false,
+            numAttempts = 3,
+            vocabID = 102,
+            supplementaryPresent = false,
+            supplementaryAccessed = false
+        });
+
+        // Setting the other flags
+        review.isUnlocked = true;
+        review.gameSessionComplete = true;
+        review.flashcardsComplete = false;
+        review.lessonComplete = false;
+
+        Debug.Log("Review Data - Game Vocab Count:");
+        foreach (var vocabEntry in review.gameVocabCountDict)
+        {
+            Debug.Log($"WordID: {vocabEntry.Key}");
+            foreach (var representation in vocabEntry.Value)
+            {
+                Debug.Log($"   Type: {representation.Key}, Count: {representation.Value}");
+            }
+        }
+
+        Debug.Log("\nReview Data - Quiz Data:");
+        foreach (var quizEntry in review.quizDataDictionary)
+        {
+            var quizQuestion = quizEntry.Value;
+            Debug.Log($"Quiz ID: {quizEntry.Key}");
+            Debug.Log($"   Successful Answer: {quizQuestion.successfulAnswer}");
+            Debug.Log($"   Number of Attempts: {quizQuestion.numAttempts}");
+            Debug.Log($"   Vocabulary ID: {quizQuestion.vocabID}");
+            Debug.Log($"   Supplementary Material Present: {quizQuestion.supplementaryPresent}");
+            Debug.Log($"   Supplementary Material Accessed: {quizQuestion.supplementaryAccessed}");
+        }
+
+        Debug.Log($"\nIs Unlocked: {review.isUnlocked}");
+        Debug.Log($"Game Session Complete: {review.gameSessionComplete}");
+        Debug.Log($"Flashcards Complete: {review.flashcardsComplete}");
+        Debug.Log($"Lesson Complete: {review.lessonComplete}");
+
+        postManager.PostReview(review);
+    }
+
+
     //Get Route Testing
 
     public void GetLessonTest(int packetID){
         getManager.GetLessonData(packetID);
+    }
 
-
+    public void GetReviewTest(int reviewID){
+        getManager.GetReviewData(reviewID);
     }
 
 

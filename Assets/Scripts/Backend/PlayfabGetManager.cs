@@ -9,45 +9,42 @@ using PlayFab.ClientModels;
 using Newtonsoft.Json; 
 public class PlayfabGetManager : MonoBehaviour
 {
-   
+    public bool GetLessonData(int packetID) {
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest(),
+            result => OnLessonDataReceived(result, packetID),
+            OnError);
+        return true;
+    }
 
-//    public bool GetStudentData(){
+    void OnLessonDataReceived(GetUserDataResult result, int packetID) {
+        if (result.Data != null && result.Data.ContainsKey($"Lesson {packetID}")) {
+            Debug.Log($"Received student lesson data for lesson {packetID}!");
+            LessonData lessonData = JsonUtility.FromJson<LessonData>(result.Data[$"Lesson {packetID}"].Value); 
+            Debug.Log(lessonData.packetID);
+            GlobalManager.Instance.currentLessonData = lessonData;
+        }
+    }
 
-//    }
 
-   
-    // public bool GetCoinsData(){
-    //     PlayFabClientAPI.GetUserData(new GetUserDataRequest(),OnCoinDataReceived,OnError);
-    //     return true;
-
-    // }
 
     
-    // void OnStudentDataReceived(GetUserDataResult result){
-    //     if(result.Data !=null && result.Data.ContainsKey("StudentData")){
-    //         Debug.Log("Received student data!");
-    //         GlobalManager.student.coins = int.Parse(result.Data["Coins"].Value);
-
-    //     }
-
-    // }
-
-public bool GetLessonData(int packetID) {
-    PlayFabClientAPI.GetUserData(new GetUserDataRequest(),
-        result => OnLessonDataReceived(result, packetID),
-        OnError);
-    return true;
-}
-
-void OnLessonDataReceived(GetUserDataResult result, int packetID) {
-    if (result.Data != null && result.Data.ContainsKey($"Lesson {packetID}")) {
-        Debug.Log($"Received student lesson data for lesson {packetID}!");
-        LessonData lessonData = JsonUtility.FromJson<LessonData>(result.Data[$"Lesson {packetID}"].Value); 
-        Debug.Log(lessonData.packetID);
+    public bool GetReviewData(int reviewID) {
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest(),
+            result => OnReviewDataReceived(result, reviewID),
+            OnError);
+        return true;
     }
-}
 
-void OnError(PlayFabError error) {
-    Debug.Log(error);
-}
+    void OnReviewDataReceived(GetUserDataResult result, int reviewID) {
+        if (result.Data != null && result.Data.ContainsKey($"Review {reviewID}")) {
+            Debug.Log($"Received student review data for review {reviewID}!");
+            ReviewData reviewData = JsonUtility.FromJson<ReviewData>(result.Data[$"Review {reviewID}"].Value); 
+            Debug.Log(reviewData.reviewID);
+            GlobalManager.Instance.currentReviewData = reviewData;
+        }
+    }
+
+    void OnError(PlayFabError error) {
+        Debug.Log(error);
+    }
 }

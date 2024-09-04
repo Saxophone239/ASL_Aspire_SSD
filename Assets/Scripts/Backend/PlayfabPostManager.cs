@@ -9,17 +9,6 @@ using Newtonsoft.Json;
 public class PlayfabPostManager : MonoBehaviour
 {
 
-
-
-	void OnError(PlayFabError error){
-        Debug.Log(error);
-    }
-
-     void OnLessonDataSend(UpdateUserDataResult result){
-        Debug.Log("Successful lesson user data sent!");
-    }
-
-
 	public void PostLesson(LessonData lessonData)
 	{
 		var request = new UpdateUserDataRequest{
@@ -33,16 +22,28 @@ public class PlayfabPostManager : MonoBehaviour
 	}
 
 
+     void OnLessonDataSend(UpdateUserDataResult result){
+        Debug.Log("Successful lesson user data sent!");
+    }
 
-	// TODO: build lesson skeleton
 
-	public void PostQuiz(Dictionary<int, int> dictionary)
-	{
-
+	public void PostReview(ReviewData reviewData){
+		var request = new UpdateUserDataRequest{
+        Data = new Dictionary<string,string>{
+                {$"Review {reviewData.reviewID}",JsonConvert.SerializeObject(reviewData)}
+            }
+        
+        };
+        PlayFabClientAPI.UpdateUserData(request,OnReviewDataSend,OnError);
 	}
 
-	public void PostReviewGames(Dictionary<int, List<bool>> dictionary)
-	{
+	
+     void OnReviewDataSend(UpdateUserDataResult result){
+        Debug.Log("Successful review user data sent!");
+    }
 
-	}
+	
+	void OnError(PlayFabError error){
+        Debug.Log(error);
+    }
 }

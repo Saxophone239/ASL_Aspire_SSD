@@ -40,6 +40,8 @@ using UnityEngine;
 	[System.Serializable]
 	public class ReviewData
     {
+
+		public int reviewID; 
 		public Dictionary<int,Dictionary<string,int>> gameVocabCountDict; //Will populate with wordID:Dict<TypeOfRepresentationOfWord:Counts>		
 		
 		public Dictionary<int,QuizQuestionObject> quizDataDictionary; //Will populate with QuizQuestionObjectID: QuizQuestionObject data
@@ -47,6 +49,11 @@ using UnityEngine;
 		public bool gameSessionComplete;
 		public bool flashcardsComplete;
 		public bool lessonComplete; 
+
+		public ReviewData(){
+			gameVocabCountDict = new Dictionary<int,Dictionary<string,int>>();
+			quizDataDictionary = new Dictionary<int,QuizQuestionObject>();
+		}
 		
     }
 
