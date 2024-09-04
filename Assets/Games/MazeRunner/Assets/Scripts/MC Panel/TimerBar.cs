@@ -8,7 +8,7 @@ public class TimerBar : MonoBehaviour
 {
     [Header("Progress bar parameters")]
     public Image mask;
-    private Player player;
+    private MRPlayer player;
 
     [Header("Timer parameters")]
     public float timeRemaining = 0;
@@ -22,7 +22,7 @@ public class TimerBar : MonoBehaviour
     private void Start()
     {
         // Find player
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<MRPlayer>();
     }
 
     // Update is called once per frame
@@ -51,10 +51,11 @@ public class TimerBar : MonoBehaviour
         mask.fillAmount = fillAmount;
     }
 
-    public void RestartTimer()
+    public void RestartTimer(float initialTimeSeconds)
 	{
         timerIsRunning = true;
-		timeRemaining = InitialTime;
+		timeRemaining = initialTimeSeconds;
+		InitialTime = initialTimeSeconds;
     }
 
     public void StopTimer()

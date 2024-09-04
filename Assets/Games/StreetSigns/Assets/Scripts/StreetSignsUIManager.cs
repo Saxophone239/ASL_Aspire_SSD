@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
@@ -13,26 +13,29 @@ public class StreetSignsUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TextMeshProUGUI gameOverScoreText;
-    [SerializeField] private GameMechanics gameMechanics; 
+    [SerializeField] private GameMechanics gameMechanics;
+	[SerializeField] private Animator questionUIAnimator;
+	[SerializeField] private SSQuestionManager questionManager;
 
 	[Header("Question UI Panel")]
-	[SerializeField] private GameObject questionUIPanel;
-	[SerializeField] private Image questionUIImage;
-	[SerializeField] private VideoPlayer questionUIVideoPlayer;
-	[SerializeField] private TextMeshProUGUI questionUIText;
+	public GameObject QuestionOnlyPanel;
+	public TextMeshProUGUI QuestionOnlyText;
+
+	public GameObject QuestionIconPanel;
+	public TextMeshProUGUI QuestionIconText;
+	public Image QuestionIconImage;
+
+	public GameObject QuestionVideoPanel;
+	public TextMeshProUGUI QuestionVideoText;
+	public VideoPlayer QuestionVideoVideoplayer;
+	private GameObject currentActiveQuestionPanel;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         gameOverPanel.SetActive(false);
         livesText.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void UpdateLives(int lives)
@@ -78,4 +81,38 @@ public class StreetSignsUIManager : MonoBehaviour
 
         // }
     }
+
+	public void UpdateQuestionOnlyPanel(string text)
+	{
+		currentActiveQuestionPanel = QuestionOnlyPanel;
+		currentActiveQuestionPanel.SetActive(true);
+
+		QuestionOnlyText.text = text;
+	}
+
+	public void UpdateQuestionIconPanel(string questionText, Sprite icon)
+	{
+		currentActiveQuestionPanel = QuestionIconPanel;
+		currentActiveQuestionPanel.SetActive(true);
+
+		QuestionIconText.text = questionText;
+		QuestionIconImage.sprite = icon;
+	}
+
+	public void UpdateQuestionVideoPanel(string questionText, string videoURL)
+	{
+		currentActiveQuestionPanel = QuestionVideoPanel;
+		currentActiveQuestionPanel.SetActive(true);
+
+		QuestionVideoText.text = questionText;
+		QuestionVideoVideoplayer.url = videoURL;
+		QuestionVideoVideoplayer.Prepare();
+		QuestionVideoVideoplayer.Play();
+	}
+
+	public void ToggleShowQuestionUIPanel(bool shouldTurnOffActivePanel)
+	{
+		questionUIAnimator.SetBool("shouldShowPanel", !shouldTurnOffActivePanel);
+		if (shouldTurnOffActivePanel) currentActiveQuestionPanel.SetActive(false);
+	}
 }

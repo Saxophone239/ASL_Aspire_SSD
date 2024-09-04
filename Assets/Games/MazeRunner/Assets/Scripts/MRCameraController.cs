@@ -12,7 +12,7 @@ public class MRCameraController : MonoBehaviour
 
 	[Header("References")]
 	[SerializeField] private Animator canvasAnimator;
-	[SerializeField] private Player player;
+	[SerializeField] private MRPlayer player;
 	[SerializeField] private MazeMenuScreenManager menuScreenManager;
 	[SerializeField] private MazeGameMechanics mazeGameMechanics;
 

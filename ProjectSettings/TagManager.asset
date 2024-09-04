@@ -30,6 +30,7 @@ TagManager:
   - SS-Obstacle-Untouchable
   - SS-Obstacle-Touchable
   - SS-TriggerUIQuestion
+  - Powerup_Shield
   layers:
   - Default
   - TransparentFX
@@ -39,8 +40,8 @@ TagManager:
   - UI
   - MR-Default
   - MR-Shield
-  - 
-  - 
+  - MR-Player
+  - MR-Ground
   - 
   - 
   - 

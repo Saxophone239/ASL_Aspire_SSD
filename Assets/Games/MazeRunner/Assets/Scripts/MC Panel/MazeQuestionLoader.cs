@@ -24,18 +24,20 @@ public class MazeQuestionLoader : MonoBehaviour
 	public VideoPlayer QuestionVideoVideoplayer;
     // public VideoPlayerController VideoPlayerController;
 
-    public Button ButtonAnswer1;
-    public Button ButtonAnswer2;
-    public Button ButtonAnswer3;
+	public List<Button> ButtonAnswers;
+    // public Button ButtonAnswer1;
+    // public Button ButtonAnswer2;
+    // public Button ButtonAnswer3;
     // public Button ButtonAnswer4;
 
 	[Header("References")]
 	[SerializeField] private Animator canvasAnimator;
-	[SerializeField] private Player player;
+	[SerializeField] private MRPlayer player;
 	[SerializeField] private MazeGameMechanics gameMechanics;
 	[SerializeField] private Sprite defaultIconToShow;
 
 	private GameObject currentActiveQuestionPanel;
+	public Button CorrectButton;
 
     // JSON file reading
     //private List<Question> _questions = new List<Question>();
@@ -48,13 +50,13 @@ public class MazeQuestionLoader : MonoBehaviour
 	private List<VocabularyEntry> allPossibleVocabEntries;
     public TimerBar timer;
 	private int questionTypeCount;
+	private List<MazeButtonHandler> buttonHandlers = new List<MazeButtonHandler>();
 
 	public enum MazeQuestionType
 	{
 		ASLSignToEnglishWord,
+		ASLDefinitionToEnglishWord,
 		EnglishDefinitionToEnglishWord,
-		EnglishWordToEnglishDefinition,
-		ASLDefinitionToEnglishDefinition,
 		IconToEnglishWord,
 	}
 
@@ -91,6 +93,15 @@ public class MazeQuestionLoader : MonoBehaviour
         // VideoPlayerController.videoPlayer.prepareCompleted += playVideoAndStartTimer;
 
 		questionTypeCount = System.Enum.GetNames(typeof(MazeQuestionType)).Length;
+		
+		if (ButtonAnswers[0].gameObject.TryGetComponent<MazeButtonHandler>(out MazeButtonHandler handler))
+		{
+			Debug.Log("ok so something works");
+		}
+		for (int i = 0; i < ButtonAnswers.Count; i++)
+		{
+			buttonHandlers.Add(ButtonAnswers[i].gameObject.GetComponent<MazeButtonHandler>());
+		}
 
 		// Generate list of VocabularyEntries to use in game
 		allPossibleVocabEntries = VocabularyLoader.Instance.CreateVocabularyEntryListToUse(GlobalManager.Instance.CurrentPacket, GlobalManager.Instance.ReviewPreviousPackets);
@@ -100,52 +111,45 @@ public class MazeQuestionLoader : MonoBehaviour
 	{
 		// Make panel randomly select question type
 		MazeQuestionType selectedQuestionType = (MazeQuestionType) UnityEngine.Random.Range(0, questionTypeCount);
+		Debug.Log($"Show question of type: {selectedQuestionType}");
 
 		// Randomly select correct answer
 		correctEntry = allPossibleVocabEntries[Random.Range(0, allPossibleVocabEntries.Count)];
+		Debug.Log($"Correct word is: {correctEntry.English_Word}");
 
 		// Populate panel according to question type
 		switch (selectedQuestionType)
 		{
 			case MazeQuestionType.ASLSignToEnglishWord:
-				UpdateQuestionVideoPanel("What is this sign?", correctEntry.ASL_Sign);
+				UpdateQuestionVideoPanel("What is this sign?", correctEntry.ASL_Sign, 15);
+				RenderButtonText(correctEntry, false);
+				break;
+			case MazeQuestionType.ASLDefinitionToEnglishWord:
+				UpdateQuestionVideoPanel("What word goes with this definition?", correctEntry.ASL_Definition, 30);
 				RenderButtonText(correctEntry, false);
 				break;
 			case MazeQuestionType.EnglishDefinitionToEnglishWord:
-				UpdateQuestionOnlyPanel($"{correctEntry.English_Definition}...");
+				UpdateQuestionOnlyPanel($"{correctEntry.English_Definition}...", 15);
 				RenderButtonText(correctEntry, false);
 				break;
-			case MazeQuestionType.EnglishWordToEnglishDefinition:
-				UpdateQuestionOnlyPanel($"{correctEntry.English_Word}...");
-				RenderButtonText(correctEntry, true);
-				break;
-			case MazeQuestionType.ASLDefinitionToEnglishDefinition:
-				UpdateQuestionVideoPanel("This definition pairs with...", correctEntry.ASL_Definition);
-				RenderButtonText(correctEntry, true);
-				break;
 			case MazeQuestionType.IconToEnglishWord:
-				UpdateQuestionIconPanel("This image shows...", defaultIconToShow);
+				UpdateQuestionIconPanel("This image shows...", defaultIconToShow, 15);
 				RenderButtonText(correctEntry, false);
 				break;
 		}
-
-		// Populate buttons according to question
-		// listOfAllPotentialAnswers = new List<string>{"correctAnswer", "mitochondria", "vacuole", "DNA", "ribosome"};
-		// correctAnswer = "correctAnswer";
-		// RenderButtonText();
 	}
 
-	public void UpdateQuestionOnlyPanel(string text)
+	public void UpdateQuestionOnlyPanel(string text, float timerTime)
 	{
 		currentActiveQuestionPanel = QuestionOnlyPanel;
 		currentActiveQuestionPanel.SetActive(true);
 
 		QuestionOnlyText.text = text;
 
-		timer.RestartTimer();
+		timer.RestartTimer(timerTime);
 	}
 
-	public void UpdateQuestionIconPanel(string questionText, Sprite icon)
+	public void UpdateQuestionIconPanel(string questionText, Sprite icon, float timerTime)
 	{
 		currentActiveQuestionPanel = QuestionIconPanel;
 		currentActiveQuestionPanel.SetActive(true);
@@ -153,10 +157,10 @@ public class MazeQuestionLoader : MonoBehaviour
 		QuestionIconText.text = questionText;
 		QuestionIconImage.sprite = icon;
 
-		timer.RestartTimer();
+		timer.RestartTimer(timerTime);
 	}
 
-	public void UpdateQuestionVideoPanel(string questionText, string videoURL)
+	public void UpdateQuestionVideoPanel(string questionText, string videoURL, float timerTime)
 	{
 		currentActiveQuestionPanel = QuestionVideoPanel;
 		currentActiveQuestionPanel.SetActive(true);
@@ -164,15 +168,15 @@ public class MazeQuestionLoader : MonoBehaviour
 		QuestionVideoText.text = questionText;
 		QuestionVideoVideoplayer.url = videoURL;
 		QuestionVideoVideoplayer.Prepare();
-		QuestionVideoVideoplayer.prepareCompleted += playVideoAndStartTimer;
+		QuestionVideoVideoplayer.prepareCompleted += (videoPlayer) => {playVideoAndStartTimer(videoPlayer, timerTime);};
 	}
 
 	// When prepareCompleted event is received, start the timer
-    public void playVideoAndStartTimer(object sender)
+    public void playVideoAndStartTimer(VideoPlayer sender, float timerTime)
 	{
         QuestionVideoVideoplayer.Play();
 
-        timer.RestartTimer();
+        timer.RestartTimer(timerTime);
     }
 
     // /// <summary>
@@ -227,17 +231,33 @@ public class MazeQuestionLoader : MonoBehaviour
 		if (isAnswerDefinition)
 		{
 			correctAnswer = correctEntry.English_Definition;
-			ButtonAnswer1.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[0].English_Definition);
-			ButtonAnswer2.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[1].English_Definition);
-			ButtonAnswer3.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[2].English_Definition);
+			for (int i = 0; i < ButtonAnswers.Count; i++)
+			{
+				if (answersShuffled[i].English_Definition.Equals(correctAnswer))
+				{
+					CorrectButton = ButtonAnswers[i];
+				}
+				buttonHandlers[i].ResetButton(answersShuffled[i].English_Definition);
+			}
+			// ButtonAnswer1.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[0].English_Definition);
+			// ButtonAnswer2.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[1].English_Definition);
+			// ButtonAnswer3.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[2].English_Definition);
 			// ButtonAnswer4.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[3].English_Definition);
 		}
 		else
 		{
 			correctAnswer = correctEntry.English_Word;
-			ButtonAnswer1.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[0].English_Word);
-			ButtonAnswer2.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[1].English_Word);
-			ButtonAnswer3.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[2].English_Word);
+			for (int i = 0; i < ButtonAnswers.Count; i++)
+			{
+				if (answersShuffled[i].English_Word.Equals(correctAnswer))
+				{
+					CorrectButton = ButtonAnswers[i];
+				}
+				buttonHandlers[i].ResetButton(answersShuffled[i].English_Word);
+			}
+			// ButtonAnswer1.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[0].English_Word);
+			// ButtonAnswer2.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[1].English_Word);
+			// ButtonAnswer3.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[2].English_Word);
 			// ButtonAnswer4.gameObject.GetComponent<MazeButtonHandler>().SetText(answersShuffled[3].English_Word);
 		}
     }
@@ -280,6 +300,14 @@ public class MazeQuestionLoader : MonoBehaviour
 
         return toReturn;
     }
+
+	public void SetAllButtonsUnclickable()
+	{
+		foreach (MazeButtonHandler handler in buttonHandlers)
+		{
+			handler.IsClicked = true;
+		}
+	}
 
 	// /// <summary>
     // /// Takes a list of vocab words and randomly selects 4 words, one of them being the correct answer
