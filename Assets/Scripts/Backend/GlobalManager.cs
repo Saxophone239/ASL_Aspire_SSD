@@ -28,6 +28,8 @@ public class GlobalManager : MonoBehaviour
 	public int CurrentPacket = 0; // Packet_1 starts at index 0
 	public bool ReviewPreviousPackets = false;
 
+	[SerializeField] private IconManager iconManager;
+
 	private void Awake()
 	{
 		if (Instance != null)
@@ -39,4 +41,9 @@ public class GlobalManager : MonoBehaviour
 		Instance = this;
 		DontDestroyOnLoad(gameObject);
 	}
+
+	public Sprite GetIcon(int id)
+    {
+		return iconManager.GetIcon(id);
+    }
 }
