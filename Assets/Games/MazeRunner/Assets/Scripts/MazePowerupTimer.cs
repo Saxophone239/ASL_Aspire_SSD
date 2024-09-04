@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MazePowerupTimer : MonoBehaviour
 {
     public Camera playerCamera;
-    private Player player;
+    private MRPlayer player;
 
     // Timer stuff
     private float startingTime = 10;
@@ -19,7 +19,7 @@ public class MazePowerupTimer : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<MRPlayer>();
     }
 
     // Update is called once per frame
