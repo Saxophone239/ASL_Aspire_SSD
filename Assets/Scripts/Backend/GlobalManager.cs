@@ -23,6 +23,9 @@ public class GlobalManager : MonoBehaviour
 	// }
 
 	public static GlobalManager Instance;
+	
+
+	//public StudentData globalStudentData
 
 	// Data to pass into arcade games
 	public int CurrentPacket = 0; // Packet_1 starts at index 0
@@ -32,7 +35,7 @@ public class GlobalManager : MonoBehaviour
 	{
 		if (Instance != null)
 		{
-			Destroy(gameObject);
+			Destroy(gameObject); //Bug fix to ensure intance isn't duplicated
 			return;
 		}
 

@@ -1,30 +1,38 @@
+using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using PlayFab;
+using PlayFab.ClientModels;
+using Newtonsoft.Json; 
 
 public class PlayfabPostManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+
+
+
+	void OnError(PlayFabError error){
+        Debug.Log(error);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+     void OnLessonDataSend(UpdateUserDataResult result){
+        Debug.Log("Successful lesson user data sent!");
     }
 
-	public void PostFlashcards(Dictionary<int, float> wordIdToTimeSpentDict)
+
+	public void PostLesson(LessonData lessonData, string lessonName = "TestLesson")
 	{
+		var request = new UpdateUserDataRequest{
+            Data = new Dictionary<string,string>{
+                {lessonName,JsonConvert.SerializeObject(lessonData)}
+            }
+        
+        };
+        PlayFabClientAPI.UpdateUserData(request,OnLessonDataSend,OnError);
 
 	}
 
-	public void PostLesson(Dictionary<int, List<bool>> dictionary) // TODO: replace int with Lesson class
-	{
 
-	}
 
 	// TODO: build lesson skeleton
 
