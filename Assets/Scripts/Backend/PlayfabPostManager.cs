@@ -1,40 +1,57 @@
+using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using PlayFab;
+using PlayFab.ClientModels;
+using Newtonsoft.Json; 
 
 public class PlayfabPostManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+
+
+	//Lesson specific routes and management
+	public void PostLesson(LessonData lessonData)
+	{
+		var request = new UpdateUserDataRequest{
+            Data = new Dictionary<string,string>{
+                {$"Lesson {lessonData.packetID}",JsonConvert.SerializeObject(lessonData)}
+            }
         
+        };
+        PlayFabClientAPI.UpdateUserData(request,OnLessonDataSend,OnError);
+
+	}
+
+
+     void OnLessonDataSend(UpdateUserDataResult result){
+        Debug.Log("Successful lesson user data sent!");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+	
+
+
+
+
+
+
+	public void PostReview(ReviewData reviewData){
+		var request = new UpdateUserDataRequest{
+        Data = new Dictionary<string,string>{
+                {$"Review {reviewData.reviewID}",JsonConvert.SerializeObject(reviewData)}
+            }
         
+        };
+        PlayFabClientAPI.UpdateUserData(request,OnReviewDataSend,OnError);
+	}
+
+	
+     void OnReviewDataSend(UpdateUserDataResult result){
+        Debug.Log("Successful review user data sent!");
     }
 
-	public void PostFlashcards(Dictionary<int, float> wordIdToTimeSpentDict)
-	{
-
-	}
-
-	public void PostLesson(Dictionary<int, List<bool>> dictionary) // TODO: replace int with Lesson class
-	{
-
-	}
-
-	// TODO: build lesson skeleton
-
-	public void PostQuiz(Dictionary<int, int> dictionary)
-	{
-
-	}
-
-	public void PostReviewGames(Dictionary<int, List<bool>> dictionary)
-	{
-
-	}
+	
+	void OnError(PlayFabError error){
+        Debug.Log(error);
+    }
 }
