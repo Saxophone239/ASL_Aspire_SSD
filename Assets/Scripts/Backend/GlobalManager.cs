@@ -35,6 +35,11 @@ public class GlobalManager : MonoBehaviour
 	public ReviewData currentReviewData;
 	public bool ReviewPreviousPackets = false;
 
+	// Map data
+	public List<bool> MapIconIsLockedStatus = new List<bool>();
+	public bool DisplayCoinsCollected = false;
+	public int CoinsRecentlyCollected = 100;
+
 	[SerializeField] private IconManager iconManager;
 
 	private void Awake()
