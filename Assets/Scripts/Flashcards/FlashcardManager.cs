@@ -43,6 +43,7 @@ public class FlashcardManager : MonoBehaviour
     [SerializeField] private RectTransform winScreen;
     [SerializeField] private Button nextArrow;
 
+    // Animation controls
     [SerializeField] private AnimationCurve flipAnimCurve;
     private float flipTime = 0.8f;
     [SerializeField] private DialogueAnimator definitionAnimator;
@@ -59,6 +60,7 @@ public class FlashcardManager : MonoBehaviour
         currentSlide = 0;
         currentWord = -1;
         progressStars = new ProgressStar[flashcardList.Count];
+        flashcardIcon.preserveAspect = true;
         InstantiateStars();
         PrepWordVideo(flashcardList[0].wordVideoURL);
     }
@@ -177,7 +179,7 @@ public class FlashcardManager : MonoBehaviour
         definitionText.gameObject.SetActive(false);
         headerText.text = currentFlashcard.word;
         definitionText.text = currentFlashcard.definitionText;
-        flashcardIcon.sprite = currentFlashcard.icon;
+        flashcardIcon.sprite = GlobalManager.Instance.GetIcon(currentFlashcard.id);
         definitionVideoPlayer.url = currentFlashcard.definitionVideoURL;
 
         frontScreen.gameObject.SetActive(true);
