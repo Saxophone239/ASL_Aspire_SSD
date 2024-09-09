@@ -23,7 +23,7 @@ public class GlobalManager : MonoBehaviour
 	// }
 
 	public static GlobalManager Instance;
-	
+	public bool firstTimeEntrance;
 
 
 	//public StudentData globalStudentData
@@ -37,6 +37,8 @@ public class GlobalManager : MonoBehaviour
 
 	[SerializeField] private IconManager iconManager;
 
+	public PlayfabGetManager getManager;
+
 	private void Awake()
 	{
 		if (Instance != null)
@@ -48,6 +50,7 @@ public class GlobalManager : MonoBehaviour
 		Instance = this;
 		DontDestroyOnLoad(gameObject);
 	}
+
 
 	public Sprite GetIcon(int id)
     {

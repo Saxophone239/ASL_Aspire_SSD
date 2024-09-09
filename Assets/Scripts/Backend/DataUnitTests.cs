@@ -12,7 +12,7 @@ public class DataUnitTests : MonoBehaviour     //Testing models and routes witho
     public DataModels dataModels;
  
     void Start(){
-        login.StudentLoginActivate("Student1");
+        login.StudentLoginActivate("Student2");
     }
  
     //General Tests
@@ -31,6 +31,12 @@ public class DataUnitTests : MonoBehaviour     //Testing models and routes witho
         int lessonID = 1; 
         LessonData emptyLesson = dataModels.InitializeLessonFromVocabulary(lessonID);
         postManager.PostLesson(emptyLesson);
+    }
+
+    public void CheckReviewCreation(){
+        int[] packetList = {1,2,3};
+        ReviewData emptyReview = dataModels.InitializeReviewFromVocabulary(packetList);
+        postManager.PostReview(emptyReview);
     }
 
     //Post Route Testing
@@ -94,15 +100,13 @@ public class DataUnitTests : MonoBehaviour     //Testing models and routes witho
         quizQuestion.successfulAnswer = true;
         quizQuestion.numAttempts = 2;
         quizQuestion.vocabID = 101;
-        quizQuestion.supplementaryPresent = true;
-        quizQuestion.supplementaryAccessed = false;
+
 
         Debug.Log("Quiz Question Object Data:");
         Debug.Log($"Successful Answer: {quizQuestion.successfulAnswer}");
         Debug.Log($"Number of Attempts: {quizQuestion.numAttempts}");
         Debug.Log($"Vocabulary ID: {quizQuestion.vocabID}");
-        Debug.Log($"Supplementary Material Present: {quizQuestion.supplementaryPresent}");
-        Debug.Log($"Supplementary Material Accessed: {quizQuestion.supplementaryAccessed}");
+
 
         // postManager.PostQuizQuestion(quizQuestion);
     }
@@ -125,28 +129,26 @@ public class DataUnitTests : MonoBehaviour     //Testing models and routes witho
             {"ASLDEF-ENGWORD", 4}   
         });
 
-        review.quizDataDictionary.Add(1, new QuizQuestionObject
+        review.quizQuestionObjectList.Add(new QuizQuestionObject
         {
             successfulAnswer = true,
             numAttempts = 1,
             vocabID = 101,
-            supplementaryPresent = true,
-            supplementaryAccessed = false
+
         });
 
-        review.quizDataDictionary.Add(2, new QuizQuestionObject
+        review.quizQuestionObjectList.Add(new QuizQuestionObject
         {
             successfulAnswer = false,
             numAttempts = 3,
             vocabID = 102,
-            supplementaryPresent = false,
-            supplementaryAccessed = false
+    
         });
 
         // Setting the other flags
         review.isUnlocked = true;
         review.gameSessionComplete = true;
-        review.flashcardsComplete = false;
+        review.quizComplete = false;
         review.lessonComplete = false;
 
         Debug.Log("Review Data - Game Vocab Count:");
@@ -159,21 +161,10 @@ public class DataUnitTests : MonoBehaviour     //Testing models and routes witho
             }
         }
 
-        Debug.Log("\nReview Data - Quiz Data:");
-        foreach (var quizEntry in review.quizDataDictionary)
-        {
-            var quizQuestion = quizEntry.Value;
-            Debug.Log($"Quiz ID: {quizEntry.Key}");
-            Debug.Log($"   Successful Answer: {quizQuestion.successfulAnswer}");
-            Debug.Log($"   Number of Attempts: {quizQuestion.numAttempts}");
-            Debug.Log($"   Vocabulary ID: {quizQuestion.vocabID}");
-            Debug.Log($"   Supplementary Material Present: {quizQuestion.supplementaryPresent}");
-            Debug.Log($"   Supplementary Material Accessed: {quizQuestion.supplementaryAccessed}");
-        }
+      
 
         Debug.Log($"\nIs Unlocked: {review.isUnlocked}");
         Debug.Log($"Game Session Complete: {review.gameSessionComplete}");
-        Debug.Log($"Flashcards Complete: {review.flashcardsComplete}");
         Debug.Log($"Lesson Complete: {review.lessonComplete}");
 
         postManager.PostReview(review);

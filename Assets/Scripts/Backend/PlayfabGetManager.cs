@@ -9,6 +9,8 @@ using PlayFab.ClientModels;
 using Newtonsoft.Json; 
 public class PlayfabGetManager : MonoBehaviour
 {
+
+    public PlayfabPostManager postManager;
     public bool GetLessonData(int packetID) {
         PlayFabClientAPI.GetUserData(new GetUserDataRequest(),
             result => OnLessonDataReceived(result, packetID),
@@ -25,6 +27,24 @@ public class PlayfabGetManager : MonoBehaviour
         }
     }
 
+
+    public bool GetFirstTimeEntrance() {
+            PlayFabClientAPI.GetUserData(new GetUserDataRequest(),
+                result => OnLessonDataReceived(result),
+                OnError);
+            return true;
+        }
+
+        void OnLessonDataReceived(GetUserDataResult result) {
+            if (result.Data != null && result.Data.ContainsKey($"FirstTimeEntrance")) {
+                Debug.Log($"Student has entered before!");
+                GlobalManager.Instance.firstTimeEntrance = false;
+            }
+            else{
+                postManager.PostFirstTimeEntrance();
+
+            }
+        }
 
 
     
