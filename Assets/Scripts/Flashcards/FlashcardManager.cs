@@ -5,6 +5,9 @@ using UnityEngine.Video;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using PlayFab;
+using PlayFab.ClientModels;
+using Newtonsoft.Json;
 
 public class FlashcardManager : MonoBehaviour
 {
@@ -47,20 +50,32 @@ public class FlashcardManager : MonoBehaviour
     private float flipTime = 0.8f;
     [SerializeField] private DialogueAnimator definitionAnimator;
 
+    // Timing and analytics
+    private Stopwatch stopwatch;
+    private float[] timeSpentOnWords;
+
     // Dev variables
     [SerializeField] private Sprite devIcon;
 
     // Start is called before the first frame update
     void Start()
     {
-        headerText.text = $"Welcome to Packet {GlobalManager.Instance.CurrentPacket + 1}!";
+        // Prepare flashcard data
         LoadWords();
         currentSlide = 0;
         currentWord = -1;
-        progressStars = new ProgressStar[currentPacket.Entries.Count];
+
+        // Prepare timer
+        stopwatch = GetComponent<Stopwatch>();
+        timeSpentOnWords = new float[currentPacket.Entries.Count];
+
+        // Setup display
+        PrepWordVideo(currentPacket.Entries[0].ASL_Sign_and_Spelled);
+        headerText.text = $"Welcome to Packet {GlobalManager.Instance.CurrentPacket + 1}!";
         flashcardIcon.preserveAspect = true;
         InstantiateStars();
-        PrepWordVideo(currentPacket.Entries[0].ASL_Sign_and_Spelled);
+
+        Debug.Log($"Full object:\n {JsonConvert.SerializeObject(GlobalManager.Instance.currentLessonData, Formatting.Indented)}");
     }
 
     private void LoadWords()
@@ -68,9 +83,10 @@ public class FlashcardManager : MonoBehaviour
         currentPacket = VocabularyLoader.Instance.VocabularyData.Packets[GlobalManager.Instance.CurrentPacket];
     }
 
+    // Instantiates the stars for the progress bar
     private void InstantiateStars()
     {
-        Debug.Log("Instantiating stars");
+        progressStars = new ProgressStar[currentPacket.Entries.Count];
         for (int i = 1; i < currentPacket.Entries.Count + 1; i++)
         {
             GameObject starObj = Instantiate(starPrefab);
@@ -85,14 +101,12 @@ public class FlashcardManager : MonoBehaviour
         }
     }
 
+    // Progresses flashcards to next slide. For use with button
     public void NextSlide()
     {
         // Don't want button to work while we're animating. Skip the text first
         if (definitionAnimator.InProgress)
-        {
-            Debug.Log("Skip text!");
             return;
-        }
 
         if (currentSlide == 0)
         {
@@ -115,13 +129,33 @@ public class FlashcardManager : MonoBehaviour
         currentSlide++;
     }
 
+    // "Flips" the card to see definition
     private void FlipCard()
     {
         headerText.text += " means...";
         StartCoroutine(AnimateFlip());
-        progressMask.fillAmount = (float)currentSlide / (float)(2 * currentPacket.Entries.Count);
+        SetProgress();
     }
 
+    // Sets progress bar based on currentSlide, or on progressAmount if a valid amount is provided
+    private void SetProgress(float progressAmount = -1f)
+    {
+        if (progressAmount < 0f || progressAmount > 1f)
+        {
+            progressAmount = (float)currentSlide / (float)(2 * currentPacket.Entries.Count);
+        }
+
+        progressMask.fillAmount = progressAmount;
+        for (int i = 0; i < progressStars.Length; i++)
+        {
+            if ((i + 1) / (float)progressStars.Length <= progressAmount)
+            {
+                progressStars[i].SetAchieved();
+            }
+        }
+    }
+
+    // Animates the flipping of the flashcard, preparing videos properly
     private IEnumerator AnimateFlip()
     {
         inputDisabler.SetActive(true);
@@ -162,37 +196,84 @@ public class FlashcardManager : MonoBehaviour
         wordVideoPlayer.frame = 0;
     }
 
+    // Move to the flashcard for the next word
     private void NextWord()
     {
+        // "Push" timer entry
+        if (stopwatch.TimerActive) PushTimer();
+        stopwatch.StartWatch();
+
         currentWord++;
         VocabularyEntry currentFlashcard = currentPacket.Entries[currentWord];
 
-        progressMask.fillAmount = (float)currentWord / (float)currentPacket.Entries.Count;
-        if (currentWord > 0) progressStars[currentWord - 1].SetAchieved();
+        SetProgress();
 
+        // Prep flashcard display
         definitionText.gameObject.SetActive(false);
         headerText.text = currentFlashcard.English_Word;
         definitionText.text = currentFlashcard.English_Definition;
         flashcardIcon.sprite = GlobalManager.Instance.GetIcon(currentFlashcard.Vocabulary_ID);
         definitionVideoPlayer.url = currentFlashcard.ASL_Definition;
 
+        // Display flashcard
         frontScreen.gameObject.SetActive(true);
         wordVideoPlayer.Play();
         screenParent.anchoredPosition = new Vector2(screenParent.anchoredPosition.x, 0f);
         backScreen.gameObject.SetActive(false);
     }
 
+    private void PushTimer()
+    {
+        timeSpentOnWords[currentWord] = stopwatch.StopWatch();
+    }
+
+    // Move to the congratulations screen
     private void MoveToEnd()
     {
+        PushTimer();
         definitionText.gameObject.SetActive(false);
         flashcardMask.gameObject.SetActive(false);
         nextArrow.gameObject.SetActive(false);
         headerText.text = "You did it!";
-        progressMask.fillAmount = 1;
+        SetProgress(1f);
         progressStars[progressStars.Length - 1].SetAchieved();
         winScreen.gameObject.SetActive(true);
+
+        PostFlashcardData();
         confettiParticles.Play();
     }
+
+    private void PostFlashcardData()
+    {
+        // Important to remember this copies by reference. We are changing the GlobalManager's LessonData object here.
+        LessonData newLessonData = GlobalManager.Instance.currentLessonData;
+        UpdateFlashcardTimes(newLessonData);
+        newLessonData.flashcardsComplete = true;
+        Debug.Log($"Full object:\n {JsonConvert.SerializeObject(newLessonData, Formatting.Indented)}");
+        PostLesson(newLessonData);
+    }
+
+    private void UpdateFlashcardTimes(LessonData lessonData)
+    {
+        for (int i = 0; i < currentPacket.Entries.Count; i++)
+        {
+            lessonData.flashcardData[currentPacket.Entries[i].Vocabulary_ID] = timeSpentOnWords[i];
+        }
+    }
+
+    public void PostLesson(LessonData lessonData)
+    {
+        var request = new UpdateUserDataRequest
+        {
+            Data = new Dictionary<string, string>{
+                {$"Lesson {lessonData.packetID}",JsonConvert.SerializeObject(lessonData)}
+            }
+        };
+        PlayFabClientAPI.UpdateUserData(request,
+            res => Debug.Log("Successful lesson user data sent!"),
+            err => Debug.LogError(err));
+    }
+
 
     public void ExitToMap()
     {
