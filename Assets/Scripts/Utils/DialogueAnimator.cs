@@ -15,6 +15,7 @@ public class DialogueAnimator : MonoBehaviour
     [SerializeField] Color finalColor;
     [SerializeField] private float offsetDist = 5f;
     [SerializeField] private float charTime = 0.01f;
+    [SerializeField] private float inProgressWaitTime = 0.05f;
     private bool inProgress;
 
     public bool InProgress
@@ -40,12 +41,12 @@ public class DialogueAnimator : MonoBehaviour
 
     public void PlayAnimation()
     {
+        inProgress = true;
         animCoroutine = StartCoroutine(AnimateLine());
     }
 
     public IEnumerator AnimateLine()
     {
-        inProgress = true;
         textMesh.ForceMeshUpdate();
         // Set the full mesh as transparent
         transparentColor = finalColor;
@@ -120,6 +121,13 @@ public class DialogueAnimator : MonoBehaviour
     {
         textMesh.color = finalColor;
         textMesh.ForceMeshUpdate();
+        StartCoroutine(StopProgress());
+    }
+
+    // Puts a delay on changing of inProgress so that you can use it for other operations which happen in the same frame
+    private IEnumerator StopProgress()
+    {
+        yield return new WaitForSeconds(inProgressWaitTime);
         inProgress = false;
     }
 
