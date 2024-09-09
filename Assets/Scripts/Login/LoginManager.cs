@@ -5,12 +5,17 @@ using UnityEngine.UI;
 using TMPro;
 using PlayFab.ClientModels;
 using PlayFab;
+using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
+using UnityEngine.InputSystem;
 
 public class LoginManager : MonoBehaviour
 {
     [SerializeField] TMP_InputField idInput;
     [SerializeField] TextMeshProUGUI failText;
+	[SerializeField] TextMeshProUGUI loadingText;
     [SerializeField] Button loginButton;
+	[SerializeField] GameObject loadingWheel;
 
     private StateManager stateManager;
 
@@ -19,7 +24,22 @@ public class LoginManager : MonoBehaviour
     {
         // TODO: Make this failsafe
         stateManager = FindObjectOfType<StateManager>();
+
+		loadingWheel.SetActive(false);
+		loadingText.gameObject.SetActive(false);
+
+		idInput.onValueChanged.AddListener(delegate {OnInputChanged();});
     }
+
+	private void Update()
+	{
+		if (Keyboard.current[Key.Enter].wasPressedThisFrame) Login();
+	}
+
+	private void OnInputChanged()
+	{
+		if (failText.IsActive()) failText.gameObject.SetActive(false);
+	}
 
     public void Login()
     {
@@ -40,6 +60,7 @@ public class LoginManager : MonoBehaviour
 
 	public void StudentLoginActivate(string customID)
 	{
+		loadingWheel.SetActive(true);
         var request = new LoginWithCustomIDRequest {
         	CustomId = customID
         };
@@ -51,10 +72,30 @@ public class LoginManager : MonoBehaviour
 
     void StudentOnLoginSuccess(LoginResult result) {
         Debug.Log("Login success!");
-		stateManager.ChangeState(MenuState.Map);
+		// stateManager.ChangeState(MenuState.Map);
+		loadingText.gameObject.SetActive(true);
+		StartCoroutine(LoadYourSceneAsync("MapLayoutScene"));
     }
 
     void OnError(PlayFabError error) {
         Debug.Log(error.ErrorMessage);
+		loadingWheel.SetActive(false);
+		LoginFail();
     }
+
+	private IEnumerator LoadYourSceneAsync(string sceneName)
+	{
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+	}
+
+	private void OnDestroy()
+	{
+		idInput.onValueChanged.RemoveAllListeners();
+	}
 }

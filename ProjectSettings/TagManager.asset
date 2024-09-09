@@ -42,10 +42,10 @@ TagManager:
   - MR-Shield
   - MR-Player
   - MR-Ground
-  - 
-  - 
-  - 
-  - 
+  - Map-FarBG
+  - Map-PlanetsBG
+  - Map-SpaceItemsBG
+  - Map-CloseBG
   - 
   - 
   - 
@@ -76,4 +76,16 @@ TagManager:
     locked: 0
   - name: SICI-Collectible
     uniqueID: 3283492067
+    locked: 0
+  - name: Map-Background
+    uniqueID: 3445415313
+    locked: 0
+  - name: Map-Planets
+    uniqueID: 2539935713
+    locked: 0
+  - name: Map-Space_Stuff
+    uniqueID: 2105146155
+    locked: 0
+  - name: Map-Icons
+    uniqueID: 3146484945
     locked: 0
