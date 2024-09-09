@@ -4,6 +4,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Newtonsoft.Json;
 
 public class MapManager : MonoBehaviour
 {
@@ -148,7 +149,7 @@ public class MapManager : MonoBehaviour
 				reviewData = new ReviewData();
 			}
 			isLessonUnlocked = reviewData.isUnlocked;
-			isFlashcardsComplete = reviewData.flashcardsComplete;
+			isFlashcardsComplete = reviewData.quizComplete;
 		}
 
 		if (isLessonUnlocked)
@@ -183,7 +184,22 @@ public class MapManager : MonoBehaviour
     // }
 
 	public void EnterFlashcards()
-    {
-        SceneManager.LoadScene("FlashcardScene");
-    }
+	{
+		PlayFabClientAPI.GetUserData(new GetUserDataRequest(),
+			result => OnLessonDataReceived(result, GlobalManager.Instance.CurrentPacket),
+			err => Debug.LogError(err));
+	}
+
+	void OnLessonDataReceived(GetUserDataResult result, int packetID)
+	{
+		if (result.Data != null && result.Data.ContainsKey($"Lesson {packetID}"))
+		{
+			Debug.Log($"Received student lesson data for lesson {packetID}!");
+			LessonData lessonData = JsonConvert.DeserializeObject<LessonData>(result.Data[$"Lesson {packetID}"].Value);
+			GlobalManager.Instance.currentLessonData = lessonData;
+		}
+		GlobalManager.Instance.CurrentPacket = packetID;
+		Debug.Log($"Full LessonData:\n {JsonConvert.SerializeObject(GlobalManager.Instance.currentLessonData, Formatting.Indented)}");
+		SceneManager.LoadScene("FlashcardScene");
+	}
 }
