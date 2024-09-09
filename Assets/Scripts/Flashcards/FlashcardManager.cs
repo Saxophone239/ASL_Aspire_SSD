@@ -18,6 +18,8 @@ public class FlashcardManager : MonoBehaviour
     private int currentSlide;
     private int currentWord;
     private VocabularyPacket currentPacket;
+    // Set to false if at any point we encounter a playfab/data error
+    private bool canPost;
 
     // Basic flashcard variables
     [SerializeField] private TextMeshProUGUI headerText;
@@ -60,6 +62,7 @@ public class FlashcardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        canPost = true;
         // Prepare flashcard data
         LoadWords();
         currentSlide = 0;
@@ -80,7 +83,14 @@ public class FlashcardManager : MonoBehaviour
 
     private void LoadWords()
     {
-        currentPacket = VocabularyLoader.Instance.VocabularyData.Packets[GlobalManager.Instance.CurrentPacket];
+        int wordsToLoad = GlobalManager.Instance.CurrentPacket;
+        if (wordsToLoad < 0 || wordsToLoad >= 11)
+        {
+            // Load packet 1 by default
+            wordsToLoad = 0;
+            canPost = false;
+        }
+        currentPacket = VocabularyLoader.Instance.VocabularyData.Packets[wordsToLoad];
     }
 
     // Instantiates the stars for the progress bar
@@ -209,6 +219,8 @@ public class FlashcardManager : MonoBehaviour
         SetProgress();
 
         // Prep flashcard display
+        Debug.Log($"current packet: {JsonConvert.SerializeObject(currentPacket, Formatting.Indented)}");
+        Debug.Log($"current flashcard: {JsonConvert.SerializeObject(currentFlashcard, Formatting.Indented)}");
         definitionText.gameObject.SetActive(false);
         headerText.text = currentFlashcard.English_Word;
         definitionText.text = currentFlashcard.English_Definition;
@@ -239,7 +251,7 @@ public class FlashcardManager : MonoBehaviour
         progressStars[progressStars.Length - 1].SetAchieved();
         winScreen.gameObject.SetActive(true);
 
-        PostFlashcardData();
+        if (canPost) PostFlashcardData();
         confettiParticles.Play();
     }
 

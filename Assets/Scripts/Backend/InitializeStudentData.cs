@@ -21,7 +21,7 @@ public class InitializeStudentData : MonoBehaviour
         reviewSetupList.Add(review2Packets);
         reviewSetupList.Add(review3Packets);
 
-        int reviewIndex = 1; 
+        int reviewIndex = 0; 
         foreach (int[] reviewPacketsList in reviewSetupList){
             ReviewData reviewData = dataModels.InitializeReviewFromVocabulary(reviewPacketsList);
             reviewData.reviewID = reviewIndex;
@@ -31,7 +31,7 @@ public class InitializeStudentData : MonoBehaviour
 
 
         //Initialize Lessons
-        for(int i = 1; i < 12; i++ ){
+        for(int i = 0; i < 11; i++ ){
             LessonData lessonData = dataModels.InitializeLessonFromVocabulary(i);
             lessonData.packetID = i;
             postManager.PostLesson(lessonData);
