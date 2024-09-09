@@ -14,8 +14,7 @@ public class FlashcardManager : MonoBehaviour
     // 2n + 1 == ending slide
     private int currentSlide;
     private int currentWord;
-
-    [SerializeField] private List<FlashcardData> flashcardList;
+    private VocabularyPacket currentPacket;
 
     // Basic flashcard variables
     [SerializeField] private TextMeshProUGUI headerText;
@@ -54,37 +53,25 @@ public class FlashcardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        flashcardList = new List<FlashcardData>();
         headerText.text = $"Welcome to Packet {GlobalManager.Instance.CurrentPacket + 1}!";
         LoadWords();
         currentSlide = 0;
         currentWord = -1;
-        progressStars = new ProgressStar[flashcardList.Count];
+        progressStars = new ProgressStar[currentPacket.Entries.Count];
         flashcardIcon.preserveAspect = true;
         InstantiateStars();
-        PrepWordVideo(flashcardList[0].wordVideoURL);
+        PrepWordVideo(currentPacket.Entries[0].ASL_Sign_and_Spelled);
     }
 
     private void LoadWords()
     {
-        VocabularyPacket currentPacket = VocabularyLoader.Instance.VocabularyData.Packets[GlobalManager.Instance.CurrentPacket];
-        foreach (VocabularyEntry entry in currentPacket.Entries)
-        {
-            FlashcardData newCard = new FlashcardData();
-            newCard.id = entry.Vocabulary_ID;
-            newCard.word = entry.English_Word;
-            newCard.definitionText = entry.English_Definition;
-            newCard.wordVideoURL = entry.ASL_Sign_and_Spelled;
-            newCard.definitionVideoURL = entry.ASL_Definition;
-            newCard.icon = devIcon;
-            flashcardList.Add(newCard);
-        }
+        currentPacket = VocabularyLoader.Instance.VocabularyData.Packets[GlobalManager.Instance.CurrentPacket];
     }
 
     private void InstantiateStars()
     {
         Debug.Log("Instantiating stars");
-        for (int i = 1; i < flashcardList.Count + 1; i++)
+        for (int i = 1; i < currentPacket.Entries.Count + 1; i++)
         {
             GameObject starObj = Instantiate(starPrefab);
             starObj.transform.SetParent(starsFolder, false);
@@ -93,19 +80,26 @@ public class FlashcardManager : MonoBehaviour
             starTransform.anchorMin = new Vector2(0, 0.5f);
             starTransform.anchorMax = new Vector2(0, 0.5f);
             // Then set it to the proper spacing
-            starTransform.anchoredPosition = new Vector2(((float)i / flashcardList.Count) * progressBar.sizeDelta.x - starOffset, 0);
+            starTransform.anchoredPosition = new Vector2(((float)i / currentPacket.Entries.Count) * progressBar.sizeDelta.x - starOffset, 0);
             progressStars[i - 1] = starObj.GetComponent<ProgressStar>();
         }
     }
 
     public void NextSlide()
     {
+        // Don't want button to work while we're animating. Skip the text first
+        if (definitionAnimator.InProgress)
+        {
+            Debug.Log("Skip text!");
+            return;
+        }
+
         if (currentSlide == 0)
         {
             // Handle leaving intro slide
             NextWord();
             flashcardMask.gameObject.SetActive(true);
-        } else if (currentSlide >= 2*flashcardList.Count)
+        } else if (currentSlide >= 2 * currentPacket.Entries.Count)
         {
             // Handle moving to ending slide
             MoveToEnd();
@@ -125,7 +119,7 @@ public class FlashcardManager : MonoBehaviour
     {
         headerText.text += " means...";
         StartCoroutine(AnimateFlip());
-        progressMask.fillAmount = (float)currentSlide / (float)(2 * flashcardList.Count);
+        progressMask.fillAmount = (float)currentSlide / (float)(2 * currentPacket.Entries.Count);
     }
 
     private IEnumerator AnimateFlip()
@@ -154,9 +148,9 @@ public class FlashcardManager : MonoBehaviour
         definitionAnimator.PlayAnimation();
         inputDisabler.SetActive(false);
 
-        if (currentWord < flashcardList.Count - 1)
+        if (currentWord < currentPacket.Entries.Count - 1)
         {
-            PrepWordVideo(flashcardList[currentWord + 1].wordVideoURL);
+            PrepWordVideo(currentPacket.Entries[currentWord + 1].ASL_Sign_and_Spelled);
         }
         yield break;
     }
@@ -171,16 +165,16 @@ public class FlashcardManager : MonoBehaviour
     private void NextWord()
     {
         currentWord++;
-        FlashcardData currentFlashcard = flashcardList[currentWord];
+        VocabularyEntry currentFlashcard = currentPacket.Entries[currentWord];
 
-        progressMask.fillAmount = (float)currentWord / (float)flashcardList.Count;
+        progressMask.fillAmount = (float)currentWord / (float)currentPacket.Entries.Count;
         if (currentWord > 0) progressStars[currentWord - 1].SetAchieved();
 
         definitionText.gameObject.SetActive(false);
-        headerText.text = currentFlashcard.word;
-        definitionText.text = currentFlashcard.definitionText;
-        flashcardIcon.sprite = GlobalManager.Instance.GetIcon(currentFlashcard.id);
-        definitionVideoPlayer.url = currentFlashcard.definitionVideoURL;
+        headerText.text = currentFlashcard.English_Word;
+        definitionText.text = currentFlashcard.English_Definition;
+        flashcardIcon.sprite = GlobalManager.Instance.GetIcon(currentFlashcard.Vocabulary_ID);
+        definitionVideoPlayer.url = currentFlashcard.ASL_Definition;
 
         frontScreen.gameObject.SetActive(true);
         wordVideoPlayer.Play();

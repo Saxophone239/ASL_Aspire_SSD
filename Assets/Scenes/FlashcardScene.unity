@@ -474,6 +474,7 @@ MonoBehaviour:
   finalColor: {r: 0, g: 0, b: 0, a: 0}
   offsetDist: 5
   charTime: 0.03
+  inProgressWaitTime: 0.5
 --- !u!1 &241970122
 GameObject:
   m_ObjectHideFlags: 0
@@ -6150,7 +6151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27abfb457b704f34392179cacf89d448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashcardList: []
   headerText: {fileID: 376637189}
   definitionText: {fileID: 131741390}
   flashcardIcon: {fileID: 1211553568}
