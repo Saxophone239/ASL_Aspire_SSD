@@ -28,9 +28,21 @@ public class PlayfabPostManager : MonoBehaviour
         Debug.Log("Successful lesson user data sent!");
     }
 
-	
+	public void PostFirstTimeEntrance(){
+        bool firstTime = true;
+		var request = new UpdateUserDataRequest{
+        Data = new Dictionary<string,string>{
+                {$"FirstTimeEntrance",JsonConvert.SerializeObject(firstTime)}
+            }
+        
+        };
+        PlayFabClientAPI.UpdateUserData(request,OnFirstTimeSend,OnError);
+	}
 
 
+    void OnFirstTimeSend(UpdateUserDataResult result){
+        Debug.Log("Welcome, new student!");
+    }
 
 
 
