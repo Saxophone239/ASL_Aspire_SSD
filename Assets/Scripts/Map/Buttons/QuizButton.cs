@@ -15,7 +15,10 @@ public class QuizButton : MapButton
 
 	public override void OnButtonClick()
 	{
-		// TODO: set backend to review packet and go to quiz
-		Debug.Log($"TODO: set backend to review packet up to packet {packetIDDisplayed} and go to quiz");
+		// set backend to review packet and go to quiz
+		Debug.Log($"set backend to review {reviewNumber} and go to quiz");
+
+		GlobalManager.Instance.CurrentReview = reviewNumber - 1;
+		mapManager.EnterQuiz();
 	}
 }

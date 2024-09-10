@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 public class QuestionManager : MonoBehaviour
 {
@@ -12,9 +13,11 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] private List<QuizQuestion> quizQuestions;
     [SerializeField] private AnswerButton[] answerButtons;
 
+    [SerializeField] RectTransform companionFolder;
     [SerializeField] RectTransform startSlide;
     [SerializeField] RectTransform questionSlide;
     [SerializeField] RectTransform endSlide;
+    [SerializeField] RectTransform invalidSlide;
 
     // Companion elements
     [SerializeField] private Image speechBubble;
@@ -36,6 +39,28 @@ public class QuestionManager : MonoBehaviour
     void Start()
     {
         questionIdx = -1;
+        VerifyReviewData();
+    }
+
+    // Check if GlobalManager's currentReviewData is valid. Handle if not.
+    private void VerifyReviewData()
+    {
+        if (GlobalManager.Instance.CurrentReview < 0 || GlobalManager.Instance.CurrentReview > 3
+            || GlobalManager.Instance.currentReviewData == null
+            || GlobalManager.Instance.currentReviewData.quizQuestionObjectList.Count <= 0)
+        {
+            HandleInvalidReview();
+        }
+    }
+
+    // Display screen to clarify that review data is invalid
+    private void HandleInvalidReview()
+    {
+        companionFolder.gameObject.SetActive(false);
+        startSlide.gameObject.SetActive(false);
+        questionSlide.gameObject.SetActive(false);
+        endSlide.gameObject.SetActive(false);
+        invalidSlide.gameObject.SetActive(true);
     }
 
     public void StartQuiz()
@@ -149,5 +174,11 @@ public class QuestionManager : MonoBehaviour
             answerButton.GetComponent<Button>().enabled = false;
         }
         continueButton.gameObject.SetActive(true);
+    }
+
+    public void ExitToMap()
+    {
+        // TODO: Scene logic
+        SceneManager.LoadScene("MapLayoutScene");
     }
 }
