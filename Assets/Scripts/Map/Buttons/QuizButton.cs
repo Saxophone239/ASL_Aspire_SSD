@@ -25,5 +25,10 @@ public class QuizButton : MapButton
 	private void OnValidate()
 	{
 		SetTooltipText($"Review {reviewNumber} Quiz", false);
+		// set backend to review packet and go to quiz
+		Debug.Log($"set backend to review {reviewNumber} and go to quiz");
+
+		GlobalManager.Instance.CurrentReview = reviewNumber - 1;
+		mapManager.EnterQuiz();
 	}
 }

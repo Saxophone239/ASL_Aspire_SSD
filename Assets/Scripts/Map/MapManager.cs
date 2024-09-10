@@ -203,4 +203,28 @@ public class MapManager : MonoBehaviour
 		Debug.Log($"Full LessonData:\n {JsonConvert.SerializeObject(GlobalManager.Instance.currentLessonData, Formatting.Indented)}");
 		SceneManager.LoadScene("FlashcardScene");
 	}
+
+	public void EnterQuiz()
+    {
+		PlayFabClientAPI.GetUserData(new GetUserDataRequest(),
+			result => OnReviewDataReceived(result, GlobalManager.Instance.CurrentReview),
+			err => Debug.LogError(err));
+	}
+
+	void OnReviewDataReceived(GetUserDataResult result, int reviewID)
+	{
+		Debug.Log($"Fetching review {reviewID}");
+		if (result.Data != null && result.Data.ContainsKey($"Review {reviewID}"))
+		{
+			Debug.Log($"Received student review data for review {reviewID}!");
+			ReviewData reviewData = JsonConvert.DeserializeObject<ReviewData>(result.Data[$"Review {reviewID}"].Value);
+			GlobalManager.Instance.currentReviewData = reviewData;
+		} else
+        {
+			Debug.Log("No review found");
+        }
+		GlobalManager.Instance.CurrentReview = reviewID;
+		Debug.Log($"Full ReviewData:\n {JsonConvert.SerializeObject(GlobalManager.Instance.currentReviewData, Formatting.Indented)}");
+		SceneManager.LoadScene("QuizScene");
+	}
 }
