@@ -290,6 +290,6 @@ public class FlashcardManager : MonoBehaviour
     public void ExitToMap()
     {
         // TODO: Scene logic
-        SceneManager.LoadScene("MainPageScene");
+        SceneManager.LoadScene("MapLayoutScene");
     }
 }
