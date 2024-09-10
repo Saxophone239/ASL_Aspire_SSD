@@ -74,7 +74,7 @@ public class LoginManager : MonoBehaviour
         Debug.Log("Login success!");
 		// stateManager.ChangeState(MenuState.Map);
 		loadingText.gameObject.SetActive(true);
-		StartCoroutine(LoadYourSceneAsync("MapLayoutScene"));
+		StartCoroutine(LoadYourSceneAsync("Bootstrap"));
     }
 
     void OnError(PlayFabError error) {

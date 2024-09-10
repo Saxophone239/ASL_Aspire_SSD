@@ -15,9 +15,9 @@ public class AfterArcadePopup : MonoBehaviour
 	private int newCoins;
 	private int displayednewCoins;
 
-    private void Awake()
+    private void Start()
 	{
-		if (!GlobalManager.Instance.DisplayCoinsCollected) return;
+		if (!GlobalManager.Instance.DisplayCoinsCollectedPanel) return;
 
 		Color transparent = Color.white;
 		transparent.a = 0.0f;
@@ -51,12 +51,17 @@ public class AfterArcadePopup : MonoBehaviour
 
 	private IEnumerator BeginCoinAnimation()
 	{
+		Debug.Log("Starting after arcade popup animation");
 		yield return new WaitForSeconds(0.75f);
+		Debug.Log("Finished waiting");
 
 		int increaseAmount = newCoins / 20;
+		if (increaseAmount <= 0) increaseAmount = 1;
+		Debug.Log($"increaseAmount = {increaseAmount}, displayednewCoins = {displayednewCoins}, newCoins = {newCoins}");
 
 		while (displayednewCoins != newCoins)
 		{
+			Debug.Log($"increaseAmount = {increaseAmount}, displayednewCoins = {displayednewCoins}, newCoins = {newCoins}");
 			displayednewCoins += increaseAmount;
 			displayednewCoins = Mathf.Clamp(displayednewCoins, 0, newCoins);
 			coinsText.text = displayednewCoins.ToString();
@@ -85,10 +90,14 @@ public class AfterArcadePopup : MonoBehaviour
             yield return null;
         }
         buttonImage.color = endValue;
+
+		Debug.Log("Ending after arcade popup animation");
 	}
 
 
-    public void ContinueButton(){
+    public void ContinueButton()
+	{
+		GlobalManager.Instance.DisplayCoinsCollectedPanel = false;
         GlobalManager.Instance.CoinsRecentlyCollected = 0;
     }
       

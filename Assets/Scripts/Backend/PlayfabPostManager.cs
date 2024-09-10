@@ -8,6 +8,19 @@ using Newtonsoft.Json;
 
 public class PlayfabPostManager : MonoBehaviour
 {
+	public static PlayfabPostManager Instance;
+
+	private void Awake()
+	{
+		if (Instance != null)
+		{
+			Destroy(gameObject);
+			return;
+		}
+
+		Instance = this;
+		DontDestroyOnLoad(gameObject);
+	}
 
 
 	//Lesson specific routes and management
@@ -21,6 +34,33 @@ public class PlayfabPostManager : MonoBehaviour
         };
         PlayFabClientAPI.UpdateUserData(request,OnLessonDataSend,OnError);
 
+	}
+
+	public IEnumerator PostLessonCoroutine(LessonData lessonData)
+	{
+		var request = new UpdateUserDataRequest
+		{
+            Data = new Dictionary<string,string>
+			{
+                {$"Lesson {lessonData.packetID}",JsonConvert.SerializeObject(lessonData)}
+            }
+        };
+        
+		bool isCompleted = false;
+		PlayFabClientAPI.UpdateUserData(request,
+			result =>
+			{
+				OnLessonDataSend(result);
+				isCompleted = true;
+			},
+			error =>
+			{
+				OnError(error);
+				isCompleted = true;
+			}
+		);
+
+		yield return new WaitUntil(() => isCompleted);
 	}
 
 
@@ -39,8 +79,39 @@ public class PlayfabPostManager : MonoBehaviour
         PlayFabClientAPI.UpdateUserData(request,OnFirstTimeSend,OnError);
 	}
 
+	public IEnumerator PostFirstTimeEntranceCoroutine()
+	{
+		// This is our player's first time, post data to playfab
+        bool firstTime = true;
+		var request = new UpdateUserDataRequest
+		{
+			Data = new Dictionary<string,string>
+			{
+				{$"FirstTimeEntrance",JsonConvert.SerializeObject(firstTime)}
+			}
+			
+        };
+		bool isCompleted = false;
+        // PlayFabClientAPI.UpdateUserData(request,OnFirstTimeSend,OnError);
+		PlayFabClientAPI.UpdateUserData(request,
+			result =>
+			{
+				OnFirstTimeSend(result);
+				isCompleted = true;
+			},
+			error =>
+			{
+				OnError(error);
+				isCompleted = true;
+			}
+		);
 
-    void OnFirstTimeSend(UpdateUserDataResult result){
+		yield return new WaitUntil(() => isCompleted);
+	}
+
+
+    void OnFirstTimeSend(UpdateUserDataResult result)
+	{
         Debug.Log("Welcome, new student!");
     }
 
@@ -55,6 +126,33 @@ public class PlayfabPostManager : MonoBehaviour
         
         };
         PlayFabClientAPI.UpdateUserData(request,OnReviewDataSend,OnError);
+	}
+
+	public IEnumerator PostReviewCoroutine(ReviewData reviewData)
+	{
+		var request = new UpdateUserDataRequest
+		{
+			Data = new Dictionary<string,string>
+			{
+				{$"Review {reviewData.reviewID}",JsonConvert.SerializeObject(reviewData)}
+			}
+        };
+
+		bool isCompleted = false;
+		PlayFabClientAPI.UpdateUserData(request,
+			result =>
+			{
+				OnReviewDataSend(result);
+				isCompleted = true;
+			},
+			error =>
+			{
+				OnError(error);
+				isCompleted = true;
+			}
+		);
+
+		yield return new WaitUntil(() => isCompleted);
 	}
 
 	

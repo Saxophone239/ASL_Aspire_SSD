@@ -10,6 +10,7 @@ public class QuizButton : MapButton
 	{
 		mapManager = FindObjectOfType<MapManager>();
 		SetTooltipText($"Review {reviewNumber} Quiz", true);
+		TurnOnSpinner(false);
 		IsLocked = _isLocked;
 	}
 
@@ -17,5 +18,12 @@ public class QuizButton : MapButton
 	{
 		// TODO: set backend to review packet and go to quiz
 		Debug.Log($"TODO: set backend to review packet up to packet {packetIDDisplayed} and go to quiz");
+		TurnOnSpinner(true);
+		TurnOnSpinner(false);
+	}
+
+	private void OnValidate()
+	{
+		SetTooltipText($"Review {reviewNumber} Quiz", false);
 	}
 }

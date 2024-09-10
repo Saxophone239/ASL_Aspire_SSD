@@ -12,6 +12,7 @@ public class GameMechanics : MonoBehaviour
     public bool IsMainMenu = true;
 
     private int scoreCorrection;
+	private bool isGameOverSequenceStarted = false;
 
     // Start is called before the first frame update
     void Start()
@@ -28,10 +29,12 @@ public class GameMechanics : MonoBehaviour
     {
         uiManager.UpdateScore(Score);
 
-        if (IsGameOver)
+        if (IsGameOver && !isGameOverSequenceStarted)
         {
+			GlobalManager.Instance.UpdateGlobalCoins(Score / 50);
             PlayerController player = GameObject.FindObjectOfType<PlayerController>();
             StartCoroutine(player.StartDeathCoroutine());
+			isGameOverSequenceStarted = true;
         }
     }
 

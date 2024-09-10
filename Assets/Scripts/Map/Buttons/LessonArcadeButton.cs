@@ -10,6 +10,7 @@ public class LessonArcadeButton : MapButton
 	{
 		mapManager = FindObjectOfType<MapManager>();
 		SetTooltipText($"Packet {packetIDDisplayed} Arcade", true);
+		TurnOnSpinner(false);
 		IsLocked = _isLocked;
 	}
 
@@ -18,9 +19,14 @@ public class LessonArcadeButton : MapButton
 		// set backend to lesson packet and go to arcade
 		Debug.Log($"set backend to lesson packet up to packet {packetIDDisplayed} and go to arcade");
 
-		GlobalManager.Instance.CurrentPacket = packetIDDisplayed - 1;
+		GlobalManager.Instance.CurrentPacket = packetIDDisplayed;
 		GlobalManager.Instance.ReviewPreviousPackets = false;
 
 		mapManager.StartArcade();
+	}
+
+	private void OnValidate()
+	{
+		SetTooltipText($"Packet {packetIDDisplayed} Arcade", false);
 	}
 }

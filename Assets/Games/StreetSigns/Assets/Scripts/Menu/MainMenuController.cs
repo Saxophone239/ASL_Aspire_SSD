@@ -93,14 +93,14 @@ public class MainMenuController : MonoBehaviour
     public void OnQuitButtonPress()
     {
         Debug.Log("Quit button pressed");
-        uiManager.UpdateGlobalCoins(true);
+        // uiManager.UpdateGlobalCoins(true);
         // GlobalManager.currentLesson.game_completed = true;
 		StartCoroutine(LoadMainSceneAsync());
     }
 
 	private IEnumerator LoadMainSceneAsync()
 	{
-		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(0);
+		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MapLayoutScene");
 
 		while (!asyncLoad.isDone)
 		{

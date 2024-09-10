@@ -133,7 +133,8 @@ public class MazeQuestionLoader : MonoBehaviour
 				RenderButtonText(correctEntry, false);
 				break;
 			case MazeQuestionType.IconToEnglishWord:
-				UpdateQuestionIconPanel("This image shows...", defaultIconToShow, 15);
+				// UpdateQuestionIconPanel("This image shows...", defaultIconToShow, 15);
+				UpdateQuestionIconPanel("This image shows...", GlobalManager.Instance.GetIcon(correctEntry.Vocabulary_ID), 15);
 				RenderButtonText(correctEntry, false);
 				break;
 		}

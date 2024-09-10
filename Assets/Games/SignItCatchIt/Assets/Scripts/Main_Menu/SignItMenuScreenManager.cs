@@ -66,26 +66,17 @@ public class SignItMenuScreenManager : MonoBehaviour
 
     public void OnQuitButtonClick()
     {
-        UpdateGlobalCoins(true);
-
         // SceneManager.LoadScene("Arcade");
 		StartCoroutine(LoadMainSceneAsync());
     }
 
 	private IEnumerator LoadMainSceneAsync()
 	{
-		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(0);
+		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MapLayoutScene");
 
 		while (!asyncLoad.isDone)
 		{
 			yield return null;
 		}
 	}
-
-    public void UpdateGlobalCoins(bool gameFinished = true){
-;
-        // if (gameFinished){
-        //     GlobalManager.student.coins += GlobalManager.coinsRecentlyAdded;
-        // }
-    }
 }

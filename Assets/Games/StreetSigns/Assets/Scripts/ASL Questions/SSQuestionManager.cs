@@ -56,7 +56,8 @@ public class SSQuestionManager : MonoBehaviour
 				uiManager.UpdateQuestionOnlyPanel($"{CorrectEntry.English_Definition}...");
 				break;
 			case SSQuestionType.IconToEnglishWord:
-				uiManager.UpdateQuestionIconPanel("This image shows...", defaultIconToShow);
+				// uiManager.UpdateQuestionIconPanel("This image shows...", defaultIconToShow);
+				uiManager.UpdateQuestionIconPanel("This image shows...", GlobalManager.Instance.GetIcon(CorrectEntry.Vocabulary_ID));
 				break;
 		}
 	}

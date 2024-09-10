@@ -12,6 +12,7 @@ public abstract class MapButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 	[SerializeField] private Image imageIcon;
 	[SerializeField] private Image lockIcon;
 	[SerializeField] private Button button;
+	[SerializeField] private GameObject spinner;
 	[SerializeField] protected int packetIDDisplayed; // index starts at 1 instead of 0
 	[SerializeField] protected int reviewNumber;
 	[SerializeField] protected bool isReviewDay;
@@ -62,5 +63,11 @@ public abstract class MapButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 			lockIcon.gameObject.SetActive(false);
 			button.interactable = true;
 		}
+	}
+
+	public void TurnOnSpinner(bool shouldTurnOn)
+	{
+		if (shouldTurnOn) spinner.SetActive(true);
+		else spinner.SetActive(false);
 	}
 }

@@ -33,7 +33,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7665414970118734409, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
       propertyPath: m_text
-      value: Review 1 Arcade
+      value: Review 0 Arcade
       objectReference: {fileID: 0}
     - target: {fileID: 7665414970118734410, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -111,6 +111,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7665414970399724954, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7665414970585997864, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -156,6 +160,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1281621479123862300 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5081697006986874275, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
+  m_PrefabInstance: {fileID: 6290661650532798143}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4408440453424057590 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7665414970118734409, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
@@ -216,6 +225,9 @@ MonoBehaviour:
   imageIcon: {fileID: 4408440453890010263}
   lockIcon: {fileID: 746088894194138849}
   button: {fileID: 4408440453890010262}
-  packetID: 0
+  spinner: {fileID: 1281621479123862300}
+  packetIDDisplayed: 0
   reviewNumber: 0
   isReviewDay: 0
+  _isLocked: 0
+  mapManager: {fileID: 0}

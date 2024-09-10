@@ -10,6 +10,7 @@ public class FlashcardButton : MapButton
 	{
 		mapManager = FindObjectOfType<MapManager>();
 		SetTooltipText($"Packet {packetIDDisplayed} Flashcards", true);
+		TurnOnSpinner(false);
 		IsLocked = _isLocked;
 	}
 
@@ -17,8 +18,14 @@ public class FlashcardButton : MapButton
 	{
 		// set backend to lesson packet and go to flashcards
 		Debug.Log($"set backend to lesson packet up to packet {packetIDDisplayed} and go to flashcards");
+		TurnOnSpinner(true);
 
-		GlobalManager.Instance.CurrentPacket = packetIDDisplayed - 1;
+		GlobalManager.Instance.CurrentPacket = packetIDDisplayed;
 		mapManager.EnterFlashcards();
+	}
+
+	private void OnValidate()
+	{
+		SetTooltipText($"Packet {packetIDDisplayed} Flashcards", false);
 	}
 }

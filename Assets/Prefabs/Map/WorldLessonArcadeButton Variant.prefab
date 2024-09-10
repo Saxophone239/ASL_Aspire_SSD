@@ -37,7 +37,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7665414970118734409, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
       propertyPath: m_text
-      value: Packet 1 Arcade
+      value: Packet 0 Arcade
       objectReference: {fileID: 0}
     - target: {fileID: 7665414970118734410, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -119,6 +119,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7665414970399724954, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7665414970585997864, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -153,6 +157,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
+--- !u!1 &975485976700255778 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5081697006986874275, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
+  m_PrefabInstance: {fileID: 5407785020910318465}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1592593420934284255 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6707628497375866974, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
@@ -191,10 +200,12 @@ MonoBehaviour:
   imageIcon: {fileID: 2408662320020771241}
   lockIcon: {fileID: 1592593420934284255}
   button: {fileID: 2408662320020771240}
-  packetID: 0
+  spinner: {fileID: 975485976700255778}
+  packetIDDisplayed: 0
   reviewNumber: 0
   isReviewDay: 0
   _isLocked: 0
+  mapManager: {fileID: 0}
 --- !u!114 &2408662320020771240 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7665414970585997865, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}

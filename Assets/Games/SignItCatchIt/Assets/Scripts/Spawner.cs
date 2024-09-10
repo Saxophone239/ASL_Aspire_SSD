@@ -189,7 +189,8 @@ public class Spawner : MonoBehaviour
 			videoPlayer.gameObject.SetActive(false);
 			imageHolder.gameObject.SetActive(true);
 			Debug.Log($"About to show icon: {CorrectWord}");
-			imageHolder.sprite = defaultIconToShow; // TODO: add funcionality to show images
+			// imageHolder.sprite = defaultIconToShow; // TODO: add funcionality to show images
+			imageHolder.sprite = GlobalManager.Instance.GetIcon(CorrectEntry.Vocabulary_ID);
 		}
     }
 

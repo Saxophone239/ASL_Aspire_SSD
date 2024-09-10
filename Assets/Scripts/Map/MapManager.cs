@@ -17,10 +17,11 @@ public class MapManager : MonoBehaviour
     
     private void Start()
     {
+		Time.timeScale = 1.0f;
         // stateManager = FindObjectOfType<StateManager>();
 		arcadePanel.SetActive(false);
 		loadingMapPanel.SetActive(true);
-		if (GlobalManager.Instance.DisplayCoinsCollected)
+		if (GlobalManager.Instance.DisplayCoinsCollectedPanel)
 		{
 			displayCoinsPanel.SetActive(true);
 		}
