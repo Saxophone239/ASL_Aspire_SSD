@@ -13,9 +13,9 @@ using UnityEngine;
  */
 public enum QuestionType
 {
-    SignWordToWord,
+    // SignWordToWord,
     DefToWord,
     WordToDef,
-    SignDefToDef,
-    IconToWord
+    // SignDefToDef,
+    // IconToWord
 }

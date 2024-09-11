@@ -13,7 +13,7 @@ public abstract class MapButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 	[SerializeField] private Image lockIcon;
 	[SerializeField] private Button button;
 	[SerializeField] private GameObject spinner;
-	[SerializeField] protected int packetIDDisplayed; // index starts at 1 instead of 0
+	[SerializeField] protected int packetIDDisplayed;
 	[SerializeField] protected int reviewNumber;
 	[SerializeField] protected bool isReviewDay;
 

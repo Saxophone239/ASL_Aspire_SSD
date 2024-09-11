@@ -62,10 +62,14 @@ public class InitializeStudentData : MonoBehaviour
     public IEnumerator InitializeAllStudentData()
 	{
         // Initialize Reviews
-        int[] review0Packets = {1,2,3};
-        int[] review1Packets = {4,5,6};
-        int[] review2Packets = {7,8,9};
-        int[] review3Packets = {10,11};
+        // int[] review0Packets = {1,2,3};
+        // int[] review1Packets = {4,5,6};
+        // int[] review2Packets = {7,8,9};
+        // int[] review3Packets = {10,11};
+		int[] review0Packets = {0,1,2};
+        int[] review1Packets = {3,4,5};
+        int[] review2Packets = {6,7,8};
+        int[] review3Packets = {9,10};
 
         List<int[]> reviewSetupList = new List<int[]>();
         reviewSetupList.Add(review0Packets);

@@ -73,7 +73,7 @@ public class MapManager : MonoBehaviour
 			MatchDataToIcons(ref isIconLocked, playerData, false, i);
 		}
 
-		// Look through review 1
+		// Look through review 0
 		MatchDataToIcons(ref isIconLocked, playerData, true, 0);
 
 		// Look through next 3 lessons
@@ -83,7 +83,7 @@ public class MapManager : MonoBehaviour
 		}
 		
 
-		// Look through review 2
+		// Look through review 1
 		MatchDataToIcons(ref isIconLocked, playerData, true, 1);
 		
 
@@ -94,7 +94,7 @@ public class MapManager : MonoBehaviour
 		}
 		
 
-		// Look through review 3
+		// Look through review 2
 		MatchDataToIcons(ref isIconLocked, playerData, true, 2);
 		
 
@@ -105,7 +105,7 @@ public class MapManager : MonoBehaviour
 		}
 		
 
-		// Look through review 4
+		// Look through review 3
 		MatchDataToIcons(ref isIconLocked, playerData, true, 3);
 
 		Debug.Log("finished loading of map data");
@@ -126,7 +126,7 @@ public class MapManager : MonoBehaviour
 			LessonData lessonData;
 			if (playerData.Data.ContainsKey($"Lesson {id}"))
 			{
-				lessonData = JsonUtility.FromJson<LessonData>(playerData.Data[$"Lesson {id}"].Value);
+				lessonData = JsonConvert.DeserializeObject<LessonData>(playerData.Data[$"Lesson {id}"].Value);
 			}
 			else
 			{
@@ -142,7 +142,7 @@ public class MapManager : MonoBehaviour
 			ReviewData reviewData;
 			if (playerData.Data.ContainsKey($"Review {id}"))
 			{
-				reviewData = JsonUtility.FromJson<ReviewData>(playerData.Data[$"Review {id}"].Value);
+				reviewData = JsonConvert.DeserializeObject<ReviewData>(playerData.Data[$"Review {id}"].Value);
 			}
 			else
 			{
@@ -201,7 +201,8 @@ public class MapManager : MonoBehaviour
 		}
 		GlobalManager.Instance.CurrentPacket = packetID;
 		Debug.Log($"Full LessonData:\n {JsonConvert.SerializeObject(GlobalManager.Instance.currentLessonData, Formatting.Indented)}");
-		SceneManager.LoadScene("FlashcardScene");
+		// SceneManager.LoadScene("FlashcardScene");
+		StartCoroutine(LoadYourSceneAsync("FlashcardScene"));
 	}
 
 	public void EnterQuiz()
@@ -225,6 +226,18 @@ public class MapManager : MonoBehaviour
         }
 		GlobalManager.Instance.CurrentReview = reviewID;
 		Debug.Log($"Full ReviewData:\n {JsonConvert.SerializeObject(GlobalManager.Instance.currentReviewData, Formatting.Indented)}");
-		SceneManager.LoadScene("QuizScene");
+		// SceneManager.LoadScene("QuizScene");
+		StartCoroutine(LoadYourSceneAsync("QuizScene"));
+	}
+
+	private IEnumerator LoadYourSceneAsync(string sceneName)
+	{
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
 	}
 }
