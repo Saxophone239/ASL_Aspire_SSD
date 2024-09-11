@@ -165,6 +165,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5081697006986874275, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
   m_PrefabInstance: {fileID: 6290661650532798143}
   m_PrefabAsset: {fileID: 0}
+--- !u!223 &4408440452533479912 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 7665414968687617879, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
+  m_PrefabInstance: {fileID: 6290661650532798143}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4408440453424057590 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7665414970118734409, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
@@ -226,6 +231,7 @@ MonoBehaviour:
   lockIcon: {fileID: 746088894194138849}
   button: {fileID: 4408440453890010262}
   spinner: {fileID: 1281621479123862300}
+  canvas: {fileID: 4408440452533479912}
   packetIDDisplayed: 0
   reviewNumber: 0
   isReviewDay: 0

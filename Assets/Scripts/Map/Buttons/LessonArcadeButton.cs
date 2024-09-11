@@ -11,6 +11,7 @@ public class LessonArcadeButton : MapButton
 		mapManager = FindObjectOfType<MapManager>();
 		SetTooltipText($"Packet {packetIDDisplayed} Arcade", true);
 		TurnOnSpinner(false);
+		SetCamera();
 		IsLocked = _isLocked;
 	}
 

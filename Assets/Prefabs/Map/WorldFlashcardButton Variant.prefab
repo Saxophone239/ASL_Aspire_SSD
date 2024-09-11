@@ -161,6 +161,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
+--- !u!223 &1669144810239039455 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 7665414968687617879, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
+  m_PrefabInstance: {fileID: 9027738207318077576}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1669144811523404481 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7665414970118734409, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
@@ -200,6 +205,7 @@ MonoBehaviour:
   lockIcon: {fileID: 2332495746110734550}
   button: {fileID: 1669144812132438689}
   spinner: {fileID: 4309145023610633515}
+  canvas: {fileID: 1669144810239039455}
   packetIDDisplayed: 0
   reviewNumber: 0
   isReviewDay: 0

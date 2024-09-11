@@ -11,6 +11,7 @@ public class ReviewArcadeButton : MapButton
 		mapManager = FindObjectOfType<MapManager>();
 		SetTooltipText($"Review {reviewNumber} Arcade", true);
 		TurnOnSpinner(false);
+		SetCamera();
 		IsLocked = _isLocked;
 	}
 

@@ -11,6 +11,7 @@ public class QuizButton : MapButton
 		mapManager = FindObjectOfType<MapManager>();
 		SetTooltipText($"Review {reviewNumber} Quiz", true);
 		TurnOnSpinner(false);
+		SetCamera();
 		IsLocked = _isLocked;
 	}
 
