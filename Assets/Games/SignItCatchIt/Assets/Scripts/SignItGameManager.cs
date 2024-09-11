@@ -58,6 +58,7 @@ public class SignItGameManager : MonoBehaviour
 
 		if (CurrentLives <= 0)
 		{
+			IsGameOver = true;
 			StartGameOverSequence();
 		}
 
@@ -66,6 +67,8 @@ public class SignItGameManager : MonoBehaviour
 
 	private void StartGameOverSequence()
 	{
+		Debug.Log($"updating global coins by {CurrentScore / 10}");
+		GlobalManager.Instance.UpdateGlobalCoins(CurrentScore / 10);
 		player.gameObject.SetActive(false);
 		uiManager.StartGameOverSequence();
 	}

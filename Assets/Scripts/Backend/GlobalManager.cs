@@ -38,8 +38,9 @@ public class GlobalManager : MonoBehaviour
 
 	// Map data
 	public List<bool> MapIconIsLockedStatus = new List<bool>();
-	public bool DisplayCoinsCollected = false;
-	public int CoinsRecentlyCollected = 100;
+	public int TotalCoinsPlayerHas = 0;
+	public bool DisplayCoinsCollectedPanel = false;
+	public int CoinsRecentlyCollected = 0;
 
 	[SerializeField] private IconManager iconManager;
 
@@ -62,4 +63,12 @@ public class GlobalManager : MonoBehaviour
     {
 		return iconManager.GetIcon(id);
     }
+
+	public void UpdateGlobalCoins(int coinsToAdd)
+	{
+		Debug.Log($"Updating global coins by {coinsToAdd}");
+		TotalCoinsPlayerHas += coinsToAdd;
+		CoinsRecentlyCollected += coinsToAdd;
+		DisplayCoinsCollectedPanel = true;
+	}
 }

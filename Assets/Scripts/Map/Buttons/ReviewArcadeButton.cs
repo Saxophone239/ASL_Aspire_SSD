@@ -10,6 +10,7 @@ public class ReviewArcadeButton : MapButton
 	{
 		mapManager = FindObjectOfType<MapManager>();
 		SetTooltipText($"Review {reviewNumber} Arcade", true);
+		TurnOnSpinner(false);
 		IsLocked = _isLocked;
 	}
 
@@ -18,9 +19,14 @@ public class ReviewArcadeButton : MapButton
 		// set backend to review packet and go to arcade
 		Debug.Log($"set backend to review packet up to packet {packetIDDisplayed} and go to arcade");
 
-		GlobalManager.Instance.CurrentPacket = packetIDDisplayed - 1;
+		GlobalManager.Instance.CurrentPacket = packetIDDisplayed;
 		GlobalManager.Instance.ReviewPreviousPackets = true;
 
 		mapManager.StartArcade();
+	}
+
+	private void OnValidate()
+	{
+		SetTooltipText($"Review {reviewNumber} Arcade", false);
 	}
 }

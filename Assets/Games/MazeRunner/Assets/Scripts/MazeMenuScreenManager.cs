@@ -84,7 +84,7 @@ public class MazeMenuScreenManager : MonoBehaviour
 
 	private IEnumerator LoadMainSceneAsync()
 	{
-		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(0);
+		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MapLayoutScene");
 
 		while (!asyncLoad.isDone)
 		{

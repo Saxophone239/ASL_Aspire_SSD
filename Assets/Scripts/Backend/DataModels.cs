@@ -99,9 +99,22 @@ using System.Linq;
 
 public class DataModels : MonoBehaviour
 {
+	public static DataModels Instance;
 
-	public VocabularyLoader vocabLoader; 
+	// public VocabularyLoader vocabLoader; 
 	//Initializing lessons and reviews
+
+	private void Awake()
+	{
+		if (Instance != null)
+		{
+			Destroy(gameObject);
+			return;
+		}
+
+		Instance = this;
+		DontDestroyOnLoad(gameObject);
+	}
 
 
 
@@ -118,7 +131,8 @@ public class DataModels : MonoBehaviour
         };
 
         foreach(int packetID in packetIDList){
-            var relevantEntries = vocabLoader.VocabularyData.Packets
+            // var relevantEntries = vocabLoader.VocabularyData.Packets
+			var relevantEntries = VocabularyLoader.Instance.VocabularyData.Packets
                 .SelectMany(packet => packet.Entries)
                 .Where(entry => entry.Packet == packetID);
 
@@ -155,14 +169,15 @@ public class DataModels : MonoBehaviour
         {
             flashcardData = new Dictionary<int, float>(),
             gameVocabCountDict = new Dictionary<int, Dictionary<string, int>>(),
-            isUnlocked = true, // Or set this based on your logic
+            isUnlocked = lessonPacket == 0 ? true: false, // Or set this based on your logic
             gameSessionComplete = false,
             flashcardsComplete = false,
             lessonComplete = false
         };
 
         // Filter entries based on the lessonPacket
-        var relevantEntries = vocabLoader.VocabularyData.Packets
+        // var relevantEntries = vocabLoader.VocabularyData.Packets
+		var relevantEntries = VocabularyLoader.Instance.VocabularyData.Packets
             .SelectMany(packet => packet.Entries)
             .Where(entry => entry.Packet == lessonPacket);
 

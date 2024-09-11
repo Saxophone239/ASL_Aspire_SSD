@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5081697006986874275, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7665414968687617879, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
       propertyPath: m_Camera
       value: 
@@ -41,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7665414970118734409, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
       propertyPath: m_text
-      value: Packet 1 Flashcards
+      value: Packet 0 Flashcards
       objectReference: {fileID: 0}
     - target: {fileID: 7665414970118734410, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -119,6 +123,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7665414970399724954, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7665414970585997864, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -191,10 +199,12 @@ MonoBehaviour:
   imageIcon: {fileID: 1669144812132438688}
   lockIcon: {fileID: 2332495746110734550}
   button: {fileID: 1669144812132438689}
-  packetID: 0
+  spinner: {fileID: 4309145023610633515}
+  packetIDDisplayed: 0
   reviewNumber: 0
   isReviewDay: 0
   _isLocked: 0
+  mapManager: {fileID: 0}
 --- !u!114 &1669144812132438688 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7665414970585997864, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
@@ -228,3 +238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4309145023610633515 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5081697006986874275, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
+  m_PrefabInstance: {fileID: 9027738207318077576}
+  m_PrefabAsset: {fileID: 0}

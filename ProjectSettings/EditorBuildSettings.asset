@@ -6,20 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/LoginScene.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/Bootstrap.unity
+    guid: 035acfdf2477b8349bd58631780d9248
+  - enabled: 1
     path: Assets/Scenes/MapLayoutScene.unity
     guid: df09c89ac7f6de2469dd457d9b954ea2
-  - enabled: 1
-    path: Assets/Scenes/MainPageScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
     path: Assets/Scenes/FlashcardScene.unity
     guid: 795af0fbbcf461446bcab18171f497f6
   - enabled: 1
     path: Assets/Scenes/QuizScene.unity
     guid: 95cd94c53c35b484b9831724138755c9
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Games/SignItCatchIt/Assets/Scenes/SignItGameplay.unity
     guid: 4fc86def22140c341ba0124c788042ca

@@ -780,6 +780,149 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 276200815}
   m_CullTransparentMesh: 1
+--- !u!1 &368581220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 368581224}
+  - component: {fileID: 368581223}
+  - component: {fileID: 368581222}
+  - component: {fileID: 368581221}
+  m_Layer: 5
+  m_Name: Spinner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &368581221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368581220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 726bef883a42e7d4c9b8ab105beacf8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rotation: 1
+  RotationSpeed: 1
+  RotationAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  Rainbow: 1
+  RainbowSpeed: 0.5
+  RainbowSaturation: 1
+  RainbowAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  RandomPeriod: 1
+--- !u!114 &368581222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368581220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: b37513bdac42a5a4faa7398b323e05da, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &368581223
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368581220}
+  m_CullTransparentMesh: 1
+--- !u!224 &368581224
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368581220}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 979048522}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -196.99997}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &408913980
 GameObject:
   m_ObjectHideFlags: 0
@@ -1422,7 +1565,7 @@ GameObject:
   m_Component:
   - component: {fileID: 616483076}
   - component: {fileID: 616483075}
-  - component: {fileID: 616483074}
+  - component: {fileID: 616483077}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1430,26 +1573,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &616483074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 616483073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &616483075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1480,6 +1603,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &616483077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616483073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!1 &708057076
 GameObject:
   m_ObjectHideFlags: 0
@@ -2210,6 +2363,7 @@ RectTransform:
   - {fileID: 1129122981}
   - {fileID: 64057792}
   - {fileID: 484663504}
+  - {fileID: 368581224}
   m_Father: {fileID: 1741831637}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3123,7 +3277,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quizQuestions:
-  - questionID: 0
+  - vocabularyEntry:
+      Packet: 0
+      Vocabulary_ID: 0
+      English_Word: 
+      ASL_Sign_and_Spelled: 
+      ASL_Definition: 
+      ASL_Sign: 
+      ASL_Spelled: 
+      English_Definition: 
+    questionID: 0
     questionText: What word is being signed?
     questionType: 0
     videoURL: https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Microscope+(Sign)+%E2%9C%94.mp4
@@ -3134,7 +3297,16 @@ MonoBehaviour:
     - Chlorophyll
     - Air Pollution
     correctAnswer: 1
-  - questionID: 1
+  - vocabularyEntry:
+      Packet: 0
+      Vocabulary_ID: 0
+      English_Word: 
+      ASL_Sign_and_Spelled: 
+      ASL_Definition: 
+      ASL_Sign: 
+      ASL_Spelled: 
+      English_Definition: 
+    questionID: 1
     questionText: Mitochondria means...
     questionType: 2
     videoURL: 
@@ -3145,7 +3317,16 @@ MonoBehaviour:
     - Dirty air
     - Trees in a forest
     correctAnswer: 0
-  - questionID: 2
+  - vocabularyEntry:
+      Packet: 0
+      Vocabulary_ID: 0
+      English_Word: 
+      ASL_Sign_and_Spelled: 
+      ASL_Definition: 
+      ASL_Sign: 
+      ASL_Spelled: 
+      English_Definition: 
+    questionID: 2
     questionText: '"Powerhouse of the cell" belongs to...'
     questionType: 1
     videoURL: 
@@ -3156,7 +3337,16 @@ MonoBehaviour:
     - Trees
     - Mitochondria
     correctAnswer: 3
-  - questionID: 3
+  - vocabularyEntry:
+      Packet: 0
+      Vocabulary_ID: 0
+      English_Word: 
+      ASL_Sign_and_Spelled: 
+      ASL_Definition: 
+      ASL_Sign: 
+      ASL_Spelled: 
+      English_Definition: 
+    questionID: 3
     questionText: What do you see in the photo?
     questionType: 4
     videoURL: 
@@ -3167,7 +3357,16 @@ MonoBehaviour:
     - Mitochondria
     - Trees
     correctAnswer: 2
-  - questionID: 4
+  - vocabularyEntry:
+      Packet: 0
+      Vocabulary_ID: 0
+      English_Word: 
+      ASL_Sign_and_Spelled: 
+      ASL_Definition: 
+      ASL_Sign: 
+      ASL_Spelled: 
+      English_Definition: 
+    questionID: 4
     questionText: Which definition is being signed?
     questionType: 3
     videoURL: https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Microscope+(Sign)+%E2%9C%94.mp4
@@ -3189,6 +3388,10 @@ MonoBehaviour:
   endSlide: {fileID: 1929942219}
   invalidSlide: {fileID: 1318497724}
   speechBubble: {fileID: 548585157}
+  titleText: {fileID: 1129122982}
+  spinner: {fileID: 368581220}
+  startQuizButton: {fileID: 484663505}
+  questionTitleText: {fileID: 199521138}
   continueButton: {fileID: 487165953}
   questionNumberText: {fileID: 110959749}
   questionText: {fileID: 2127130481}
@@ -3999,7 +4202,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 372, y: -23.133}
+  m_AnchoredPosition: {x: 372, y: 140}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1929942218
@@ -4210,8 +4413,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -248.48889, y: -96.40789}
-  m_SizeDelta: {x: 673.022, y: 142.816}
+  m_AnchoredPosition: {x: -8.1618, y: -96.40789}
+  m_SizeDelta: {x: 1153.676, y: 142.816}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2127130481
 MonoBehaviour:
@@ -4263,12 +4466,12 @@ MonoBehaviour:
   m_fontSize: 44
   m_fontSizeBase: 44
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 24
+  m_fontSizeMax: 44
   m_fontStyle: 1
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -4321,6 +4524,7 @@ GameObject:
   - component: {fileID: 2135712321}
   - component: {fileID: 2135712320}
   - component: {fileID: 2135712319}
+  - component: {fileID: 2135712322}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4394,6 +4598,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2135712322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135712318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1001 &6521356537604993979
 PrefabInstance:
   m_ObjectHideFlags: 0

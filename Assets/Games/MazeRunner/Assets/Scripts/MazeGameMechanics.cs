@@ -142,6 +142,8 @@ public class MazeGameMechanics : MonoBehaviour
         if (IsGameOver)
         {
 			Time.timeScale = 0.0f;
+			Debug.Log($"updating global coins by {Score * 15}");
+			GlobalManager.Instance.UpdateGlobalCoins(Score * 15);
             uiManager.ShowGameOverScreen();
         }
     }

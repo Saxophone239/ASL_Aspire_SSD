@@ -5,6 +5,10 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
+using PlayFab;
+using PlayFab.ClientModels;
+using Newtonsoft.Json;
+using System;
 
 public class QuestionManager : MonoBehaviour
 {
@@ -20,9 +24,18 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] RectTransform invalidSlide;
 
     // Companion elements
+	[Header("Companion elements")]
     [SerializeField] private Image speechBubble;
 
+	// First Slide elements
+	[Header("First Slide elements")]
+	[SerializeField] private TextMeshProUGUI titleText;
+	[SerializeField] private GameObject spinner;
+	[SerializeField] private Button startQuizButton;
+
     // Question Slide elements
+	[Header("Question Slide elements")]
+	[SerializeField] private TextMeshProUGUI questionTitleText;
     [SerializeField] private Button continueButton;
     [SerializeField] private TextMeshProUGUI questionNumberText;
     [SerializeField] private TextMeshProUGUI questionText;
@@ -31,13 +44,25 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] private Image progressMask;
 
     // End Slide elements
+	[Header("End Slide elements")]
     [SerializeField] private TextMeshProUGUI numLearnedText;
 
     [SerializeField] private VideoPlayer videoPlayer;
 
+	private List<VocabularyEntry> allPossibleVocabEntries; // List of entries from packet 0 to now
+	private List<VocabularyEntry> currentQuizVocabEntries; // List of only entries used in quiz (same number as number of questions)
+	private List<QuizQuestionObject> topThreeWorstQuestions; // Top 3 worst questions historrically to add to quiz
+
     // Start is called before the first frame update
     void Start()
     {
+		spinner.SetActive(true);
+		startQuizButton.gameObject.SetActive(false);
+
+		allPossibleVocabEntries = new List<VocabularyEntry>();
+		currentQuizVocabEntries = new List<VocabularyEntry>();
+		topThreeWorstQuestions = new List<QuizQuestionObject>();
+
         questionIdx = -1;
         VerifyReviewData();
     }
@@ -51,6 +76,195 @@ public class QuestionManager : MonoBehaviour
         {
             HandleInvalidReview();
         }
+
+		// Review is valid, load begin to load questions
+		titleText.text = $"Review Quiz {GlobalManager.Instance.CurrentReview}";
+		questionTitleText.text = $"Review Quiz {GlobalManager.Instance.CurrentReview}";
+		StartCoroutine(PopulateQuestionsFromReview());
+    }
+
+	private IEnumerator PopulateQuestionsFromReview()
+	{
+		allPossibleVocabEntries = VocabularyLoader.Instance.CreateVocabularyEntryListToUse(GlobalManager.Instance.CurrentPacket, true);
+		quizQuestions = new List<QuizQuestion>();
+
+		// If review number is > 0, check all packets before it for 3 worst questions
+		if (GlobalManager.Instance.CurrentReview > 0)
+		{
+			// We are not on our first review, check previous reviews for 3 worst answers
+			for (int i = 0; i < GlobalManager.Instance.CurrentReview; i++)
+			{
+				bool isCompleted = false;
+				PlayFabClientAPI.GetUserData(new GetUserDataRequest(),
+					result =>
+					{
+						OnReviewDataReceived(result, i, () => isCompleted = true);
+					},
+					err =>
+					{
+						Debug.LogError(err);
+						isCompleted = true;
+					}
+				);
+				
+				yield return new WaitUntil(() => isCompleted);
+			}
+		}
+
+		// Convert QuizQuestionObjects to VocabularyEntries
+		// Debug.Log($"Sanity check! topThreeWorstQuestions size = {topThreeWorstQuestions.Count}, currentQuizVocabEntries size = {currentQuizVocabEntries.Count}, quizQuestionObjectList size = {GlobalManager.Instance.currentReviewData.quizQuestionObjectList.Count}");
+		// if (GlobalManager.Instance.CurrentReview > 0)
+		// {
+		// 	// Add top 3 worst questions as entries
+		// 	foreach (QuizQuestionObject quizQuestionObject in topThreeWorstQuestions)
+		// 	{
+		// 		VocabularyEntry entry = FindVocabularyEntryFromQuizQuestionObject(quizQuestionObject);
+		// 		currentQuizVocabEntries.Add(entry);
+		// 	}
+		// }
+		Debug.Log($"Sanity check! topThreeWorstQuestions size = {topThreeWorstQuestions.Count}, currentQuizVocabEntries size = {currentQuizVocabEntries.Count}, quizQuestionObjectList size = {GlobalManager.Instance.currentReviewData.quizQuestionObjectList.Count}");
+		foreach (QuizQuestionObject quizQuestionObject in GlobalManager.Instance.currentReviewData.quizQuestionObjectList)
+		{
+			// Load questions from current review packet
+			VocabularyEntry entry = FindVocabularyEntryFromQuizQuestionObject(quizQuestionObject);
+			currentQuizVocabEntries.Add(entry);
+		}
+		Debug.Log($"Sanity check! topThreeWorstQuestions size = {topThreeWorstQuestions.Count}, currentQuizVocabEntries size = {currentQuizVocabEntries.Count}, quizQuestionObjectList size = {GlobalManager.Instance.currentReviewData.quizQuestionObjectList.Count}");
+		
+		// Create QuizQuestions out of VocabularyEntries
+		QuestionType questionType = QuestionType.DefToWord;
+		foreach (VocabularyEntry entry in currentQuizVocabEntries)
+		{
+			VocabularyEntry[] answers = GetRandomAnswers(currentQuizVocabEntries, entry, 4).ToArray();
+			int correctAnswerPos = 0;
+			for (int i = 0; i < answers.Length; i++)
+			{
+				if (answers[i].Vocabulary_ID == entry.Vocabulary_ID)
+				{
+					correctAnswerPos = i;
+					break;
+				}
+			}
+
+			QuizQuestion question = new QuizQuestion
+			(
+				entry,
+				questionType,
+				answers,
+				correctAnswerPos
+			);
+			quizQuestions.Add(question);
+
+			// Alternate asking Word -> Definition and Definition -> Word
+			if (questionType == QuestionType.DefToWord)
+				questionType = QuestionType.WordToDef;
+			else
+				questionType = QuestionType.DefToWord;
+		}
+
+		// Loading is done, allow player to play quiz
+		Debug.Log("Review Questions done loading!");
+		spinner.SetActive(false);
+		startQuizButton.gameObject.SetActive(true);
+	}
+
+	void OnReviewDataReceived(GetUserDataResult result, int reviewID, Action onComplete)
+	{
+		Debug.Log($"Fetching review {reviewID}");
+		if (result.Data != null && result.Data.ContainsKey($"Review {reviewID}"))
+		{
+			Debug.Log($"Received student review data for review {reviewID}!");
+			ReviewData reviewData = JsonConvert.DeserializeObject<ReviewData>(result.Data[$"Review {reviewID}"].Value);
+
+			// Initialize topThreeWorstQuestions list if it doesn't have 3 items
+			if (topThreeWorstQuestions.Count < 3)
+			{
+				int idx = 0;
+				while (topThreeWorstQuestions.Count != 3)
+				{
+					topThreeWorstQuestions.Add(reviewData.quizQuestionObjectList[idx]);
+					VocabularyEntry entry = FindVocabularyEntryFromQuizQuestionObject(reviewData.quizQuestionObjectList[idx]);
+					currentQuizVocabEntries.Add(entry);
+					idx++;
+				}
+			}
+
+			Debug.Log($"The size of topThreeWorstQuestions is {topThreeWorstQuestions.Count}");
+
+			// Go through each review's question and figure out what are the top 3 worst questions
+			foreach (QuizQuestionObject question in reviewData.quizQuestionObjectList)
+			{
+				for (int i = 0; i < topThreeWorstQuestions.Count; i++)
+				{
+					if (question.numAttempts > topThreeWorstQuestions[i].numAttempts)
+					{
+						topThreeWorstQuestions[i] = question;
+						VocabularyEntry entry = FindVocabularyEntryFromQuizQuestionObject(question);
+						currentQuizVocabEntries[i] = entry;
+						break;
+					}
+				}
+			}
+		}
+		else
+        {
+			Debug.Log("No review found");
+        }
+
+		onComplete?.Invoke();
+	}
+
+	private VocabularyEntry FindVocabularyEntryFromQuizQuestionObject(QuizQuestionObject question)
+	{
+		int id = question.vocabID;
+		foreach (VocabularyEntry entry in allPossibleVocabEntries)
+		{
+			if (entry.Vocabulary_ID == id)
+			{
+				return entry;
+			}
+		}
+		Debug.LogWarning($"VocabularyEntry for QuizQuestionObject {question.vocabID} doesn't exist!");
+		return null;
+	}
+
+	/// <summary>
+    /// Takes a list of VocabularyEntries and randomly selects 4 words, one of them being the correct answer
+    /// </summary>
+    /// <param name="vocabList">List of vocab words</param>
+    /// <param name="correctAns">The correct vocab word</param>
+    /// <returns>Returns a size 4 array of vocab words, one of them being correct</returns>
+    public List<VocabularyEntry> GetRandomAnswers(List<VocabularyEntry> vocabList, VocabularyEntry correctAns, int numberOfAnswers)
+    {
+        List<VocabularyEntry> toReturn = new List<VocabularyEntry>();
+
+        // Make list of 4 random words, including current one
+        List<VocabularyEntry> inputList = new List<VocabularyEntry>();
+        for (int i = 0; i < vocabList.Count; i++)
+        {
+            inputList.Add(vocabList[i]);
+        }
+
+        toReturn.Add(correctAns);
+        inputList.Remove(correctAns);
+
+        for (int i = 0; i < numberOfAnswers-1; i++)
+        {
+            int rndNum = UnityEngine.Random.Range(0, inputList.Count);
+            toReturn.Add(inputList[rndNum]);
+            inputList.Remove(inputList[rndNum]);
+        }
+
+        // Randomize list
+        for (int i = 0; i < toReturn.Count; i++)
+        {
+            VocabularyEntry temp = toReturn[i];
+            int randomIndex = UnityEngine.Random.Range(i, toReturn.Count);
+            toReturn[i] = toReturn[randomIndex];
+            toReturn[randomIndex] = temp;
+        }
+
+        return toReturn;
     }
 
     // Display screen to clarify that review data is invalid
@@ -104,6 +318,7 @@ public class QuestionManager : MonoBehaviour
         questionText.text = currentQuestion.questionText;
         questionNumberText.text = "Question " + (questionIdx + 1) + "/" + quizQuestions.Count;
         videoPlayer.url = currentQuestion.videoURL;
+		videoScreen.gameObject.SetActive(false);
         icon.sprite = currentQuestion.icon;
         // Set the answer text
         for (int i = 0; i < 4; i++)
@@ -120,21 +335,21 @@ public class QuestionManager : MonoBehaviour
         // Handle specific question type (hide or show supplementary)
         switch (currentQuestion.questionType)
         {
-            case QuestionType.SignWordToWord:
-                ActivateSupplementary(true, false);
-                break;
+            // case QuestionType.SignWordToWord:
+            //     ActivateSupplementary(true, false);
+            //     break;
             case QuestionType.DefToWord:
                 ActivateSupplementary(false, false);
                 break;
             case QuestionType.WordToDef:
                 ActivateSupplementary(false, false);
                 break;
-            case QuestionType.SignDefToDef:
-                ActivateSupplementary(true, false);
-                break;
-            case QuestionType.IconToWord:
-                ActivateSupplementary(false, true);
-                break;
+            // case QuestionType.SignDefToDef:
+            //     ActivateSupplementary(true, false);
+            //     break;
+            // case QuestionType.IconToWord:
+            //     ActivateSupplementary(false, true);
+            //     break;
             default:
                 Debug.LogError("Unknown question type");
                 break;
@@ -146,6 +361,7 @@ public class QuestionManager : MonoBehaviour
         questionSlide.gameObject.SetActive(false);
         numLearnedText.text = "You just learned " + quizQuestions.Count + " words!";
         endSlide.gameObject.SetActive(true);
+		PostReviewData();
     }
 
     private void ActivateSupplementary(bool hasVideo, bool hasIcon)
@@ -157,6 +373,8 @@ public class QuestionManager : MonoBehaviour
     public void CheckAnswer(int selectedAnswer)
     {
         QuizQuestion currentQuestion = quizQuestions[questionIdx];
+		videoScreen.gameObject.SetActive(true);
+		videoPlayer.time = 0.0f;
         if (selectedAnswer != currentQuestion.correctAnswer)
         {
             // Highlight incorrect choice
@@ -174,6 +392,37 @@ public class QuestionManager : MonoBehaviour
             answerButton.GetComponent<Button>().enabled = false;
         }
         continueButton.gameObject.SetActive(true);
+    }
+
+	private void PostReviewData()
+    {
+        // Important to remember this copies by reference. We are changing the GlobalManager's ReviewData object here.
+        ReviewData newReviewData = GlobalManager.Instance.currentReviewData;
+        // UpdateFlashcardTimes(newLessonData);
+        newReviewData.quizComplete = true;
+        Debug.Log($"Full object:\n {JsonConvert.SerializeObject(newReviewData, Formatting.Indented)}");
+        PostReview(newReviewData);
+    }
+
+    // private void UpdateFlashcardTimes(LessonData lessonData)
+    // {
+    //     for (int i = 0; i < currentPacket.Entries.Count; i++)
+    //     {
+    //         lessonData.flashcardData[currentPacket.Entries[i].Vocabulary_ID] = timeSpentOnWords[i];
+    //     }
+    // }
+
+    public void PostReview(ReviewData reviewData)
+    {
+        var request = new UpdateUserDataRequest
+        {
+            Data = new Dictionary<string, string>{
+                {$"Review {reviewData.reviewID}",JsonConvert.SerializeObject(reviewData)}
+            }
+        };
+        PlayFabClientAPI.UpdateUserData(request,
+            res => Debug.Log("Successful lesson user data sent!"),
+            err => Debug.LogError(err));
     }
 
     public void ExitToMap()

@@ -97,6 +97,8 @@ public class BezierSpline : MonoBehaviour
             DrawSpline();
         }
 
+		if (StartingPos == null || EndingPos == null) return;
+
 		if (controlPoints.Count == 4)
 		{
 			controlPoints[0].transform.position = StartingPos.position;
