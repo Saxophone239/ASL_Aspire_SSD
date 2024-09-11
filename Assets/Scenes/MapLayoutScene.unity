@@ -4838,7 +4838,7 @@ GameObject:
   - component: {fileID: 594646776}
   m_Layer: 0
   m_Name: Far Camera
-  m_TagString: MainCamera
+  m_TagString: Other Camera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6608,7 +6608,7 @@ GameObject:
   - component: {fileID: 808733896}
   m_Layer: 0
   m_Name: Space Items Camera
-  m_TagString: MainCamera
+  m_TagString: Other Camera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15762,7 +15762,7 @@ GameObject:
   - component: {fileID: 1804014226}
   m_Layer: 0
   m_Name: Planet Camera
-  m_TagString: MainCamera
+  m_TagString: Other Camera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

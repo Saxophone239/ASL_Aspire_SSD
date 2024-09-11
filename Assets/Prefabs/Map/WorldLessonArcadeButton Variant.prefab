@@ -173,6 +173,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!223 &2408662319230866646 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 7665414968687617879, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
+  m_PrefabInstance: {fileID: 5407785020910318465}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2408662319869109787 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7665414970399724954, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
@@ -201,6 +206,7 @@ MonoBehaviour:
   lockIcon: {fileID: 1592593420934284255}
   button: {fileID: 2408662320020771240}
   spinner: {fileID: 975485976700255778}
+  canvas: {fileID: 2408662319230866646}
   packetIDDisplayed: 0
   reviewNumber: 0
   isReviewDay: 0

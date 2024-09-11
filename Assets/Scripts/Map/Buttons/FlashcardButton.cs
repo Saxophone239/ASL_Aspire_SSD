@@ -11,6 +11,7 @@ public class FlashcardButton : MapButton
 		mapManager = FindObjectOfType<MapManager>();
 		SetTooltipText($"Packet {packetIDDisplayed} Flashcards", true);
 		TurnOnSpinner(false);
+		SetCamera();
 		IsLocked = _isLocked;
 	}
 

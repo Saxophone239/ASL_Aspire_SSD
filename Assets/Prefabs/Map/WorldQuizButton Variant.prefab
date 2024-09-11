@@ -181,6 +181,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!223 &3163816090230698665 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 7665414968687617879, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
+  m_PrefabInstance: {fileID: 4722349345709217278}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3163816090517551062 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7665414970585997864, guid: 3158bc81cdab693409c393535c1ed72c, type: 3}
@@ -231,6 +236,7 @@ MonoBehaviour:
   lockIcon: {fileID: 2062489345493558688}
   button: {fileID: 3163816090517551063}
   spinner: {fileID: 508052666162976861}
+  canvas: {fileID: 3163816090230698665}
   packetIDDisplayed: 0
   reviewNumber: 0
   isReviewDay: 0

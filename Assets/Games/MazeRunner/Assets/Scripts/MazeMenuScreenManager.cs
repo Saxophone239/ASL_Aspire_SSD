@@ -12,10 +12,13 @@ public class MazeMenuScreenManager : MonoBehaviour
 	[SerializeField] private MazeSpawner mazeSpawner;
 	[SerializeField] private MRCameraController cameraController;
     [SerializeField] private ToggleGroup difficultyToggleGroup;
+	[SerializeField] private GameObject spinner;
 
 	public event Action OnGameActivated;
 
     public string MRGameplaySceneName = "MazeRunnerGameplay";
+
+	private bool isPlayGameButtonPressed = false;
 
     // Start is called before the first frame update
     private void Start()
@@ -23,6 +26,7 @@ public class MazeMenuScreenManager : MonoBehaviour
         // loadingPanel.SetActive(false);
         Time.timeScale = 1.0f;
 		cameraController.BeginIntroAnimation();
+		spinner.SetActive(false);
     }
     
     // public void UpdateGlobalCoins(bool gameFinished = true)
@@ -34,8 +38,13 @@ public class MazeMenuScreenManager : MonoBehaviour
     //     }
     // }
 
-    public async void OnStartButtonClick()
+    public void OnStartButtonClick()
     {
+		if (isPlayGameButtonPressed) return;
+		isPlayGameButtonPressed = true;
+
+		spinner.SetActive(true);
+
         string difficulty = difficultyToggleGroup.ActiveToggles().FirstOrDefault().ToString();
         if (CaseInsensitiveContains(difficulty, "easy"))
         {
@@ -51,10 +60,19 @@ public class MazeMenuScreenManager : MonoBehaviour
             throw new System.Exception("Unknown difficulty selection, ensure name of toggle has difficulty written in it.");
         }
 
-		await mazeSpawner.CreateMaze(MazeGlobals.difficulty);
-
-		OnGameActivated?.Invoke();
+		// await mazeSpawner.CreateMaze(MazeGlobals.difficulty);
+		StartCoroutine(CreateMazeCoroutine());
     }
+
+	private IEnumerator CreateMazeCoroutine()
+	{
+		bool isGenerated = false;
+		StartCoroutine(mazeSpawner.CreateMazeCoroutine(MazeGlobals.difficulty, () => isGenerated = true));
+		yield return new WaitUntil(() => isGenerated);
+
+		spinner.SetActive(false);
+		OnGameActivated?.Invoke();
+	}
 
     private bool CaseInsensitiveContains(string source, string toCompare)
     {

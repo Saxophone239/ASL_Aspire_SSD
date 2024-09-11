@@ -31,6 +31,7 @@ TagManager:
   - SS-Obstacle-Touchable
   - SS-TriggerUIQuestion
   - Powerup_Shield
+  - Other Camera
   layers:
   - Default
   - TransparentFX

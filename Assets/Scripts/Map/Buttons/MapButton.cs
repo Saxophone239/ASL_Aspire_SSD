@@ -13,6 +13,7 @@ public abstract class MapButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 	[SerializeField] private Image lockIcon;
 	[SerializeField] private Button button;
 	[SerializeField] private GameObject spinner;
+	[SerializeField] private Canvas canvas;
 	[SerializeField] protected int packetIDDisplayed;
 	[SerializeField] protected int reviewNumber;
 	[SerializeField] protected bool isReviewDay;
@@ -69,5 +70,10 @@ public abstract class MapButton : MonoBehaviour, IPointerEnterHandler, IPointerE
 	{
 		if (shouldTurnOn) spinner.SetActive(true);
 		else spinner.SetActive(false);
+	}
+
+	public void SetCamera()
+	{
+		canvas.worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 	}
 }
