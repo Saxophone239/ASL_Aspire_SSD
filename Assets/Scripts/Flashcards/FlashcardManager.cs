@@ -21,6 +21,9 @@ public class FlashcardManager : MonoBehaviour
     // Set to false if at any point we encounter a playfab/data error
     private bool canPost;
 
+    // Intro screen variables
+    [SerializeField] private Image[] introIcons;
+    
     // Basic flashcard variables
     [SerializeField] private TextMeshProUGUI headerText;
     [SerializeField] private TextMeshProUGUI definitionText;
@@ -73,6 +76,7 @@ public class FlashcardManager : MonoBehaviour
         timeSpentOnWords = new float[currentPacket.Entries.Count];
 
         // Setup display
+        SetIntroIcons();
         PrepWordVideo(currentPacket.Entries[0].ASL_Sign_and_Spelled);
         headerText.text = $"Welcome to Packet {GlobalManager.Instance.CurrentPacket + 1}!";
         flashcardIcon.preserveAspect = true;
@@ -91,6 +95,16 @@ public class FlashcardManager : MonoBehaviour
             canPost = false;
         }
         currentPacket = VocabularyLoader.Instance.VocabularyData.Packets[wordsToLoad];
+    }
+
+    // Sets the images for the intro screen icons
+    private void SetIntroIcons()
+    {
+        for (int i = 0; i < introIcons.Length; i++)
+        {
+            introIcons[i].preserveAspect = true;
+            introIcons[i].sprite = GlobalManager.Instance.GetIcon(currentPacket.Entries[i].Vocabulary_ID);
+        }
     }
 
     // Instantiates the stars for the progress bar
@@ -121,6 +135,7 @@ public class FlashcardManager : MonoBehaviour
         if (currentSlide == 0)
         {
             // Handle leaving intro slide
+            foreach (Image icon in introIcons) icon.gameObject.SetActive(false);
             NextWord();
             flashcardMask.gameObject.SetActive(true);
         } else if (currentSlide >= 2 * currentPacket.Entries.Count)
@@ -269,7 +284,13 @@ public class FlashcardManager : MonoBehaviour
     {
         for (int i = 0; i < currentPacket.Entries.Count; i++)
         {
-            lessonData.flashcardData[currentPacket.Entries[i].Vocabulary_ID] = timeSpentOnWords[i];
+            int idx = currentPacket.Entries[i].Vocabulary_ID;
+            float prevTime = 0f;
+            if (lessonData.flashcardData.ContainsKey(idx))
+            {
+                prevTime = lessonData.flashcardData[idx];
+            }
+            lessonData.flashcardData[idx] = timeSpentOnWords[i] + prevTime;
         }
     }
 
