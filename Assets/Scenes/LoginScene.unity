@@ -1741,6 +1741,7 @@ MonoBehaviour:
     gameSessionComplete: 0
     flashcardsComplete: 0
     lessonComplete: 0
+  CurrentReview: 0
   currentReviewData:
     reviewID: 0
     quizQuestionObjectList: []
@@ -1771,16 +1772,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: a6bcc6f7b7a5fe54db80da6dbda7bde9, type: 3}
     - {fileID: 21300000, guid: 3f3ed4142bf2ff148a6a431739287399, type: 3}
     - {fileID: 21300000, guid: 3187dfc4e97aff84c9d2692b935813bb, type: 3}
-    - {fileID: 21300000, guid: 6d6257a972dbc8e4a919e9b787db3337, type: 3}
     - {fileID: 21300000, guid: 44690a3c82677a449974847ce8311cfc, type: 3}
     - {fileID: 21300000, guid: 8d3abb1dd0087f849be68c83bcb9b488, type: 3}
     - {fileID: 21300000, guid: 6bbd7e3cd5525c74eb46da89fca82a63, type: 3}
     - {fileID: 21300000, guid: 8f7044820d6e09b488bcffc95439e07f, type: 3}
     - {fileID: 21300000, guid: a09cfd8c247a5e94089da162a43de644, type: 3}
     - {fileID: 21300000, guid: 77748b1c4722f5346ac1bb438f4cbadf, type: 3}
-    - {fileID: 21300000, guid: d83ad8d1504da794f9989807de342eee, type: 3}
-    - {fileID: 21300000, guid: 00095b2878a58a040b5ec5c593a3be64, type: 3}
-    - {fileID: 21300000, guid: 13e067458b926a9459bbdd20a61184c8, type: 3}
+    - {fileID: 21300000, guid: 5d6c764a33bce4b4dac0760fe6067967, type: 3}
+    - {fileID: 21300000, guid: 7ac2f3222ecb6c2469556d89afaea9e9, type: 3}
+    - {fileID: 21300000, guid: 8989b72b5623a5541bab61f603e98fc3, type: 3}
     - {fileID: 21300000, guid: cae0c1ae4036f874d9af4659239093a3, type: 3}
     - {fileID: 21300000, guid: 7fb8286bc0a091b4b9a05f7c832eca1b, type: 3}
     - {fileID: 21300000, guid: 61a75d3783166a44f9f1a923658d206b, type: 3}
@@ -1789,7 +1789,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 9115298492ae9344d8e99c5f4c7f2302, type: 3}
     - {fileID: 21300000, guid: e92b16ce3753d5449838e5a7ebadb4fa, type: 3}
     - {fileID: 21300000, guid: 88589ec25586c764987f84eb37922442, type: 3}
-    - {fileID: 21300000, guid: 75d3f165158127b4fb9cd84db79bbad4, type: 3}
+    - {fileID: 21300000, guid: fc9736fba64e3354f9a33d347d8145d4, type: 3}
     - {fileID: 21300000, guid: a8e512a5db1f4c74684ef280355efa5f, type: 3}
     - {fileID: 21300000, guid: 3a233d1c1d3c16c499544a49a495a3c6, type: 3}
     - {fileID: 21300000, guid: 1a6ef6c79c7d3b24684fd8af65901c78, type: 3}
@@ -3166,6 +3166,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f092b4d76ee64e6408a33cf92e153cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MRspinner: {fileID: 0}
+  SICIspinner: {fileID: 0}
+  SSspinner: {fileID: 0}
   ticketText: {fileID: 0}
 --- !u!1 &1825575606
 GameObject:
