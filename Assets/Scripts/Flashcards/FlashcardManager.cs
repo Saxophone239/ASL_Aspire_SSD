@@ -254,10 +254,9 @@ public class FlashcardManager : MonoBehaviour
     {
         inputDisabler.SetActive(true);
 
+        PrepVideo(wordVideoPlayer, currentPacket.Entries[currentWord].ASL_Sign_and_Spelled);
         definitionText.gameObject.SetActive(false);
         frontScreen.gameObject.SetActive(true);
-        wordVideoPlayer.Pause();
-        wordVideoPlayer.frame = 0;
         Vector2 startPos = screenParent.anchoredPosition;
         Vector2 endPos = new Vector2(screenParent.anchoredPosition.x, 0);
 
