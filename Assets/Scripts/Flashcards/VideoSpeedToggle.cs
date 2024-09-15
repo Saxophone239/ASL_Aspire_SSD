@@ -9,39 +9,25 @@ public class VideoSpeedToggle : MonoBehaviour
 {
     [SerializeField] private VideoPlayer wordVideoPlayer;
     [SerializeField] private VideoPlayer definitionVideoPlayer;
-    private bool isSlow;
-    [SerializeField] private float slowSpeed = 0.75f;
-    private Image buttonImg;
-    private TextMeshProUGUI buttonText;
-    private Color defaultColor;
-    [SerializeField] private Color slowColor;
+    [SerializeField] private TextMeshProUGUI rateText;
+    // Slider variables
+    private float snapIncrement = 0.25f;
+    private Slider slider;
 
     private void Start()
     {
-        buttonText = GetComponentInChildren<TextMeshProUGUI>();
-        buttonImg = GetComponent<Image>();
-        defaultColor = buttonImg.color;
-        isSlow = false;
+        slider = GetComponent<Slider>();
+        rateText.text = "1x";
     }
 
-    public void ToggleSpeed()
+    private void Update()
     {
-        ChangeButtonStyle(!isSlow);
-        ChangeVideoSpeed(isSlow ? 1f : slowSpeed);
-        isSlow = !isSlow;
-    }
-
-    private void ChangeButtonStyle(bool changeToSlowStyle)
-    {
-        if (changeToSlowStyle)
-        {
-            buttonImg.color = slowColor;
-            buttonText.text = "Slow";
-        } else
-        {
-            buttonImg.color = defaultColor;
-            buttonText.text = "Default";
-        }
+        float value = slider.value;
+        value = Mathf.Round(value / snapIncrement) * snapIncrement;
+        if (value <= 0) value = snapIncrement; // Don't want 0x playback speed
+        slider.value = value;
+        rateText.text = $"{value}x";
+        ChangeVideoSpeed(value);
     }
 
     private void ChangeVideoSpeed(float videoSpeed)
