@@ -103,7 +103,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Magnify
+  m_text: focus
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6160f8d5baad85941bc514ca67a7af29, type: 2}
   m_sharedMaterial: {fileID: 4560175688752687887, guid: 6160f8d5baad85941bc514ca67a7af29, type: 2}
@@ -190,7 +190,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0.3
+  m_GravityScale: 0.35
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1

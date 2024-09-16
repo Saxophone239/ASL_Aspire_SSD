@@ -67,8 +67,21 @@ public class SignItGameManager : MonoBehaviour
 
 	private void StartGameOverSequence()
 	{
-		Debug.Log($"updating global coins by {CurrentScore / 10}");
-		GlobalManager.Instance.UpdateGlobalCoins(CurrentScore / 10);
+		int scoreToUpdateBy = CurrentScore;
+		switch (SignItGlobals.difficulty)
+		{
+			case SignItGlobals.Difficulty.Easy:
+                scoreToUpdateBy = CurrentScore / 10;
+				break;
+			case SignItGlobals.Difficulty.Medium:
+				scoreToUpdateBy = CurrentScore / 8;
+				break;
+			case SignItGlobals.Difficulty.Hard:
+				scoreToUpdateBy = CurrentScore / 6;
+				break;
+		}
+		Debug.Log($"updating global coins by {scoreToUpdateBy}");
+		GlobalManager.Instance.UpdateGlobalCoins(scoreToUpdateBy);
 		player.gameObject.SetActive(false);
 		uiManager.StartGameOverSequence();
 	}

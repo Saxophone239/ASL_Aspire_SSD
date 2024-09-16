@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using static MazeGlobals;
 
 public class MazeGameMechanics : MonoBehaviour
 {
@@ -142,8 +143,21 @@ public class MazeGameMechanics : MonoBehaviour
         if (IsGameOver)
         {
 			Time.timeScale = 0.0f;
-			Debug.Log($"updating global coins by {Score * 15}");
-			GlobalManager.Instance.UpdateGlobalCoins(Score * 15);
+			int scoreToUpdateBy = Score;
+			switch (difficulty)
+			{
+				case MazeRunnerDifficulty.Easy:
+					scoreToUpdateBy = Score * 15;
+					break;
+				case MazeRunnerDifficulty.Medium:
+					scoreToUpdateBy = Score * 20;
+					break;
+				case MazeRunnerDifficulty.Hard:
+					scoreToUpdateBy = Score * 25;
+					break;
+			}
+			Debug.Log($"updating global coins by {scoreToUpdateBy}");
+			GlobalManager.Instance.UpdateGlobalCoins(scoreToUpdateBy);
             uiManager.ShowGameOverScreen();
         }
     }

@@ -28,7 +28,7 @@ public class QuizQuestion
             //     ActivateSupplementary(true, false);
             //     break;
             case QuestionType.DefToWord:
-                this.questionText = $"\"{entry.English_Definition}\" belongs to...";
+                this.questionText = $"\"{entry.English_Definition}\" means...";
 				this.videoURL = entry.ASL_Sign;
 				for (int i = 0; i < this.answers.Length; i++)
 				{

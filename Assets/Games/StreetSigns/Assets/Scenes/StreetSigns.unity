@@ -1328,7 +1328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2002,7 +2002,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2361,7 +2361,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2743,11 +2743,13 @@ MonoBehaviour:
   swipeManager: {fileID: 717544613}
   questionManager: {fileID: 844987026}
   ForwardSpeed: 7
+  MaxSpeed: 14
   CurrentLane: 1
   LaneDistance: 2.75
   meshModel: {fileID: 738775636}
   playerAnimator: {fileID: 738775638}
   dustExplosion: {fileID: 198220379293217532, guid: 1a1eaf025863522438a2425a603cc12b, type: 3}
+  confettiExplosion: {fileID: 2408297439185355245, guid: 7dc4b2c3e02d8354faf9959d7f9df0bc, type: 3}
   isPlayerGrounded: 0
   GravityScale: 3
 --- !u!54 &695541917
@@ -3166,7 +3168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &744573670
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4427,6 +4429,7 @@ MonoBehaviour:
   - {fileID: 5237448091013587068, guid: 0493612e84d905343857d6aecd6d881e, type: 3}
   - {fileID: 9159713990419573663, guid: 70d7f5645fbcc8b448be475f54162c81, type: 3}
   - {fileID: 5237448091013587068, guid: 0493612e84d905343857d6aecd6d881e, type: 3}
+  - {fileID: 5237448091013587068, guid: 0493612e84d905343857d6aecd6d881e, type: 3}
   - {fileID: 7748257677890113990, guid: 852894565cc618641884ff58ff637197, type: 3}
   - {fileID: 5237448091013587068, guid: 0493612e84d905343857d6aecd6d881e, type: 3}
   menuTilePrefabs:
@@ -4513,9 +4516,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 3f262b83e9c153040b525d4397fd1f67, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -4984,7 +4987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5939,7 +5942,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -6333,7 +6336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

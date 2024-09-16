@@ -11,6 +11,7 @@ public class SSQuestionManager : MonoBehaviour
 	[SerializeField] private Sprite defaultIconToShow;
     // public List<string> VocabWords;
 	public List<VocabularyEntry> AllPossibleVocabEntries;
+	private List<VocabularyEntry> entriesNotYetAsked;
 	public List<string> AllPossibleVocabWords;
     public string CorrectWord;
 	public VocabularyEntry CorrectEntry;
@@ -34,6 +35,7 @@ public class SSQuestionManager : MonoBehaviour
 
 		// Generate list of VocabularyEntries to use in game
 		AllPossibleVocabEntries = VocabularyLoader.Instance.CreateVocabularyEntryListToUse(GlobalManager.Instance.CurrentPacket, GlobalManager.Instance.ReviewPreviousPackets);
+		entriesNotYetAsked = new List<VocabularyEntry>(AllPossibleVocabEntries);
 
 		SelectNewWord();
 
@@ -68,7 +70,17 @@ public class SSQuestionManager : MonoBehaviour
 		selectedQuestionType = (SSQuestionType) Random.Range(0, questionTypeCount);
 
 		// Randomly select correct answer
-		CorrectEntry = AllPossibleVocabEntries[Random.Range(0, AllPossibleVocabEntries.Count)];
+		if (entriesNotYetAsked.Count >= 1)
+		{
+			int i = Random.Range(0, entriesNotYetAsked.Count);
+			CorrectEntry = entriesNotYetAsked[i];
+			entriesNotYetAsked.RemoveAt(i);
+		}
+		else
+		{
+			CorrectEntry = AllPossibleVocabEntries[Random.Range(0, AllPossibleVocabEntries.Count)];
+		}
+		
 		CorrectWord = CorrectEntry.English_Word;
     }
 

@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player parameters")]
     public float ForwardSpeed = 4;
+	public float MaxSpeed = 15;
     public int CurrentLane = 1; // 0, 1, and 2 are used
     public float LaneDistance = 2.75f;
     private Rigidbody rigidBody;
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject meshModel;
     [SerializeField] private Animator playerAnimator;
 	[SerializeField] private ParticleSystem dustExplosion;
+	[SerializeField] private ParticleSystem confettiExplosion;
 
     [SerializeField] private bool isPlayerGrounded;
     private Vector3 playerVelocity;
@@ -94,6 +96,7 @@ public class PlayerController : MonoBehaviour
 
             // Increase player speed gradually with time
             ForwardSpeed += Time.deltaTime * 0.1f;
+			ForwardSpeed = Mathf.Clamp(ForwardSpeed, ForwardSpeed, MaxSpeed);
         }
         else ForwardSpeed = 0.0f;
     }
@@ -274,6 +277,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag.Equals("SS-RightAnswerTrigger"))
         {
             Debug.Log("went into right tunnel!");
+			Instantiate(confettiExplosion, transform.position, Quaternion.identity);
         }
         if (other.gameObject.tag.Equals("SS-HealthPowerup"))
         {

@@ -28,6 +28,7 @@ public class BasketController : MonoBehaviour
 	[SerializeField] private PhysicsMaterial2D material;
 
     private Rigidbody2D rb;
+	private Animator basketAnimator;
 
     // Powerup tags
     private string lightningTag = "SICI-lightning_bolt";
@@ -48,6 +49,7 @@ public class BasketController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+		basketAnimator = GetComponent<Animator>();
     }
 
 	private void Update()
@@ -66,8 +68,8 @@ public class BasketController : MonoBehaviour
 	// FixedUpdate is called 50 times every second and is useful for physics stuff
     private void FixedUpdate()
     {
-		// Handle max speed
-        if (math.abs(rb.velocity.x) < maximumVelocity)
+		// Handle max speed if speed is less than max value or if input pushes player to opposite direction
+        if (math.abs(rb.velocity.x) < maximumVelocity || rb.velocity.x * previousMovementInput < 0)
         {
             rb.AddForce(Vector2.right * previousMovementInput * movementSpeed, ForceMode2D.Force);
         }
@@ -134,6 +136,7 @@ public class BasketController : MonoBehaviour
             // We have collected a powerup
 			Debug.Log("powerup collected");
             lastPowerupSprite = collision.gameObject.GetComponentInChildren<SpriteRenderer>().sprite;
+			basketAnimator.SetTrigger("CollectedRight");
             if (tag.Equals(lightningTag))
             {
                 StartCoroutine(LightningBoltPowerup(15, 0.05f, 20f, 10));
@@ -173,6 +176,7 @@ public class BasketController : MonoBehaviour
                 // Player caught the correct word, increase score
 				Debug.Log("word is correct");
                 AddScore();
+				basketAnimator.SetTrigger("CollectedRight");
 
                 // Choose the next word to catch
                 spawner.ChangeCorrectWord(); // TODO: uncomment when game works
@@ -195,6 +199,7 @@ public class BasketController : MonoBehaviour
                 // Player caught the wrong word, decrease lives
 				Debug.Log("word is incorrect");
                 LoseLife();
+				basketAnimator.SetTrigger("CollectedWrong");
             }
         }
     }
