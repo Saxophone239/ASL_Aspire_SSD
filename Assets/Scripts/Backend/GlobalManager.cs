@@ -33,6 +33,7 @@ public class GlobalManager : MonoBehaviour
 	// Data to pass into arcade games
 	public int CurrentPacket = 0; // Packet_0 starts at index 0
 	public LessonData currentLessonData;
+	public float GameStartTime = 0;
 
 	public int CurrentReview = 0; // Review_0 starts at index 0
 	public ReviewData currentReviewData;

@@ -22,21 +22,21 @@ public class ArcadeStateManager : MonoBehaviour
 	{
 		SICIspinner.SetActive(true);
 		// SceneManager.LoadScene("SignItGameplay");
-		StartCoroutine(LoadMySceneAsync("SignItGameplay"));
+		StartCoroutine(LoadMyGameSceneAsync("SignItGameplay", 1));
 	}
 
 	public void PlayMR()
 	{
 		MRspinner.SetActive(true);
 		// SceneManager.LoadScene("MazeRunnerGameplay");
-		StartCoroutine(LoadMySceneAsync("MazeRunnerGameplay"));
+		StartCoroutine(LoadMyGameSceneAsync("MazeRunnerGameplay", 0));
 	}
 
 	public void PlaySS()
 	{
 		SSspinner.SetActive(true);
 		// SceneManager.LoadScene("StreetSigns");
-		StartCoroutine(LoadMySceneAsync("StreetSigns"));
+		StartCoroutine(LoadMyGameSceneAsync("StreetSigns", 2));
 	}
 
 	public void UpdateTicketText(int numberToChangeBy)
@@ -45,8 +45,13 @@ public class ArcadeStateManager : MonoBehaviour
 		ticketText.text = GlobalManager.Instance.TotalCoinsPlayerHas.ToString();
 	}
 
-	private IEnumerator LoadMySceneAsync(string sceneName)
+	private IEnumerator LoadMyGameSceneAsync(string sceneName, int gameID)
 	{
+		GameSession session = new GameSession();
+		session.arcadeGameID = gameID;
+		GlobalManager.Instance.currentLoginSession.gameSessionList.Add(session);
+		GlobalManager.Instance.GameStartTime = Time.realtimeSinceStartup;
+
 		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
 
 		while (!asyncLoad.isDone)

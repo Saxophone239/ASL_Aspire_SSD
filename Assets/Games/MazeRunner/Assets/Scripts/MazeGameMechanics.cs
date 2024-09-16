@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using UnityEngine;
 using static MazeGlobals;
@@ -158,6 +159,8 @@ public class MazeGameMechanics : MonoBehaviour
 			}
 			Debug.Log($"updating global coins by {scoreToUpdateBy}");
 			GlobalManager.Instance.UpdateGlobalCoins(scoreToUpdateBy);
+			GlobalManager.Instance.currentLoginSession.gameSessionList.Last().sessionScore = Score;
+			GlobalManager.Instance.currentLoginSession.gameSessionList.Last().ticketsEarned = scoreToUpdateBy;
             uiManager.ShowGameOverScreen();
         }
     }
