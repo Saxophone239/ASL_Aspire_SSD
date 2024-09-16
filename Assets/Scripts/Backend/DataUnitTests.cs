@@ -171,6 +171,13 @@ public class DataUnitTests : MonoBehaviour     //Testing models and routes witho
     }
 
 
+    public void InitializeLoginSessionsList(){
+        AllLoginSessions allLoginSessions = new AllLoginSessions();
+        LoginSession loginSession = new LoginSession();
+        allLoginSessions.loginSessionList.Add(loginSession);
+        postManager.PostAllLoginSessions(allLoginSessions);
+
+    }
     //Get Route Testing
 
     public void GetLessonTest(int packetID){
@@ -181,5 +188,9 @@ public class DataUnitTests : MonoBehaviour     //Testing models and routes witho
         getManager.GetReviewData(reviewID);
     }
 
+    public void GetSessionDataTest(){
+        getManager.GetSessionDataCoroutine();
+
+    }
 
 }

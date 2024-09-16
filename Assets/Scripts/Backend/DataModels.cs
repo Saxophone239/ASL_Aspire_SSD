@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 
 
 
 [System.Serializable]
-    public class StudentData
+    public class AllLoginSessions
     {
-        public Dictionary<int,LessonData> lessonDataDictionary; //Will populate with PACKETID:LessonData
 
-		public Dictionary<int,ReviewData> reviewDataDictionary; 
+        public List<LoginSession> loginSessionList;
 
-        public LoginSession[] loginSessionList;
+        public AllLoginSessions(){
+            loginSessionList = new List<LoginSession>();
+        }
+
 
     }
 
@@ -73,10 +76,18 @@ using System.Linq;
 
 	public class LoginSession{
 		public string date; 
-		public string sessionID; 
 		public int[] packetsInteractedWith; //ID of the lessons/reviews interacted with
 
 		public GameSession[] gameSessionList;
+
+
+        public LoginSession(){
+            DateTime currentDateTime = DateTime.Now;
+
+            string dateTimeString = currentDateTime.ToString("yyyy-MM-dd HH:mm:ss");
+            Debug.Log("Current Date and Time: " + dateTimeString);
+            this.date = dateTimeString;
+        }
 	}
 
 
@@ -199,4 +210,6 @@ public class DataModels : MonoBehaviour
 
         return lesson;
     }
+
+
 }
