@@ -160,6 +160,27 @@ public class PlayfabPostManager : MonoBehaviour
         Debug.Log("Successful review user data sent!");
     }
 
+
+
+		//Lesson specific routes and management
+	public void PostAllLoginSessions(AllLoginSessions allLoginSessions)
+	{
+		var request = new UpdateUserDataRequest{
+            Data = new Dictionary<string,string>{
+                {$"Login Sessions List",JsonConvert.SerializeObject(allLoginSessions)}
+            }
+        
+        };
+        PlayFabClientAPI.UpdateUserData(request,OnLessonDataSend,OnError);
+
+	}
+
+
+
+     void OnAllLoginSessionsSend(UpdateUserDataResult result){
+        Debug.Log("Successful login session update!");
+    }
+
 	
 	void OnError(PlayFabError error){
         Debug.Log(error);

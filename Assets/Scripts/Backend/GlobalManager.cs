@@ -25,7 +25,9 @@ public class GlobalManager : MonoBehaviour
 	public static GlobalManager Instance;
 	public bool firstTimeEntrance;
 
+	public AllLoginSessions allLoginSessions;
 
+	public LoginSession currentLoginSession;
 	//public StudentData globalStudentData
 
 	// Data to pass into arcade games
@@ -45,6 +47,7 @@ public class GlobalManager : MonoBehaviour
 	[SerializeField] private IconManager iconManager;
 
 	public PlayfabGetManager getManager;
+
 
 	private void Awake()
 	{

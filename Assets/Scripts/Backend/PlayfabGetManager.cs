@@ -143,6 +143,43 @@ public class PlayfabGetManager : MonoBehaviour
         }
     }
 
+
+
+	public IEnumerator GetSessionDataCoroutine()
+	{
+		bool isCompleted = false;
+		PlayFabClientAPI.GetUserData(new GetUserDataRequest(),
+			result =>
+			{
+				OnSessionDataReceived(result);
+				isCompleted = true;
+			},
+			error =>
+			{
+				OnError(error);
+				Debug.Log("Error!");
+				isCompleted = true;
+			}
+		);
+
+		yield return new WaitUntil(() => isCompleted);
+	}
+
+    void OnSessionDataReceived(GetUserDataResult result)
+	{
+        if (result.Data != null && result.Data.ContainsKey($"Login Sessions List"))
+		{
+            Debug.Log($"Received Login Sessions List!");
+			AllLoginSessions loginSessionsList = JsonConvert.DeserializeObject<AllLoginSessions>(result.Data[$"Login Sessions List"].Value); 
+            GlobalManager.Instance.allLoginSessions = loginSessionsList;
+			Debug.Log(loginSessionsList);
+        }
+
+		else{
+			Debug.Log("Key not found");
+		}
+    }
+
     void OnError(PlayFabError error)
 	{
 		Debug.LogError($"Playfab Get error {error.GenerateErrorReport()}");
