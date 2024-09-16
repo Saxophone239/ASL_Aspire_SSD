@@ -44,7 +44,7 @@ public class PatrolEnemy : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
 		if (player == null)
 		{
@@ -74,9 +74,48 @@ public class PatrolEnemy : MonoBehaviour
                 }
 				else
 				{
-                    ChasePlayer();
-					isChasingPlayer = true;
-					isPatrolling = false;
+					// Once enemy sees player, they'll keep chasing until player runs out of range
+					if (isChasingPlayer)
+					{
+						Debug.Log("I saw player already, I'm gonna keep chasing them");
+						ChasePlayer();
+						isChasingPlayer = true;
+						isPatrolling = false;
+					}
+					else
+					{
+						// Check if enemy can see player
+						Vector3 directionEnemyToPlayer = player.transform.position - transform.position;
+						if (Physics.Raycast(transform.position, directionEnemyToPlayer, out RaycastHit hit, 8.0f))
+						{
+							if (hit.collider.tag.Equals("MR-Player"))
+							{
+								// Enemy can see player
+								Debug.Log("Player is in my range and I can see them");
+								Debug.DrawRay(transform.position, directionEnemyToPlayer * hit.distance, Color.red);
+								ChasePlayer();
+								isChasingPlayer = true;
+								isPatrolling = false;
+							}
+							else
+							{
+								// Enemy can't see player
+								Debug.Log("Player is in my range but I can't see them");
+								Debug.DrawRay(transform.position, directionEnemyToPlayer * 1000, Color.yellow);
+								Patrol();
+								isChasingPlayer = false;
+								isPatrolling = true;
+							}
+						}
+						else
+						{
+							Debug.Log("Player is in my range but I can't see them");
+							Patrol();
+							isChasingPlayer = false;
+							isPatrolling = true;
+						}
+					}
+					
                 }
             }
 			else
@@ -114,7 +153,7 @@ public class PatrolEnemy : MonoBehaviour
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
         // Walkpoint reached
-        if (distanceToWalkPoint.magnitude < 1f)
+        if (distanceToWalkPoint.magnitude < 1f || pathStatus != NavMeshPathStatus.PathComplete)
         {
             isWalkPointSet = false;
         }
@@ -128,8 +167,16 @@ public class PatrolEnemy : MonoBehaviour
         float randomZ = UnityEngine.Random.Range(-walkPointRange, walkPointRange);
 
 		walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+		
 		if (Physics.Raycast(walkPoint, -transform.up, 2.0f, whatIsGround) && IsPathAchievable(walkPoint))
 		{
+			// if (NavMesh.SamplePosition(walkPoint, out NavMeshHit hit, 4.0f, NavMesh.AllAreas))
+			// {
+			// 	walkPoint = hit.position;
+			// 	isWalkPointSet = true;
+			// }
+
+			pathStatus = NavMeshPathStatus.PathComplete;
 			isWalkPointSet = true;
 		}
     }
@@ -138,6 +185,7 @@ public class PatrolEnemy : MonoBehaviour
     {
 		if (IsPathAchievable(player.gameObject.transform.position))
 		{
+			pathStatus = NavMeshPathStatus.PathComplete;
 			enemyAgent.SetDestination(player.gameObject.transform.position);
 			alertCanvas.SetActive(true);
 		}
@@ -161,10 +209,18 @@ public class PatrolEnemy : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		// Gizmos.color = Color.blue;
-		// Gizmos.DrawWireSphere(transform.position, renderRange);
 		if (isChasingPlayer) Gizmos.color = Color.red;
 		else Gizmos.color = Color.yellow;
 		Gizmos.DrawWireSphere(transform.position, sightRange);
+
+		Gizmos.color = Color.blue;
+		if (pathCorners.Length >= 1)
+		{
+			Gizmos.DrawLine(transform.position, pathCorners[0]);
+		}
+		for (int i = 0; i < pathCorners.Length - 1; i++)
+		{
+			Gizmos.DrawLine(pathCorners[i], pathCorners[i+1]);
+		}
 	}
 }

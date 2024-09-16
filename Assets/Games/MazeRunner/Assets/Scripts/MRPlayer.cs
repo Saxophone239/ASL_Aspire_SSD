@@ -204,6 +204,7 @@ public class MRPlayer : MonoBehaviour {
 				// uiManager.PlayRemoveTimeAnimation(10.0f);
 				// uiManager.UpdateTimerUI(gameMechanics.TimeRemaining, gameMechanics.TimeRemaining - 10.0f);
 				gameMechanics.RemoveTime(10.0f);
+				StartCoroutine(TemporaryInvincibility());
 			}
 		}
 

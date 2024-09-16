@@ -48,6 +48,7 @@ public class MazeQuestionLoader : MonoBehaviour
     private string correctAnswer; // the current word that's being asked
 	private VocabularyEntry correctEntry;
 	private List<VocabularyEntry> allPossibleVocabEntries;
+	private List<VocabularyEntry> entriesNotYetAsked;
     public TimerBar timer;
 	private int questionTypeCount;
 	private List<MazeButtonHandler> buttonHandlers = new List<MazeButtonHandler>();
@@ -105,6 +106,7 @@ public class MazeQuestionLoader : MonoBehaviour
 
 		// Generate list of VocabularyEntries to use in game
 		allPossibleVocabEntries = VocabularyLoader.Instance.CreateVocabularyEntryListToUse(GlobalManager.Instance.CurrentPacket, GlobalManager.Instance.ReviewPreviousPackets);
+		entriesNotYetAsked = new List<VocabularyEntry>(allPossibleVocabEntries);
     }
 
 	public void LoadRandomQuestion()
@@ -114,7 +116,16 @@ public class MazeQuestionLoader : MonoBehaviour
 		Debug.Log($"Show question of type: {selectedQuestionType}");
 
 		// Randomly select correct answer
-		correctEntry = allPossibleVocabEntries[Random.Range(0, allPossibleVocabEntries.Count)];
+		if (entriesNotYetAsked.Count >= 1)
+		{
+			int i = Random.Range(0, entriesNotYetAsked.Count);
+			correctEntry = entriesNotYetAsked[i];
+			entriesNotYetAsked.RemoveAt(i);
+		}
+		else
+		{
+			correctEntry = allPossibleVocabEntries[Random.Range(0, allPossibleVocabEntries.Count)];
+		}
 		Debug.Log($"Correct word is: {correctEntry.English_Word}");
 
 		// Populate panel according to question type

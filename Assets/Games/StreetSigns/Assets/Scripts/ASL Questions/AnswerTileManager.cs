@@ -78,13 +78,15 @@ public class AnswerTileManager : MonoBehaviour
             {
                 Debug.Log("setting up right answer trigger");
                 BoxCollider trigger = arches[i].GetComponentInChildren<BoxCollider>();
-                trigger.gameObject.SetActive(false);
+                // trigger.gameObject.SetActive(false);
+				trigger.gameObject.tag = "SS-RightAnswerTrigger";
             }
             else
             {
                 Debug.Log("setting up wrong answer trigger");
                 BoxCollider trigger = arches[i].GetComponentInChildren<BoxCollider>();
-                trigger.gameObject.SetActive(true);
+                // trigger.gameObject.SetActive(true);
+				trigger.gameObject.tag = "SS-WrongAnswerTrigger";
             }
         }
     }

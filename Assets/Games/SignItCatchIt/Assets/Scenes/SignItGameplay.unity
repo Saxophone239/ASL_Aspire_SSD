@@ -2281,7 +2281,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6628565555988496512, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
   m_PrefabInstance: {fileID: 6628565556322078215}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1865367624}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 961eea8550dc0fc44a5ce2a86d460852, type: 3}
@@ -12130,6 +12130,7 @@ GameObject:
   - component: {fileID: 1793102571}
   - component: {fileID: 1793102573}
   - component: {fileID: 1793102572}
+  - component: {fileID: 1793102574}
   m_Layer: 5
   m_Name: Image Holder
   m_TagString: Untagged
@@ -12155,7 +12156,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -11.301, y: 9.8998}
-  m_SizeDelta: {x: 327.94, y: 184.46}
+  m_SizeDelta: {x: 327.9289, y: 184.46}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1793102572
 MonoBehaviour:
@@ -12177,9 +12178,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 6b37eed269a9b284eb34f908ffd82556, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -12195,81 +12196,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1793102570}
   m_CullTransparentMesh: 1
---- !u!1 &1865367624 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6628565555988496517, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
-  m_PrefabInstance: {fileID: 6628565556322078215}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1865367630
+--- !u!114 &1793102574
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1865367624}
+  m_GameObject: {fileID: 1793102570}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 0a2de8167cf1f4d4aac6cb61e9ec76ba, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 501354119}
-        m_TargetAssemblyTypeName: BasketController, Assembly-CSharp
-        m_MethodName: HandleMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: c892e323-b265-47cb-8198-fce27612df94
-    m_ActionName: SignItCatchIt/Move[/Keyboard/a,/Keyboard/d,/Keyboard/leftArrow,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 501354119}
-        m_TargetAssemblyTypeName: BasketController, Assembly-CSharp
-        m_MethodName: HandleJump
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 9861b674-406e-48ec-bbe5-8cd76a43801f
-    m_ActionName: SignItCatchIt/Jump[/Keyboard/w,/Keyboard/space,/Keyboard/upArrow,/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 681e1bc4-d92c-4173-aa3f-4aa607dea568
-    m_ActionName: MazeRunner/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 58dc2552-f19d-44f0-ae07-ea45069bce6f
-    m_ActionName: MazeRunner/Jump[/Keyboard/space,/Mouse/leftButton]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: SignItCatchIt
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_AspectMode: 2
+  m_AspectRatio: 1.7777778
 --- !u!1 &1875125135
 GameObject:
   m_ObjectHideFlags: 0
@@ -13901,42 +13841,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2706270734453394126, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
-      propertyPath: m_DefaultActionMap
-      value: SignItCatchIt
-      objectReference: {fileID: 0}
-    - target: {fileID: 2706270734453394126, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2706270734453394126, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_ActionId
-      value: 681e1bc4-d92c-4173-aa3f-4aa607dea568
-      objectReference: {fileID: 0}
-    - target: {fileID: 2706270734453394126, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
-      value: 58dc2552-f19d-44f0-ae07-ea45069bce6f
-      objectReference: {fileID: 0}
-    - target: {fileID: 2706270734453394126, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_ActionName
-      value: MazeRunner/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
-      objectReference: {fileID: 0}
-    - target: {fileID: 2706270734453394126, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
-      value: MazeRunner/Jump[/Keyboard/space,/Mouse/leftButton]
-      objectReference: {fileID: 0}
     - target: {fileID: 6628565555988496512, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
       propertyPath: spawner
       value: 
       objectReference: {fileID: 1017470827}
-    - target: {fileID: 6628565555988496512, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
-      propertyPath: material
-      value: 
-      objectReference: {fileID: 6200000, guid: 01c1d78e39ff5514cbe919a35ced16fb, type: 2}
-    - target: {fileID: 6628565555988496512, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
-      propertyPath: uiManager
-      value: 
-      objectReference: {fileID: 281421882}
     - target: {fileID: 6628565555988496512, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
       propertyPath: gameManager
       value: 
@@ -13945,10 +13853,6 @@ PrefabInstance:
       propertyPath: powerupTimer
       value: 
       objectReference: {fileID: 355151525}
-    - target: {fileID: 6628565555988496512, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
-      propertyPath: gameMechanics
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6628565555988496513, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -13997,10 +13901,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Basket
       objectReference: {fileID: 0}
-    - target: {fileID: 6628565555988496517, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2706270734453394126, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a7647ca734dd5343869ed019643e295, type: 3}

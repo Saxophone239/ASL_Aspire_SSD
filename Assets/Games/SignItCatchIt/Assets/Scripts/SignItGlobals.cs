@@ -12,5 +12,5 @@ public class SignItGlobals : MonoBehaviour
     }
 	
     public static float spawnRate = 0.9f;
-    public static Difficulty difficulty = Difficulty.Medium;
+    public static Difficulty difficulty = Difficulty.Easy;
 }

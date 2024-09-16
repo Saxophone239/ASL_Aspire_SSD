@@ -290,9 +290,9 @@ public class MazeSpawner : MonoBehaviour {
 					tmp.transform.parent = transform;
 					goalNum++;
 				}
-
-				yield return new WaitForSeconds(0.00001f);
 			}
+
+			yield return new WaitForSeconds(0.00001f);
 		}
 		if(Pillar != null){
 			for (int row = 0; row < Rows+1; row++) {
@@ -301,9 +301,9 @@ public class MazeSpawner : MonoBehaviour {
 					float z = row*(CellHeight+(AddGaps?.2f:0));
 					GameObject tmp = Instantiate(Pillar,new Vector3(x-CellWidth/2,0,z-CellHeight/2),Quaternion.identity) as GameObject;
 					tmp.transform.parent = transform;
-
-					yield return new WaitForSeconds(0.00001f);
 				}
+			
+				yield return new WaitForSeconds(0.00001f);
 			}
 		}
 
@@ -314,8 +314,8 @@ public class MazeSpawner : MonoBehaviour {
 		{
 			for (int i = 0; i < MinNumGoals - goalNum; i++)
 			{
-				int randomRow = Random.Range(0, Rows);
-				int randomColumn = Random.Range(0, Columns);
+				int randomRow = Random.Range(1, Rows);
+				int randomColumn = Random.Range(1, Columns);
 				if (mMazeGenerator.GetMazeCell(randomRow, randomColumn).IsGoal == false)
 				{
 					float x = randomColumn * (CellWidth + (AddGaps ? .2f : 0));
@@ -329,34 +329,11 @@ public class MazeSpawner : MonoBehaviour {
 			}
 		}
 
-		// Bake NavMeshes on floors for enemy AI
-		NavMeshSurface.BuildNavMesh();
-
-		// Spawn enemies random
-		for (int i = 0; i < TotalNumPatrols; i++)
-		{
-			int randomRow = Random.Range(0, Rows);
-			int randomColumn = Random.Range(0, Columns);
-			MazeCell mazeCell = mMazeGenerator.GetMazeCell(randomRow, randomColumn);
-			if (mazeCell.HasSpike == false && mazeCell.IsGoal == false && mazeCell.HasEnemy == false)
-			{
-				float x = randomColumn * (CellWidth + (AddGaps ? .2f : 0));
-				float z = randomRow * (CellHeight + (AddGaps ? .2f : 0));
-
-				GameObject tmp = Instantiate(PatrolEnemyPrefab, new Vector3(x, 1, z), Quaternion.Euler(0, 0, 0)) as GameObject;
-				tmp.transform.parent = transform;
-				tmp.GetComponent<PatrolEnemy>().player = spawnedPlayer;
-				mazeCell.HasEnemy = true;
-			}
-
-			yield return new WaitForSeconds(0.00001f);
-		}
-
 		// Add spikes randomly
 		for (int i = 0; i < TotalNumSpikes; i++)
 		{
-			int randomRow = Random.Range(0, Rows);
-			int randomColumn = Random.Range(0, Columns);
+			int randomRow = Random.Range(1, Rows);
+			int randomColumn = Random.Range(1, Columns);
 			MazeCell mazeCell = mMazeGenerator.GetMazeCell(randomRow, randomColumn);
 			if (mazeCell.HasSpike == false && mazeCell.IsGoal == false)
 			{
@@ -374,6 +351,29 @@ public class MazeSpawner : MonoBehaviour {
 					tmp.transform.parent = transform;
 					mazeCell.HasSpike = true;
 				}
+			}
+
+			yield return new WaitForSeconds(0.00001f);
+		}
+
+		// Bake NavMeshes on floors for enemy AI
+		NavMeshSurface.BuildNavMesh();
+
+		// Spawn enemies random
+		for (int i = 0; i < TotalNumPatrols; i++)
+		{
+			int randomRow = Random.Range(1, Rows);
+			int randomColumn = Random.Range(1, Columns);
+			MazeCell mazeCell = mMazeGenerator.GetMazeCell(randomRow, randomColumn);
+			if (mazeCell.HasSpike == false && mazeCell.IsGoal == false && mazeCell.HasEnemy == false)
+			{
+				float x = randomColumn * (CellWidth + (AddGaps ? .2f : 0));
+				float z = randomRow * (CellHeight + (AddGaps ? .2f : 0));
+
+				GameObject tmp = Instantiate(PatrolEnemyPrefab, new Vector3(x, 1, z), Quaternion.Euler(0, 0, 0)) as GameObject;
+				tmp.transform.parent = transform;
+				tmp.GetComponent<PatrolEnemy>().player = spawnedPlayer;
+				mazeCell.HasEnemy = true;
 			}
 
 			yield return new WaitForSeconds(0.00001f);

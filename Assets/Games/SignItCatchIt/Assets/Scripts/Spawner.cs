@@ -28,6 +28,7 @@ public class Spawner : MonoBehaviour
     private RawImage rawImage;
 
     private List<string> currentWordsToSpawn = new List<string>();
+	private List<string> wordsNotYetSpawned;
     private int currentWordsToSpawnSize = 6;
 
     // Specific correct word/link chosen at period
@@ -51,23 +52,6 @@ public class Spawner : MonoBehaviour
         rawImage = videoPlayer.gameObject.GetComponent<RawImage>();
         rawImage.color = new Color32(255, 255, 255, 0);
 
-        // Handle difficulty setting
-        switch (SignItGlobals.difficulty)
-		{
-			case SignItGlobals.Difficulty.Easy:
-                fallingSpeed = 0.2f;
-                spawnRate = 1.2f;
-				break;
-			case SignItGlobals.Difficulty.Medium:
-				fallingSpeed = 0.3f;
-                spawnRate = 1.0f;
-				break;
-			case SignItGlobals.Difficulty.Hard:
-				fallingSpeed = 0.4f;
-                spawnRate = 0.8f;
-				break;
-		}
-
 		// Generate list of VocabularyEntries to use in game
 		allPossibleVocabEntries = VocabularyLoader.Instance.CreateVocabularyEntryListToUse(GlobalManager.Instance.CurrentPacket, GlobalManager.Instance.ReviewPreviousPackets);
 
@@ -76,6 +60,23 @@ public class Spawner : MonoBehaviour
 
     public void StartSpawningWords()
     {
+		// Handle difficulty setting
+        switch (SignItGlobals.difficulty)
+		{
+			case SignItGlobals.Difficulty.Easy:
+                fallingSpeed = 0.15f;
+                spawnRate = 1.2f;
+				break;
+			case SignItGlobals.Difficulty.Medium:
+				fallingSpeed = 0.25f;
+                spawnRate = 1.0f;
+				break;
+			case SignItGlobals.Difficulty.Hard:
+				fallingSpeed = 0.35f;
+                spawnRate = 0.8f;
+				break;
+		}
+		
         isSpawnerActive = true;
         ChangeCorrectWord();
         rawImage.color = new Color32(255, 255, 255, 255);
@@ -93,10 +94,24 @@ public class Spawner : MonoBehaviour
         if (!isSpawnerActive) yield break;
 
         yield return new WaitForSeconds(spawnRate);
-        int randomVocabWordIndex = Random.Range(0, currentWordsToSpawn.Count);
+
+		int randomVocabWordIndex;
+		string wordText;
+		if (wordsNotYetSpawned.Count >= 1)
+		{
+			randomVocabWordIndex = Random.Range(0, wordsNotYetSpawned.Count);
+			wordText = wordsNotYetSpawned[randomVocabWordIndex];
+			wordsNotYetSpawned.RemoveAt(randomVocabWordIndex);
+		}
+		else
+		{
+			randomVocabWordIndex = Random.Range(0, currentWordsToSpawn.Count);
+			wordText = currentWordsToSpawn[randomVocabWordIndex];
+		}
         if (word.GetComponent<TextMeshPro>() != null)
         {
-            word.GetComponent<TextMeshPro>().text = currentWordsToSpawn[randomVocabWordIndex];
+
+            word.GetComponent<TextMeshPro>().text = wordText;
             Rigidbody2D wordRigidBody = word.GetComponent<Rigidbody2D>();
             wordRigidBody.gravityScale = fallingSpeed;
             GameObject tmp = Instantiate(word, new Vector2(Random.Range(xBound.x, xBound.y), Random.Range(yBound.x, yBound.y)), Quaternion.identity);
@@ -171,6 +186,8 @@ public class Spawner : MonoBehaviour
                 currentWordsToSpawn.Add(levelVocabList[randomVocabWordIndex].English_Word);
             }
         }
+
+		wordsNotYetSpawned = new List<string>(currentWordsToSpawn);
 
 		// Choose whether to show video or icon of word
 		int choice = Random.Range(0, 2);
