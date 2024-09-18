@@ -79,6 +79,12 @@ public class MazeMenuScreenManager : MonoBehaviour
         return source.IndexOf(toCompare, System.StringComparison.OrdinalIgnoreCase) >= 0;
     }
 
+	public void OnTutorialButtonPress()
+	{
+		// Update GameSession data
+		GlobalManager.Instance.currentLoginSession.gameSessionList.Last().tutorialPressed = true;
+	}
+
 	public void OnPausePanelEnter()
 	{
 		Time.timeScale = 0.0f;
@@ -97,6 +103,12 @@ public class MazeMenuScreenManager : MonoBehaviour
 	public void BackToArcadeButton()
 	{
         //UpdateGlobalCoins(true);
+		GlobalManager.Instance.currentLoginSession.gameSessionList.Last().exitPressed = true;
+		GlobalManager.Instance.currentLoginSession.gameSessionList.Last().timeSpent =
+			Time.realtimeSinceStartup - GlobalManager.Instance.GameStartTime;
+
+		PlayfabPostManager.Instance.PostAllLoginSessions(GlobalManager.Instance.allLoginSessions);
+		
 		StartCoroutine(LoadMainSceneAsync());
     }
 

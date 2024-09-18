@@ -4,6 +4,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class MRPlayer : MonoBehaviour {
 
@@ -336,6 +337,8 @@ public class MRPlayer : MonoBehaviour {
 	public void onJumpButtonPress()
 	{
 		if (!gameMechanics.IsGameplayActive) return;
+
+		if (EventSystem.current.IsPointerOverGameObject(0)) return;
 		
 		if (Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, 0.2f, whatIsGround))
 		{

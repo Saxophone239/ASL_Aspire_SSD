@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameMechanics : MonoBehaviour
@@ -32,6 +33,8 @@ public class GameMechanics : MonoBehaviour
         if (IsGameOver && !isGameOverSequenceStarted)
         {
 			GlobalManager.Instance.UpdateGlobalCoins(Score / 50);
+			GlobalManager.Instance.currentLoginSession.gameSessionList.Last().sessionScore = Score;
+			GlobalManager.Instance.currentLoginSession.gameSessionList.Last().ticketsEarned = Score / 50;
             PlayerController player = GameObject.FindObjectOfType<PlayerController>();
             StartCoroutine(player.StartDeathCoroutine());
 			isGameOverSequenceStarted = true;

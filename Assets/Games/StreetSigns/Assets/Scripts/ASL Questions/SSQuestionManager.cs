@@ -16,7 +16,7 @@ public class SSQuestionManager : MonoBehaviour
     public string CorrectWord;
 	public VocabularyEntry CorrectEntry;
 
-	private SSQuestionType selectedQuestionType;
+	public SSQuestionType SelectedQuestionType;
 	private bool isPlayerAnsweringQuestion;
 
 	public enum SSQuestionType
@@ -49,16 +49,19 @@ public class SSQuestionManager : MonoBehaviour
 	public void LoadQuestionToUI()
 	{
 		// Populate panel according to question type
-		switch (selectedQuestionType)
+		switch (SelectedQuestionType)
 		{
 			case SSQuestionType.ASLSignToEnglishWord:
+				Debug.Log($"Loading question type: ASLSignToEnglishWord: {CorrectEntry.English_Word}");
 				uiManager.UpdateQuestionVideoPanel("What is this sign?", CorrectEntry.ASL_Sign);
 				break;
 			case SSQuestionType.EnglishDefinitionToEnglishWord:
-				uiManager.UpdateQuestionOnlyPanel($"{CorrectEntry.English_Definition}...");
+			Debug.Log($"Loading question type: EnglishDefinitionToEnglishWord: {CorrectEntry.English_Word}");
+				uiManager.UpdateQuestionOnlyPanel($"\"{CorrectEntry.English_Definition}\" means...");
 				break;
 			case SSQuestionType.IconToEnglishWord:
 				// uiManager.UpdateQuestionIconPanel("This image shows...", defaultIconToShow);
+				Debug.Log($"Loading question type: IconToEnglishWord: {CorrectEntry.English_Word}");
 				uiManager.UpdateQuestionIconPanel("This image shows...", GlobalManager.Instance.GetIcon(CorrectEntry.Vocabulary_ID));
 				break;
 		}
@@ -67,7 +70,7 @@ public class SSQuestionManager : MonoBehaviour
     public void SelectNewWord()
     {
         // Make panel randomly select question type
-		selectedQuestionType = (SSQuestionType) Random.Range(0, questionTypeCount);
+		SelectedQuestionType = (SSQuestionType) Random.Range(0, questionTypeCount);
 
 		// Randomly select correct answer
 		if (entriesNotYetAsked.Count >= 1)
@@ -82,6 +85,8 @@ public class SSQuestionManager : MonoBehaviour
 		}
 		
 		CorrectWord = CorrectEntry.English_Word;
+
+		StartCoroutine(LoadQuestionToUIAfterDelay(5.0f));
     }
 
 	public void HandleToggleShowQuestion()
@@ -95,9 +100,16 @@ public class SSQuestionManager : MonoBehaviour
 		else
 		{
 			isPlayerAnsweringQuestion = true;
-			LoadQuestionToUI();
+			uiManager.RestartVideo();
 			uiManager.ToggleShowQuestionUIPanel(false);
 		}
+	}
+
+	private IEnumerator LoadQuestionToUIAfterDelay(float delaySeconds)
+	{
+		yield return new WaitForSeconds(delaySeconds);
+
+		LoadQuestionToUI();
 	}
 
     // public string GetWordURL()

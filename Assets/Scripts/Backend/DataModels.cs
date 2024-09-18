@@ -78,7 +78,7 @@ using System;
 		public string date; 
 		public int[] packetsInteractedWith; //ID of the lessons/reviews interacted with
 
-		public GameSession[] gameSessionList;
+		public List<GameSession> gameSessionList;
 
 
         public LoginSession(){
@@ -87,6 +87,8 @@ using System;
             string dateTimeString = currentDateTime.ToString("yyyy-MM-dd HH:mm:ss");
             Debug.Log("Current Date and Time: " + dateTimeString);
             this.date = dateTimeString;
+
+			gameSessionList = new List<GameSession>();
         }
 	}
 

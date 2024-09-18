@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static SSQuestionManager;
 
 public class TileSpawner : MonoBehaviour
 {
@@ -12,10 +14,12 @@ public class TileSpawner : MonoBehaviour
 
     [Header("Managers")]
     [SerializeField] private GameMechanics gameMechanics;
+	[SerializeField] private SSQuestionManager qM;
 
     [Header("Parameters")]
     [SerializeField] private GameObject[] tilePrefabs;
     [SerializeField] private GameObject[] questionTilePrefabs;
+	[SerializeField] private GameObject[] questionTileDefinitionPrefabs; // definition vids are long, so add some space
     [SerializeField] private GameObject[] menuTilePrefabs;
     [SerializeField] private GameObject[] powerupsPrefabs;
     [SerializeField] private Transform playerTransform;
@@ -124,20 +128,42 @@ public class TileSpawner : MonoBehaviour
         else
         {
             // Question is active, spawn sequence of question tiles
-            if (questionTileCounter < questionTilePrefabs.Length)
-            {
-                // Check the sequence, if we haven't reached the end then spawn next tile (normal)
-                SpawnTile(questionTilePrefabs[questionTileCounter]);
-                questionTileCounter++;
-            }
-            else
-            {
-                // We have reached the end of the question tile sequence, begin to spawn normal obstacle tiles
-                questionTileCounter = 0;
-                numberOfTilesTraversed = 0;
-                isQuestionActive = false;
-                SpawnTile(tilePrefabs[Random.Range(0, tilePrefabs.Length)]);
-            }
+			if (qM.SelectedQuestionType == SSQuestionType.EnglishDefinitionToEnglishWord)
+			{
+				// This is a definition question
+				if (questionTileCounter < questionTileDefinitionPrefabs.Length)
+				{
+					// Check the sequence, if we haven't reached the end then spawn next tile (normal)
+					SpawnTile(questionTileDefinitionPrefabs[questionTileCounter]);
+					questionTileCounter++;
+				}
+				else
+				{
+					// We have reached the end of the question tile sequence, begin to spawn normal obstacle tiles
+					questionTileCounter = 0;
+					numberOfTilesTraversed = 0;
+					isQuestionActive = false;
+					SpawnTile(tilePrefabs[Random.Range(0, tilePrefabs.Length)]);
+				}
+			}
+			else
+			{
+				// This is a normal question
+				if (questionTileCounter < questionTilePrefabs.Length)
+				{
+					// Check the sequence, if we haven't reached the end then spawn next tile (normal)
+					SpawnTile(questionTilePrefabs[questionTileCounter]);
+					questionTileCounter++;
+				}
+				else
+				{
+					// We have reached the end of the question tile sequence, begin to spawn normal obstacle tiles
+					questionTileCounter = 0;
+					numberOfTilesTraversed = 0;
+					isQuestionActive = false;
+					SpawnTile(tilePrefabs[Random.Range(0, tilePrefabs.Length)]);
+				}
+			}
         }
     }
 

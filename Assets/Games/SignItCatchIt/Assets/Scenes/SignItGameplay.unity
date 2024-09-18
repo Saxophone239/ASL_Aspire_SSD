@@ -2824,6 +2824,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1691436778}
+        m_TargetAssemblyTypeName: SignItMenuScreenManager, Assembly-CSharp
+        m_MethodName: OnTutorialButtonPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &563345189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4573,7 +4585,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit
+  m_text: Back To Map
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6160f8d5baad85941bc514ca67a7af29, type: 2}
   m_sharedMaterial: {fileID: 4560175688752687887, guid: 6160f8d5baad85941bc514ca67a7af29, type: 2}
@@ -13236,7 +13248,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Back to Arcade
+  m_text: 'Back to Map
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6160f8d5baad85941bc514ca67a7af29, type: 2}
   m_sharedMaterial: {fileID: 4560175688752687887, guid: 6160f8d5baad85941bc514ca67a7af29, type: 2}
@@ -13897,9 +13911,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6628565555988496514, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6628565555988496514, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6628565555988496517, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
       propertyPath: m_Name
       value: Basket
+      objectReference: {fileID: 0}
+    - target: {fileID: 6628565555988496517, guid: 6a7647ca734dd5343869ed019643e295, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a7647ca734dd5343869ed019643e295, type: 3}

@@ -153,7 +153,7 @@ public class PatrolEnemy : MonoBehaviour
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
         // Walkpoint reached
-        if (distanceToWalkPoint.magnitude < 1f || pathStatus != NavMeshPathStatus.PathComplete)
+        if (distanceToWalkPoint.magnitude < 3f || pathStatus != NavMeshPathStatus.PathComplete)
         {
             isWalkPointSet = false;
         }

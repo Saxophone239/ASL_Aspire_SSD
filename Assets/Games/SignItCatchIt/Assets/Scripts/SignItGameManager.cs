@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SignItGameManager : MonoBehaviour
@@ -82,6 +83,8 @@ public class SignItGameManager : MonoBehaviour
 		}
 		Debug.Log($"updating global coins by {scoreToUpdateBy}");
 		GlobalManager.Instance.UpdateGlobalCoins(scoreToUpdateBy);
+		GlobalManager.Instance.currentLoginSession.gameSessionList.Last().sessionScore = CurrentScore;
+		GlobalManager.Instance.currentLoginSession.gameSessionList.Last().ticketsEarned = scoreToUpdateBy;
 		player.gameObject.SetActive(false);
 		uiManager.StartGameOverSequence();
 	}

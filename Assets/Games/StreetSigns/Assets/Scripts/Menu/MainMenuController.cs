@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -67,6 +68,9 @@ public class MainMenuController : MonoBehaviour
     {
         Debug.Log("Tutorial button pressed");
         tutorialPanel.SetActive(true);
+
+		// Update GameSession data
+		GlobalManager.Instance.currentLoginSession.gameSessionList.Last().tutorialPressed = true;
     }
 
     public void OnBackButtonPress()
@@ -95,6 +99,12 @@ public class MainMenuController : MonoBehaviour
         Debug.Log("Quit button pressed");
         // uiManager.UpdateGlobalCoins(true);
         // GlobalManager.currentLesson.game_completed = true;
+		GlobalManager.Instance.currentLoginSession.gameSessionList.Last().exitPressed = true;
+		GlobalManager.Instance.currentLoginSession.gameSessionList.Last().timeSpent =
+			Time.realtimeSinceStartup - GlobalManager.Instance.GameStartTime;
+
+		PlayfabPostManager.Instance.PostAllLoginSessions(GlobalManager.Instance.allLoginSessions);
+		
 		StartCoroutine(LoadMainSceneAsync());
     }
 
