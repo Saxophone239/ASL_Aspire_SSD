@@ -165,6 +165,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   correctColor: {r: 0.06409772, g: 0.5377358, b: 0, a: 1}
   incorrectColor: {r: 0.735849, g: 0, b: 0, a: 1}
+  fadeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.25
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  timeToFade: 1
 --- !u!1 &6521356538326515295
 GameObject:
   m_ObjectHideFlags: 0
