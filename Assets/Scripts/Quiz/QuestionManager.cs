@@ -39,9 +39,11 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private TextMeshProUGUI questionNumberText;
     [SerializeField] private TextMeshProUGUI questionText;
+    [SerializeField] private Image progressMask;
+    // Supplementary elements
+    [SerializeField] private TextMeshProUGUI supplementaryText;
     [SerializeField] private RawImage videoScreen;
     [SerializeField] private Image icon;
-    [SerializeField] private Image progressMask;
 
     // End Slide elements
 	[Header("End Slide elements")]
@@ -62,6 +64,8 @@ public class QuestionManager : MonoBehaviour
 		allPossibleVocabEntries = new List<VocabularyEntry>();
 		currentQuizVocabEntries = new List<VocabularyEntry>();
 		topThreeWorstQuestions = new List<QuizQuestionObject>();
+
+        icon.preserveAspect = true;
 
         questionIdx = -1;
         VerifyReviewData();
@@ -311,12 +315,18 @@ public class QuestionManager : MonoBehaviour
             return;
         }
 
+        // Hide appropriate elements
+        videoScreen.GetComponent<FadeGraphic>().SetOut();
+        icon.GetComponent<FadeGraphic>().SetOut();
+        supplementaryText.gameObject.SetActive(false);
+
         continueButton.gameObject.SetActive(false);
         QuizQuestion currentQuestion = quizQuestions[questionIdx];
 
         // Do the following every time
         questionText.text = currentQuestion.questionText;
         questionNumberText.text = "Question " + (questionIdx + 1) + "/" + quizQuestions.Count;
+        supplementaryText.text = currentQuestion.vocabularyEntry.English_Word;
         videoPlayer.url = currentQuestion.videoURL;
 		videoScreen.gameObject.SetActive(false);
         icon.sprite = currentQuestion.icon;
@@ -333,27 +343,25 @@ public class QuestionManager : MonoBehaviour
         speechBubble.gameObject.SetActive(false);
 
         // Handle specific question type (hide or show supplementary)
+        /*
         switch (currentQuestion.questionType)
         {
-            // case QuestionType.SignWordToWord:
-            //     ActivateSupplementary(true, false);
-            //     break;
             case QuestionType.DefToWord:
                 ActivateSupplementary(false, false);
                 break;
             case QuestionType.WordToDef:
                 ActivateSupplementary(false, false);
                 break;
-            // case QuestionType.SignDefToDef:
-            //     ActivateSupplementary(true, false);
-            //     break;
-            // case QuestionType.IconToWord:
-            //     ActivateSupplementary(false, true);
-            //     break;
             default:
                 Debug.LogError("Unknown question type");
                 break;
         }
+        */
+
+
+        // Show appropriate elements
+        answerButtons[0].transform.parent.GetComponent<FadeCanvasGroup>().SetIn();
+        questionText.transform.parent.GetComponent<FadeCanvasGroup>().SetIn();
     }
 
     public void FinishQuiz()
@@ -373,8 +381,6 @@ public class QuestionManager : MonoBehaviour
     public void CheckAnswer(int selectedAnswer)
     {
         QuizQuestion currentQuestion = quizQuestions[questionIdx];
-		videoScreen.gameObject.SetActive(true);
-		videoPlayer.time = 0.0f;
         if (selectedAnswer != currentQuestion.correctAnswer)
         {
             // Highlight incorrect choice
@@ -391,7 +397,56 @@ public class QuestionManager : MonoBehaviour
         {
             answerButton.GetComponent<Button>().enabled = false;
         }
+        StartCoroutine(AnimateSupplementalSlide());
+    }
+
+    private IEnumerator AnimateSupplementalSlide()
+    {
+        // Wait for buttons to finish
+        while (AnyButtonAnimating())
+        {
+            yield return null;
+        }
+
+        // Fade the question and answers out
+        FadeCanvasGroup questionCanvasFader = questionText.transform.parent.GetComponent<FadeCanvasGroup>();
+        questionCanvasFader.FadeOut();
+        answerButtons[0].transform.parent.GetComponent<FadeCanvasGroup>().FadeOut();
+        while (questionCanvasFader.IsAnimating)
+        {
+            yield return null;
+        }
+
+        // Fade the vide and icon in
+		videoScreen.gameObject.SetActive(true);
+        icon.gameObject.SetActive(true);
+        videoPlayer.Pause();
+        videoPlayer.frame = 0;
+        yield return null; // Allow extra frame so FadeGraphic can grab Graphics
+
+        videoScreen.GetComponent<FadeGraphic>().FadeIn();
+        icon.GetComponent<FadeGraphic>().FadeIn();
+        while (videoScreen.GetComponent<FadeGraphic>().IsAnimating)
+        {
+            yield return null;
+        }
+        videoPlayer.Play();
+
+        supplementaryText.gameObject.SetActive(true);
+        supplementaryText.GetComponent<DialogueAnimator>().PlayAnimation();
+
         continueButton.gameObject.SetActive(true);
+        yield break;
+    }
+
+    // returns true if any of the answer buttons are currently animating, false otherwise
+    private bool AnyButtonAnimating()
+    {
+        foreach (AnswerButton answerButton in answerButtons)
+        {
+            if (answerButton.IsAnimating) return true;
+        }
+        return false;
     }
 
 	private void PostReviewData()
