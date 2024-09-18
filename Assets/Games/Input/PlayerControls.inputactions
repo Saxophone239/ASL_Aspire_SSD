@@ -405,6 +405,17 @@
                 },
                 {
                     "name": "",
+                    "id": "0ca3b12c-10a9-48bc-82ea-f3d07d15f118",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "39a199e0-ce43-4d73-a257-dd91e7373ed9",
                     "path": "<Keyboard>/s",
                     "interactions": "",

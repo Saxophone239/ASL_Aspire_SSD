@@ -20,7 +20,7 @@ public class PlayerCollector : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag.Equals("Player"))
+        if (other.gameObject.tag.Equals("MR-Player"))
         {
             other.gameObject.transform.position = new Vector3(50, 20, 50);
         }

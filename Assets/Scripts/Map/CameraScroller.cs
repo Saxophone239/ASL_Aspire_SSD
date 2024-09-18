@@ -8,6 +8,7 @@ public class CameraScroller : MonoBehaviour
 {
     [SerializeField] private Scrollbar scrollbar;
 	[SerializeField] private Vector2 cameraYRange;
+	[SerializeField] private float scrollAmount = 0.0005f;
 
 	private float wholeCameraRange;
 
@@ -22,10 +23,9 @@ public class CameraScroller : MonoBehaviour
 		if (Mouse.current != null)
 		{
 			Vector2 vec = Mouse.current.scroll.ReadValue();
-			if (vec.y >= 120)
-				scrollbar.value -= 0.05f * (vec.y / 120);
-			else if (vec.y <= -120)
-				scrollbar.value -= 0.05f * (vec.y / 120);
+			if (vec != Vector2.zero) Debug.Log(vec);
+			if (vec.y != 0)
+				scrollbar.value -= scrollAmount * vec.y;
 		}
 		scrollbar.value = Mathf.Clamp(scrollbar.value, 0.0f, 1.0f);
 

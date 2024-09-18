@@ -5757,6 +5757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollbar: {fileID: 119280205}
   cameraYRange: {x: -6, y: 6}
+  scrollAmount: 0.0005
 --- !u!1 &729648531
 GameObject:
   m_ObjectHideFlags: 0

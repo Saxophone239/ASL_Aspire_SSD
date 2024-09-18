@@ -29,6 +29,8 @@ public class BasketController : MonoBehaviour
 
     private Rigidbody2D rb;
 	private Animator basketAnimator;
+	private SpriteRenderer playerRenderer;
+	private bool isPlayerInvincible;
 
     // Powerup tags
     private string lightningTag = "SICI-lightning_bolt";
@@ -50,6 +52,7 @@ public class BasketController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 		basketAnimator = GetComponent<Animator>();
+		playerRenderer = GetComponent<SpriteRenderer>();
     }
 
 	private void Update()
@@ -179,7 +182,7 @@ public class BasketController : MonoBehaviour
 				basketAnimator.SetTrigger("CollectedRight");
 
                 // Choose the next word to catch
-                spawner.ChangeCorrectWord(); // TODO: uncomment when game works
+                spawner.ChangeCorrectWord();
 
                 // Gray out the current words on the screen so players don't accidentally catch them
                 GameObject[] currentWords = GameObject.FindGameObjectsWithTag("SICI-word");
@@ -196,10 +199,12 @@ public class BasketController : MonoBehaviour
             }
             else
             {
+				if (isPlayerInvincible) return;
                 // Player caught the wrong word, decrease lives
 				Debug.Log("word is incorrect");
                 LoseLife();
 				basketAnimator.SetTrigger("CollectedWrong");
+				StartCoroutine(TemporaryInvincibility());
             }
         }
     }
@@ -297,4 +302,21 @@ public class BasketController : MonoBehaviour
 
         isMultiplier = false;
     }
+
+	//Makes the player invincible for a second so they can't get damage
+	private IEnumerator TemporaryInvincibility()
+	{
+		isPlayerInvincible = true;
+
+		var whenAreWeDone = Time.time + 1.5f;
+		while (Time.time < whenAreWeDone)
+		{
+			yield return new WaitForSeconds(0.1f);
+			playerRenderer.enabled = !playerRenderer.enabled;
+		}
+		yield return new WaitForSeconds(0.1f);
+		playerRenderer.enabled=true;
+		
+		isPlayerInvincible = false;
+	}
 }

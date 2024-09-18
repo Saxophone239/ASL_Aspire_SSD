@@ -115,4 +115,9 @@ public class StreetSignsUIManager : MonoBehaviour
 		questionUIAnimator.SetBool("shouldShowPanel", !shouldTurnOffActivePanel);
 		if (shouldTurnOffActivePanel) currentActiveQuestionPanel.SetActive(false);
 	}
+
+	public void RestartVideo()
+	{
+		QuestionVideoVideoplayer.time = 0.0f;
+	}
 }
