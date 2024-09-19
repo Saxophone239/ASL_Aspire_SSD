@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
@@ -35,6 +36,10 @@ public class InitializeStudentData : MonoBehaviour
 
 		yield return new WaitUntil(() => isCompleted);
 
+		// Create LoginSession object and append it to end of AllLoginSessions object
+		GlobalManager.Instance.allLoginSessions.loginSessionList.Add(new LoginSession());
+		GlobalManager.Instance.currentLoginSession = GlobalManager.Instance.allLoginSessions.loginSessionList.Last();
+
 		// Change to next scene
 		StartCoroutine(LoadYourSceneAsync("MapLayoutScene"));
 	}
@@ -46,6 +51,8 @@ public class InitializeStudentData : MonoBehaviour
 			// This is not the student's first time logging in, no need to post new data
 			Debug.Log($"Student has entered before!");
 			GlobalManager.Instance.firstTimeEntrance = false;
+			yield return StartCoroutine(PlayfabGetManager.Instance.GetTotalPlayerTickets());
+			yield return StartCoroutine(PlayfabGetManager.Instance.GetSessionDataCoroutine());
 		}
 		else
 		{
@@ -94,6 +101,15 @@ public class InitializeStudentData : MonoBehaviour
             lessonData.packetID = i;
             yield return StartCoroutine(PlayfabPostManager.Instance.PostLessonCoroutine(lessonData));
         }
+
+		// Initialize AllLoginSessions
+		AllLoginSessions allLoginSessions = DataModels.Instance.InitializeAllLoginSessions();
+		GlobalManager.Instance.allLoginSessions = allLoginSessions;
+		PlayfabPostManager.Instance.PostAllLoginSessions(allLoginSessions);
+
+		// Initialize TotalPlayerTickets
+		GlobalManager.Instance.TotalTicketsPlayerHas = 0;
+		PlayfabPostManager.Instance.PostTotalPlayerTickets(GlobalManager.Instance.TotalTicketsPlayerHas);
     }
 
 	private IEnumerator LoadYourSceneAsync(string sceneName)

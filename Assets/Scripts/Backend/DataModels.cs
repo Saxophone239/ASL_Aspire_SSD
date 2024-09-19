@@ -76,7 +76,7 @@ using System;
 
 	public class LoginSession{
 		public string date; 
-		public int[] packetsInteractedWith; //ID of the lessons/reviews interacted with
+		public List<int> packetsInteractedWith; //ID of the lessons/reviews interacted with, reviews will start with 1010 (ex. if I interact with review 2, it will show up as 101002)
 
 		public List<GameSession> gameSessionList;
 
@@ -88,6 +88,7 @@ using System;
             Debug.Log("Current Date and Time: " + dateTimeString);
             this.date = dateTimeString;
 
+			packetsInteractedWith = new List<int>();
 			gameSessionList = new List<GameSession>();
         }
 	}
@@ -129,6 +130,11 @@ public class DataModels : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 	}
 
+	public AllLoginSessions InitializeAllLoginSessions()
+	{
+		AllLoginSessions allLoginSessions = new AllLoginSessions();
+		return allLoginSessions;
+	}
 
 
     public ReviewData InitializeReviewFromVocabulary(int[] packetIDList){

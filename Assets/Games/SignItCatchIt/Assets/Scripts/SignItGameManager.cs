@@ -82,9 +82,28 @@ public class SignItGameManager : MonoBehaviour
 				break;
 		}
 		Debug.Log($"updating global coins by {scoreToUpdateBy}");
-		GlobalManager.Instance.UpdateGlobalCoins(scoreToUpdateBy);
+		GlobalManager.Instance.UpdateGlobalTickets(scoreToUpdateBy);
 		GlobalManager.Instance.currentLoginSession.gameSessionList.Last().sessionScore = CurrentScore;
 		GlobalManager.Instance.currentLoginSession.gameSessionList.Last().ticketsEarned = scoreToUpdateBy;
+		
+		// Game session is complete, post results to playfab
+		if (GlobalManager.Instance.ReviewPreviousPackets)
+		{
+			// We are a review
+			GlobalManager.Instance.currentReviewData.gameSessionComplete = true;
+			if (GlobalManager.Instance.currentReviewData.quizComplete)
+				GlobalManager.Instance.currentReviewData.lessonComplete = true;
+			PlayfabPostManager.Instance.PostReview(GlobalManager.Instance.currentReviewData);
+		}
+		else
+		{
+			// We are a lesson
+			GlobalManager.Instance.currentLessonData.gameSessionComplete = true;
+			if (GlobalManager.Instance.currentLessonData.flashcardsComplete)
+				GlobalManager.Instance.currentLessonData.lessonComplete = true;
+			PlayfabPostManager.Instance.PostLesson(GlobalManager.Instance.currentLessonData);
+		}
+
 		player.gameObject.SetActive(false);
 		uiManager.StartGameOverSequence();
 	}

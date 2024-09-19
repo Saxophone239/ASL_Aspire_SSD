@@ -21,7 +21,7 @@ public class MapManager : MonoBehaviour
         // stateManager = FindObjectOfType<StateManager>();
 		arcadePanel.SetActive(false);
 		loadingMapPanel.SetActive(true);
-		if (GlobalManager.Instance.DisplayCoinsCollectedPanel)
+		if (GlobalManager.Instance.DisplayTicketsCollectedPanel)
 		{
 			displayCoinsPanel.SetActive(true);
 		}

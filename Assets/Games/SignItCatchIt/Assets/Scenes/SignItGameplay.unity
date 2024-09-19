@@ -1299,7 +1299,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Back to Menu
+  m_text: Restart
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6160f8d5baad85941bc514ca67a7af29, type: 2}
   m_sharedMaterial: {fileID: 4560175688752687887, guid: 6160f8d5baad85941bc514ca67a7af29, type: 2}
@@ -4176,7 +4176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Back to Menu
+  m_text: Restart
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6160f8d5baad85941bc514ca67a7af29, type: 2}
   m_sharedMaterial: {fileID: 4560175688752687887, guid: 6160f8d5baad85941bc514ca67a7af29, type: 2}
@@ -4796,7 +4796,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Back to Arcade
+  m_text: Back to Map
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6160f8d5baad85941bc514ca67a7af29, type: 2}
   m_sharedMaterial: {fileID: 4560175688752687887, guid: 6160f8d5baad85941bc514ca67a7af29, type: 2}
@@ -12013,8 +12013,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -290.80524, y: -200}
-  m_SizeDelta: {x: 581.6022, y: 404.1114}
+  m_AnchoredPosition: {x: -346.33673, y: -238.58466}
+  m_SizeDelta: {x: 692.6652, y: 481.2807}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1750144597
 MonoBehaviour:
@@ -12168,7 +12168,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -11.301, y: 9.8998}
-  m_SizeDelta: {x: 327.9289, y: 184.46}
+  m_SizeDelta: {x: 418.48, y: 235.39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1793102572
 MonoBehaviour:
@@ -13470,8 +13470,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11.299988, y: 9.9}
-  m_SizeDelta: {x: 327.9375, y: 184.465}
+  m_AnchoredPosition: {x: -11.301, y: 9.8998}
+  m_SizeDelta: {x: 418.4755, y: 235.3926}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!328 &2033705667
 VideoPlayer:

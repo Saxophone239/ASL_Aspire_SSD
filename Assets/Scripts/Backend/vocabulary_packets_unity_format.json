@@ -1,20 +1,20 @@
 {
     "Packets": [
         {
-            "PacketName": "Packet_1",
+            "PacketName": "Packet_0",
             "Entries": [
                 {
-                    "Packet": 1,
+                    "Packet": 0,
                     "Vocabulary_ID": 1,
                     "English_Word": "Microscope",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Microscope+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Microscope+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Microscope+(Sign)+%E2%9C%94.mp4",
                     "ASL_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Microscope+(Spelling)+%E2%9C%94.mp4",
-                    "English_Definition": "a tool that helps us see  tiny things by making them look bigger"
+                    "English_Definition": "a tool that helps us see tiny things by making them look bigger"
                 },
                 {
-                    "Packet": 1,
+                    "Packet": 0,
                     "Vocabulary_ID": 2,
                     "English_Word": "Magnify",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Magnify+(Both+Together)+%E2%9C%94.mp4",
@@ -24,7 +24,7 @@
                     "English_Definition": "to make something look bigger than it really is"
                 },
                 {
-                    "Packet": 1,
+                    "Packet": 0,
                     "Vocabulary_ID": 3,
                     "English_Word": "Lab",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Lab+(Both+Together)+%E2%9C%94.mp4",
@@ -34,7 +34,7 @@
                     "English_Definition": "a special room where scientists do experiments and learn about how things work"
                 },
                 {
-                    "Packet": 1,
+                    "Packet": 0,
                     "Vocabulary_ID": 4,
                     "English_Word": "Focus",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Focus+(Both+Together)+%E2%9C%94.mp4",
@@ -46,10 +46,10 @@
             ]
         },
         {
-            "PacketName": "Packet_2",
+            "PacketName": "Packet_1",
             "Entries": [
                 {
-                    "Packet": 2,
+                    "Packet": 1,
                     "Vocabulary_ID": 5,
                     "English_Word": "Equilibrium",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Equilibrium+(Both+Together)+%E2%9C%94.mp4",
@@ -59,7 +59,7 @@
                     "English_Definition": "when things are balanced and not changing"
                 },
                 {
-                    "Packet": 2,
+                    "Packet": 1,
                     "Vocabulary_ID": 6,
                     "English_Word": "Animation",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Amination+(Both+Together)+%E2%9C%94.mp4",
@@ -69,7 +69,7 @@
                     "English_Definition": "a way of making pictures move like in cartoons"
                 },
                 {
-                    "Packet": 2,
+                    "Packet": 1,
                     "Vocabulary_ID": 7,
                     "English_Word": "Slide",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Slide+(Both+Together)+%E2%9C%94.mp4",
@@ -79,7 +79,7 @@
                     "English_Definition": "a small piece of glass where you put tiny things to see them better"
                 },
                 {
-                    "Packet": 2,
+                    "Packet": 1,
                     "Vocabulary_ID": 8,
                     "English_Word": "Cross section",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Cross+Section+(Both+Together)+%E2%9C%94.mp4",
@@ -91,10 +91,10 @@
             ]
         },
         {
-            "PacketName": "Packet_3",
+            "PacketName": "Packet_2",
             "Entries": [
                 {
-                    "Packet": 3,
+                    "Packet": 2,
                     "Vocabulary_ID": 9,
                     "English_Word": "Amoeba",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Amoeba+(Both+Together)+%E2%9C%94.mp4",
@@ -104,7 +104,7 @@
                     "English_Definition": "a type of microscopic organism"
                 },
                 {
-                    "Packet": 3,
+                    "Packet": 2,
                     "Vocabulary_ID": 10,
                     "English_Word": "Unit",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Unit+(Both+Together)+%E2%9C%94.mp4",
@@ -114,9 +114,9 @@
                     "English_Definition": "a single component"
                 },
                 {
-                    "Packet": 3,
+                    "Packet": 2,
                     "Vocabulary_ID": 11,
-                    "English_Word": "Cell ",
+                    "English_Word": "Cell",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Cell+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Cell+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Cell+(Sign)+%E2%9C%94.42112.42020.m4v",
@@ -124,32 +124,32 @@
                     "English_Definition": "the smallest part of a living thing that can do everything needed to stay alive"
                 },
                 {
-                    "Packet": 3,
+                    "Packet": 2,
                     "Vocabulary_ID": 12,
                     "English_Word": "Molecules",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Molecules+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Molecules+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Molecules+(Sign)+%E2%9C%94.mp4",
                     "ASL_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Molecules+(Spelling)+%E2%9C%94.mp4",
-                    "English_Definition": " a very tiny part of something, made up of even smaller pieces called atoms"
+                    "English_Definition": "a very tiny part of something, made up of even smaller pieces called atoms"
                 }
             ]
         },
         {
-            "PacketName": "Packet_4",
+            "PacketName": "Packet_3",
             "Entries": [
                 {
-                    "Packet": 4,
+                    "Packet": 3,
                     "Vocabulary_ID": 13,
                     "English_Word": "Single-celled organisms",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Single+Celled+Organism+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Single+Celled+Organism+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Single+Celled+Organism+(Sign)+%E2%9C%94.mp4",
                     "ASL_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Single+Celled+Organism+(Spelling)+%E2%9C%94.mp4",
-                    "English_Definition": "a living thing made of one cell "
+                    "English_Definition": "a living thing made of one cell"
                 },
                 {
-                    "Packet": 4,
+                    "Packet": 3,
                     "Vocabulary_ID": 14,
                     "English_Word": "Organism",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Organism+(Both+Together)+%E2%9C%94.mp4",
@@ -159,7 +159,7 @@
                     "English_Definition": "a living thing"
                 },
                 {
-                    "Packet": 4,
+                    "Packet": 3,
                     "Vocabulary_ID": 15,
                     "English_Word": "Multiple-celled organism",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Multiple+Celled+Organism+(Both+Together)+%E2%9C%94.mp4",
@@ -169,22 +169,22 @@
                     "English_Definition": "a living thing made of many cells that have different jobs"
                 },
                 {
-                    "Packet": 4,
+                    "Packet": 3,
                     "Vocabulary_ID": 16,
                     "English_Word": "Organelle",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Organelle+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Organelle+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Organelle+(Sign)+%E2%9C%94.mp4",
                     "ASL_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Organelle+(Spelling)+%E2%9C%94.mp4",
-                    "English_Definition": " tiny part inside a cell that has a special job"
+                    "English_Definition": "tiny part inside a cell that has a special job"
                 }
             ]
         },
         {
-            "PacketName": "Packet_5",
+            "PacketName": "Packet_4",
             "Entries": [
                 {
-                    "Packet": 5,
+                    "Packet": 4,
                     "Vocabulary_ID": 17,
                     "English_Word": "Nucleus",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Nucleus+(Both+Together)+%E2%9C%94.mp4",
@@ -194,42 +194,42 @@
                     "English_Definition": "the part of the cell that manages how it works"
                 },
                 {
-                    "Packet": 5,
+                    "Packet": 4,
                     "Vocabulary_ID": 18,
                     "English_Word": "DNA",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+DNA+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+DNA+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+DNA+(Sign)+%E2%9C%94.mp4",
                     "ASL_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+DNA+(Spelling)+%E2%9C%94.mp4",
-                    "English_Definition": "a special set of instructions within each cell "
+                    "English_Definition": "a special set of instructions within each cell"
                 },
                 {
-                    "Packet": 5,
+                    "Packet": 4,
                     "Vocabulary_ID": 19,
                     "English_Word": "Endoplasmic reticulum",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Endoplasmic+Reticulum+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Endoplasmic+Reticulum+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Endoplasmic+Reticulum+(Sign)+%E2%9C%94.mp4",
                     "ASL_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Endoplasmic+Reticulum+(Spelling)+%E2%9C%94.mp4",
-                    "English_Definition": "the part of an animal cell that helps transport proteins and fat "
+                    "English_Definition": "the part of an animal cell that helps transport proteins and fat"
                 }
             ]
         },
         {
-            "PacketName": "Packet_6",
+            "PacketName": "Packet_5",
             "Entries": [
                 {
-                    "Packet": 6,
+                    "Packet": 5,
                     "Vocabulary_ID": 20,
                     "English_Word": "Mitochondria",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Mitochondria+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Mitochondria+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Mitochondria+(Sign)+%E2%9C%94-.mp4",
                     "ASL_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Mitochondria+(Spelling)+%E2%9C%94.mp4",
-                    "English_Definition": "part of the cell that makes energy "
+                    "English_Definition": "part of the cell that makes energy"
                 },
                 {
-                    "Packet": 6,
+                    "Packet": 5,
                     "Vocabulary_ID": 21,
                     "English_Word": "Ribosomes",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Ribosomes+(Both+Together)+%E2%9C%94.mp4",
@@ -239,42 +239,42 @@
                     "English_Definition": "part of the cell that makes proteins"
                 },
                 {
-                    "Packet": 6,
+                    "Packet": 5,
                     "Vocabulary_ID": 22,
                     "English_Word": "Golgi apparatus",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Golgi+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Golgi+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Golgi+(Sign)+%E2%9C%94.mp4",
                     "ASL_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Golgi+(Spelling)+%E2%9C%94.mp4",
-                    "English_Definition": "part of the cell that packages protein and fat "
+                    "English_Definition": "part of the cell that packages protein and fat"
                 },
                 {
-                    "Packet": 6,
+                    "Packet": 5,
                     "Vocabulary_ID": 23,
                     "English_Word": "Lysosome",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Lysosme+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Lysosme+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Lysosme+(Sign)+%E2%9C%94.mp4",
                     "ASL_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Lysosme+(Spelling)+%E2%9C%94.mp4",
-                    "English_Definition": "the part of the cell that removes waste to keep  the cell clean and healthy"
+                    "English_Definition": "the part of the cell that removes waste to keep the cell clean and healthy"
                 }
             ]
         },
         {
-            "PacketName": "Packet_7",
+            "PacketName": "Packet_6",
             "Entries": [
                 {
-                    "Packet": 7,
+                    "Packet": 6,
                     "Vocabulary_ID": 24,
                     "English_Word": "Cell membrane",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Cell+Membrane+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Cell+Membrane+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Cell+Membrane+(Sign)+%E2%9C%94.mp4",
                     "ASL_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Cell+Membrane+(Spelling)+%E2%9C%94.mp4",
-                    "English_Definition": "a thin layer that separates the inside of the cells from the outside. "
+                    "English_Definition": "a thin layer that separates the inside of the cells from the outside"
                 },
                 {
-                    "Packet": 7,
+                    "Packet": 6,
                     "Vocabulary_ID": 25,
                     "English_Word": "Cytoplasm",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Cytoplasm+(Both+Together)+%E2%9C%94.mp4",
@@ -284,9 +284,9 @@
                     "English_Definition": "the liquid inside a cell that surrounds the cell's nucleus"
                 },
                 {
-                    "Packet": 7,
+                    "Packet": 6,
                     "Vocabulary_ID": 26,
-                    "English_Word": "Chromosomes ",
+                    "English_Word": "Chromosomes",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Chromosome+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Chromosome+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Chromosome+(Sign)+%E2%9C%94.mp4",
@@ -294,9 +294,9 @@
                     "English_Definition": "structures found in all living cells that control what an animal or plant is like"
                 },
                 {
-                    "Packet": 7,
+                    "Packet": 6,
                     "Vocabulary_ID": 27,
-                    "English_Word": "Cell wall ",
+                    "English_Word": "Cell wall",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Cell+Wall+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Cell+Wall+(Definiton)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Cell+Wall+(Sign)+%E2%9C%94.mp4",
@@ -306,10 +306,10 @@
             ]
         },
         {
-            "PacketName": "Packet_8",
+            "PacketName": "Packet_7",
             "Entries": [
                 {
-                    "Packet": 8,
+                    "Packet": 7,
                     "Vocabulary_ID": 28,
                     "English_Word": "Healing",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Healing+(Both+Together)+%E2%9C%94.mp4",
@@ -319,7 +319,7 @@
                     "English_Definition": "becoming well again"
                 },
                 {
-                    "Packet": 8,
+                    "Packet": 7,
                     "Vocabulary_ID": 29,
                     "English_Word": "Function",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Function+(Both+Together)+%E2%9C%94.mp4",
@@ -329,7 +329,7 @@
                     "English_Definition": "purpose for a person or thing"
                 },
                 {
-                    "Packet": 8,
+                    "Packet": 7,
                     "Vocabulary_ID": 30,
                     "English_Word": "Chloroplasts",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Chloroplast+(Both+Together)+%E2%9C%94.mp4",
@@ -339,7 +339,7 @@
                     "English_Definition": "tiny parts inside plant cells that help plants make their food using sunlight"
                 },
                 {
-                    "Packet": 8,
+                    "Packet": 7,
                     "Vocabulary_ID": 31,
                     "English_Word": "Energy",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Mechelle/Aug+09+-+All+Vocabulary/Mechelle+-+Parts+of+the+Cell+Vocabulary+-+Energy+(Both+Together)+%E2%9C%94.mp4",
@@ -351,10 +351,10 @@
             ]
         },
         {
-            "PacketName": "Packet_9",
+            "PacketName": "Packet_8",
             "Entries": [
                 {
-                    "Packet": 9,
+                    "Packet": 8,
                     "Vocabulary_ID": 32,
                     "English_Word": "Tissue",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Tissue+(Both+Together)+%E2%9C%94.mp4",
@@ -364,17 +364,17 @@
                     "English_Definition": "group of cells that work together for a specific function"
                 },
                 {
-                    "Packet": 9,
+                    "Packet": 8,
                     "Vocabulary_ID": 33,
                     "English_Word": "Muscle",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Muscle+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Muscle+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Muscle+(Sign)+%E2%9C%94.mp4",
                     "ASL_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Muscle+(Spelling)+%E2%9C%94.mp4",
-                    "English_Definition": "a  tissue in the body that helps us move"
+                    "English_Definition": "a tissue in the body that helps us move"
                 },
                 {
-                    "Packet": 9,
+                    "Packet": 8,
                     "Vocabulary_ID": 34,
                     "English_Word": "Cilia",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Cilia+(Both+Together)+%E2%9C%94.mp4",
@@ -386,12 +386,12 @@
             ]
         },
         {
-            "PacketName": "Packet_10",
+            "PacketName": "Packet_9",
             "Entries": [
                 {
-                    "Packet": 10,
+                    "Packet": 9,
                     "Vocabulary_ID": 35,
-                    "English_Word": "Nerve cell ",
+                    "English_Word": "Nerve cell",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Nerve+Cell+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Nerve+Cell+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Nerve+Cell+(Sign)%E2%9C%94.mp4",
@@ -399,9 +399,9 @@
                     "English_Definition": "a cell that carries information between the brain and other parts of the body"
                 },
                 {
-                    "Packet": 10,
+                    "Packet": 9,
                     "Vocabulary_ID": 36,
-                    "English_Word": "Bone cell ",
+                    "English_Word": "Bone cell",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Bone+Cell+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Bone+Cell+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Bone+Cell+(Sign)+%E2%9C%94.mp4",
@@ -409,22 +409,22 @@
                     "English_Definition": "cells that make up bone tissue"
                 },
                 {
-                    "Packet": 10,
+                    "Packet": 9,
                     "Vocabulary_ID": 37,
-                    "English_Word": "Skin cell ",
+                    "English_Word": "Skin cell",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Skin+Cell+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Skin+Cell+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Skin+Cell+(Sign)+%E2%9C%94.mp4",
                     "ASL_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Skin+Cell+(Spelling)+%E2%9C%94.mp4",
-                    "English_Definition": "cells that make up our skin tissue "
+                    "English_Definition": "cells that make up our skin tissue"
                 }
             ]
         },
         {
-            "PacketName": "Packet_11",
+            "PacketName": "Packet_10",
             "Entries": [
                 {
-                    "Packet": 11,
+                    "Packet": 10,
                     "Vocabulary_ID": 38,
                     "English_Word": "Red blood cell",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Red+Bllod+Cell+(Both+Together)+%E2%9C%94.mp4",
@@ -434,7 +434,7 @@
                     "English_Definition": "type cell that carries oxygen around our bodies"
                 },
                 {
-                    "Packet": 11,
+                    "Packet": 10,
                     "Vocabulary_ID": 39,
                     "English_Word": "White blood cell",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+White+Blood+Cell+(Both+Together)+%E2%9C%94.mp4",
@@ -444,7 +444,7 @@
                     "English_Definition": "type of cell that helps fight sickness in the body"
                 },
                 {
-                    "Packet": 11,
+                    "Packet": 10,
                     "Vocabulary_ID": 40,
                     "English_Word": "Platelet",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Platelet+(Both+Together)+%E2%9C%94.mp4",
@@ -454,9 +454,9 @@
                     "English_Definition": "a cell in the blood that makes it thicker to stop bleeding"
                 },
                 {
-                    "Packet": 11,
+                    "Packet": 10,
                     "Vocabulary_ID": 41,
-                    "English_Word": "Plasma ",
+                    "English_Word": "Plasma",
                     "ASL_Sign_and_Spelled": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Plasma+(Both+Together)+%E2%9C%94.mp4",
                     "ASL_Definition": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Plasma+(Definition)+%E2%9C%94.mp4",
                     "ASL_Sign": "https://asl-aspire-videos-bucket-prod.s3.us-east-2.amazonaws.com/ssd-study-videos/EXPORT/Dreek/Aug+09+-+All+Vocabulary/Dreek+-+Parts+of+the+Cell+Vocabulary+-+Plasma+(Sign)+%E2%9C%94.mp4",

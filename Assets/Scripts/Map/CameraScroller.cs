@@ -23,7 +23,7 @@ public class CameraScroller : MonoBehaviour
 		if (Mouse.current != null)
 		{
 			Vector2 vec = Mouse.current.scroll.ReadValue();
-			if (vec != Vector2.zero) Debug.Log(vec);
+			// if (vec != Vector2.zero) Debug.Log(vec);
 			if (vec.y != 0)
 				scrollbar.value -= scrollAmount * vec.y;
 		}

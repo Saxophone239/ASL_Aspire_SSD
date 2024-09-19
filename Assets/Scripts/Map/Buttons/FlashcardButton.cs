@@ -17,6 +17,10 @@ public class FlashcardButton : MapButton
 
 	public override void OnButtonClick()
 	{
+		// Update LoginSession
+		GlobalManager.Instance.currentLoginSession.packetsInteractedWith.Add(packetIDDisplayed);
+		PlayfabPostManager.Instance.PostAllLoginSessions(GlobalManager.Instance.allLoginSessions);
+
 		// set backend to lesson packet and go to flashcards
 		Debug.Log($"set backend to lesson packet up to packet {packetIDDisplayed} and go to flashcards");
 		TurnOnSpinner(true);

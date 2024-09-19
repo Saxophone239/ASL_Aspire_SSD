@@ -32,9 +32,28 @@ public class GameMechanics : MonoBehaviour
 
         if (IsGameOver && !isGameOverSequenceStarted)
         {
-			GlobalManager.Instance.UpdateGlobalCoins(Score / 50);
+			GlobalManager.Instance.UpdateGlobalTickets(Score / 50);
 			GlobalManager.Instance.currentLoginSession.gameSessionList.Last().sessionScore = Score;
 			GlobalManager.Instance.currentLoginSession.gameSessionList.Last().ticketsEarned = Score / 50;
+
+			// Game session is complete, post results to playfab
+			if (GlobalManager.Instance.ReviewPreviousPackets)
+			{
+				// We are a review
+				GlobalManager.Instance.currentReviewData.gameSessionComplete = true;
+				if (GlobalManager.Instance.currentReviewData.quizComplete)
+					GlobalManager.Instance.currentReviewData.lessonComplete = true;
+				PlayfabPostManager.Instance.PostReview(GlobalManager.Instance.currentReviewData);
+			}
+			else
+			{
+				// We are a lesson
+				GlobalManager.Instance.currentLessonData.gameSessionComplete = true;
+				if (GlobalManager.Instance.currentLessonData.flashcardsComplete)
+					GlobalManager.Instance.currentLessonData.lessonComplete = true;
+				PlayfabPostManager.Instance.PostLesson(GlobalManager.Instance.currentLessonData);
+			}
+
             PlayerController player = GameObject.FindObjectOfType<PlayerController>();
             StartCoroutine(player.StartDeathCoroutine());
 			isGameOverSequenceStarted = true;

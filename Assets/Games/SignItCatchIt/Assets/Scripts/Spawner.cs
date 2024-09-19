@@ -199,6 +199,17 @@ public class Spawner : MonoBehaviour
 			Debug.Log($"About to play video: {CorrectWord}");
 			videoPlayer.url = CorrectEntry.ASL_Sign;
 			videoPlayer.Play();
+
+			if (GlobalManager.Instance.ReviewPreviousPackets)
+			{
+				// We are a review
+				GlobalManager.Instance.currentReviewData.gameVocabCountDict[CorrectEntry.Vocabulary_ID]["ASL_Sign"] += 1;
+			}
+			else
+			{
+				// We are a lesson
+				GlobalManager.Instance.currentLessonData.gameVocabCountDict[CorrectEntry.Vocabulary_ID]["ASL_Sign"] += 1;
+			}
 		}
 		else
 		{
@@ -206,8 +217,18 @@ public class Spawner : MonoBehaviour
 			videoPlayer.gameObject.SetActive(false);
 			imageHolder.gameObject.SetActive(true);
 			Debug.Log($"About to show icon: {CorrectWord}");
-			// imageHolder.sprite = defaultIconToShow; // TODO: add funcionality to show images
 			imageHolder.sprite = GlobalManager.Instance.GetIcon(CorrectEntry.Vocabulary_ID);
+
+			if (GlobalManager.Instance.ReviewPreviousPackets)
+			{
+				// We are a review
+				GlobalManager.Instance.currentReviewData.gameVocabCountDict[CorrectEntry.Vocabulary_ID]["Icon"] += 1;
+			}
+			else
+			{
+				// We are a lesson
+				GlobalManager.Instance.currentLessonData.gameVocabCountDict[CorrectEntry.Vocabulary_ID]["Icon"] += 1;
+			}
 		}
     }
 

@@ -17,6 +17,10 @@ public class ReviewArcadeButton : MapButton
 
 	public override void OnButtonClick()
 	{
+		// Update LoginSession
+		GlobalManager.Instance.currentLoginSession.packetsInteractedWith.Add(reviewNumber + 101000);
+		PlayfabPostManager.Instance.PostAllLoginSessions(GlobalManager.Instance.allLoginSessions);
+
 		// set backend to review packet and go to arcade
 		Debug.Log($"set backend to review packet up to packet {packetIDDisplayed} and go to arcade");
 

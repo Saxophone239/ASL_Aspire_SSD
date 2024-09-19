@@ -7,6 +7,7 @@ public class MapExitPanel : MonoBehaviour
 {
 	public void OnExitMapButtonClick()
 	{
+		PlayfabPostManager.Instance.PostAllLoginSessions(GlobalManager.Instance.allLoginSessions);
 		StartCoroutine(LoadYourSceneAsync("LoginScene"));
 	}
     

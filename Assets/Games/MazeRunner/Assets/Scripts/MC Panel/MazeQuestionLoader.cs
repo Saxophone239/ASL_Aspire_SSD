@@ -134,19 +134,42 @@ public class MazeQuestionLoader : MonoBehaviour
 			case MazeQuestionType.ASLSignToEnglishWord:
 				UpdateQuestionVideoPanel("What is this sign?", correctEntry.ASL_Sign, 15);
 				RenderButtonText(correctEntry, false);
+
+				if (GlobalManager.Instance.ReviewPreviousPackets)
+					GlobalManager.Instance.currentReviewData.gameVocabCountDict[correctEntry.Vocabulary_ID]["ASL_Sign"] += 1;
+				else
+					GlobalManager.Instance.currentLessonData.gameVocabCountDict[correctEntry.Vocabulary_ID]["ASL_Sign"] += 1;
 				break;
+
 			case MazeQuestionType.ASLDefinitionToEnglishWord:
 				UpdateQuestionVideoPanel("What word goes with this definition?", correctEntry.ASL_Definition, 30);
 				RenderButtonText(correctEntry, false);
+
+				if (GlobalManager.Instance.ReviewPreviousPackets)
+					GlobalManager.Instance.currentReviewData.gameVocabCountDict[correctEntry.Vocabulary_ID]["ASL_Definition"] += 1;
+				else
+					GlobalManager.Instance.currentLessonData.gameVocabCountDict[correctEntry.Vocabulary_ID]["ASL_Definition"] += 1;
 				break;
+
 			case MazeQuestionType.EnglishDefinitionToEnglishWord:
 				UpdateQuestionOnlyPanel($"{correctEntry.English_Definition}...", 15);
 				RenderButtonText(correctEntry, false);
+
+				if (GlobalManager.Instance.ReviewPreviousPackets)
+					GlobalManager.Instance.currentReviewData.gameVocabCountDict[correctEntry.Vocabulary_ID]["English_Definition"] += 1;
+				else
+					GlobalManager.Instance.currentLessonData.gameVocabCountDict[correctEntry.Vocabulary_ID]["English_Definition"] += 1;
 				break;
+
 			case MazeQuestionType.IconToEnglishWord:
 				// UpdateQuestionIconPanel("This image shows...", defaultIconToShow, 15);
 				UpdateQuestionIconPanel("This image shows...", GlobalManager.Instance.GetIcon(correctEntry.Vocabulary_ID), 15);
 				RenderButtonText(correctEntry, false);
+
+				if (GlobalManager.Instance.ReviewPreviousPackets)
+					GlobalManager.Instance.currentReviewData.gameVocabCountDict[correctEntry.Vocabulary_ID]["Icon"] += 1;
+				else
+					GlobalManager.Instance.currentLessonData.gameVocabCountDict[correctEntry.Vocabulary_ID]["Icon"] += 1;
 				break;
 		}
 	}

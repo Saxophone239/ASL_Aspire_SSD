@@ -4,7 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using PlayFab;
 using PlayFab.ClientModels;
-using Newtonsoft.Json; 
+using Newtonsoft.Json;
+using System;
 
 public class PlayfabPostManager : MonoBehaviour
 {
@@ -171,17 +172,34 @@ public class PlayfabPostManager : MonoBehaviour
             }
         
         };
-        PlayFabClientAPI.UpdateUserData(request,OnLessonDataSend,OnError);
+        PlayFabClientAPI.UpdateUserData(request,OnAllLoginSessionsSend,OnError);
 
 	}
 
 
 
      void OnAllLoginSessionsSend(UpdateUserDataResult result){
-        Debug.Log("Successful login session update!");
+        Debug.Log("Successful AllLoginSessions data playfab update!");
     }
 
-	
+	public void PostTotalPlayerTickets(int playerTickets)
+	{
+		var request = new UpdateUserDataRequest
+		{
+			Data = new Dictionary<string,string>
+			{
+				{$"TotalPlayerTickets",JsonConvert.SerializeObject(playerTickets)}
+			}
+		};
+
+		PlayFabClientAPI.UpdateUserData(request, OnPlayerTicketsSend, OnError);
+	}
+
+	private void OnPlayerTicketsSend(UpdateUserDataResult result)
+	{
+		Debug.Log("Successful TotalPlayerTickets playfab update!");
+	}
+
 	void OnError(PlayFabError error){
         Debug.Log(error);
     }
