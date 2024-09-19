@@ -232,6 +232,20 @@ public class QuestionManager : MonoBehaviour
 		return null;
 	}
 
+	private QuizQuestionObject FindQuizQuestionObjectFromVocabularyEntry(VocabularyEntry entry)
+	{
+		int id = entry.Vocabulary_ID;
+		foreach (QuizQuestionObject question in GlobalManager.Instance.currentReviewData.quizQuestionObjectList)
+		{
+			if (question.vocabID == id)
+			{
+				return question;
+			}
+		}
+		Debug.LogWarning($"QuizQuestionObject for VocabularyEntry {entry.Vocabulary_ID} doesn't exist!");
+		return null;
+	}
+
 	/// <summary>
     /// Takes a list of VocabularyEntries and randomly selects 4 words, one of them being the correct answer
     /// </summary>
@@ -387,9 +401,13 @@ public class QuestionManager : MonoBehaviour
             answerButtons[selectedAnswer].HighlightIncorrect();
             speechBubble.gameObject.SetActive(true);
             lastAnswerCorrect = false;
+			QuizQuestionObject quizQuestionObject = FindQuizQuestionObjectFromVocabularyEntry(currentQuestion.vocabularyEntry);
+			quizQuestionObject.numAttempts += 1;
         } else
         {
             lastAnswerCorrect = true;
+			QuizQuestionObject quizQuestionObject = FindQuizQuestionObjectFromVocabularyEntry(currentQuestion.vocabularyEntry);
+			quizQuestionObject.successfulAnswer = true;
         }
         answerButtons[currentQuestion.correctAnswer].HighlightCorrect();
         // TODO: Disable all the buttons, move on to next question

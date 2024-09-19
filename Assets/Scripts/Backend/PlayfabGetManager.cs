@@ -6,7 +6,8 @@ using UnityEngine.Networking;
 using System.Runtime.InteropServices;
 using PlayFab;
 using PlayFab.ClientModels;
-using Newtonsoft.Json; 
+using Newtonsoft.Json;
+using UnityEngine.Purchasing.MiniJSON;
 public class PlayfabGetManager : MonoBehaviour
 {
 	public static PlayfabGetManager Instance;
@@ -179,6 +180,39 @@ public class PlayfabGetManager : MonoBehaviour
 			Debug.Log("Key not found");
 		}
     }
+
+	public IEnumerator GetTotalPlayerTickets()
+	{
+		bool isCompleted = false;
+		GetUserDataResult userData = null;
+		PlayFabClientAPI.GetUserData(new GetUserDataRequest(),
+			result =>
+			{
+				userData = result;
+				isCompleted = true;
+			},
+			error =>
+			{
+				OnError(error);
+				isCompleted = true;
+			}
+		);
+
+		yield return new WaitUntil(() => isCompleted);
+
+		if (userData.Data != null && userData.Data.ContainsKey($"TotalPlayerTickets"))
+		{
+			int totalPlayerTickets = JsonConvert.DeserializeObject<int>(userData.Data[$"TotalPlayerTickets"].Value);
+			GlobalManager.Instance.TotalTicketsPlayerHas = totalPlayerTickets;
+			Debug.Log($"Received TotalPlayerTickets: {totalPlayerTickets}");
+		}
+		else
+		{
+			Debug.Log("Total tickets not found, creating new instance");
+			GlobalManager.Instance.TotalTicketsPlayerHas = 0;
+			PlayfabPostManager.Instance.PostTotalPlayerTickets(GlobalManager.Instance.TotalTicketsPlayerHas);
+		}
+	}
 
     void OnError(PlayFabError error)
 	{

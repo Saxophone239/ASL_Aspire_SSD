@@ -7,13 +7,14 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class PatrolEnemy : MonoBehaviour
 {
+	[Header("References")]
     [SerializeField] private NavMeshAgent enemyAgent;
 	[SerializeField] private Animator enemyAnimator;
 	[SerializeField] private GameObject alertCanvas;
     // [SerializeField] private Player player;
 	public MRPlayer player;
-    public LayerMask whatIsGround;
-    public LayerMask whatIsPlayer;
+    public LayerMask groundLayer;
+    public LayerMask playerLayer;
 
     // Patrolling
     public Vector3 walkPoint;
@@ -43,9 +44,8 @@ public class PatrolEnemy : MonoBehaviour
         StartCoroutine(Delay());
     }
 
-    // Update is called once per frame
-    private void FixedUpdate()
-    {
+	private void Update()
+	{
 		if (player == null)
 		{
 			// Player is not yet found, find player
@@ -55,9 +55,13 @@ public class PatrolEnemy : MonoBehaviour
 			}
 			return;
 		}
+	}
 
-        isPlayerInRenderRange = Physics.CheckSphere(transform.position, renderRange, whatIsPlayer);
-        isPlayerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+    // Update is called once per frame
+    private void FixedUpdate()
+    {
+        isPlayerInRenderRange = Physics.CheckSphere(transform.position, renderRange, playerLayer);
+        isPlayerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerLayer);
 
         if (isPlayerInRenderRange)
 		{
@@ -79,8 +83,6 @@ public class PatrolEnemy : MonoBehaviour
 					{
 						Debug.Log("I saw player already, I'm gonna keep chasing them");
 						ChasePlayer();
-						isChasingPlayer = true;
-						isPatrolling = false;
 					}
 					else
 					{
@@ -94,25 +96,19 @@ public class PatrolEnemy : MonoBehaviour
 								Debug.Log("Player is in my range and I can see them");
 								Debug.DrawRay(transform.position, directionEnemyToPlayer * hit.distance, Color.red);
 								ChasePlayer();
-								isChasingPlayer = true;
-								isPatrolling = false;
 							}
 							else
 							{
 								// Enemy can't see player
 								Debug.Log("Player is in my range but I can't see them");
-								Debug.DrawRay(transform.position, directionEnemyToPlayer * 1000, Color.yellow);
+								Debug.DrawRay(transform.position, directionEnemyToPlayer * 8.0f, Color.yellow);
 								Patrol();
-								isChasingPlayer = false;
-								isPatrolling = true;
 							}
 						}
 						else
 						{
 							Debug.Log("Player is in my range but I can't see them");
 							Patrol();
-							isChasingPlayer = false;
-							isPatrolling = true;
 						}
 					}
 					
@@ -120,17 +116,11 @@ public class PatrolEnemy : MonoBehaviour
             }
 			else
 			{
+				// Player is not within range of sight
                 Patrol();
-				isChasingPlayer = false;
-				isPatrolling = true;
             }
         }
 
-		enemySpeed = enemyAgent.speed;
-		enemyVelocity = enemyAgent.velocity;
-		enemyDesiredVelocity = enemyAgent.desiredVelocity;
-		pathCorners = enemyAgent.path.corners;
-		pathStatus = enemyAgent.path.status;
 		if (enemyAgent.velocity.magnitude >= 1f)
 		{
 			enemyAnimator.SetBool("isJogging", true);
@@ -139,15 +129,25 @@ public class PatrolEnemy : MonoBehaviour
 		{
 			enemyAnimator.SetBool("isJogging", false);
 		}
+
+		enemySpeed = enemyAgent.speed;
+		enemyVelocity = enemyAgent.velocity;
+		enemyDesiredVelocity = enemyAgent.desiredVelocity;
+		pathCorners = enemyAgent.path.corners;
+		// pathStatus = enemyAgent.path.status;
     }
 
+	// Called everytime FixedUpdate() is called
     private void Patrol()
     {
         if (!isWalkPointSet) SearchWalkPoint();
         else
 		{
+			isChasingPlayer = false;
+			isPatrolling = true;
 			enemyAgent.SetDestination(walkPoint);
-			alertCanvas.SetActive(false);
+			pathStatus = enemyAgent.path.status;
+			if (alertCanvas.activeSelf) alertCanvas.SetActive(false);
 		}
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
@@ -168,7 +168,7 @@ public class PatrolEnemy : MonoBehaviour
 
 		walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 		
-		if (Physics.Raycast(walkPoint, -transform.up, 2.0f, whatIsGround) && IsPathAchievable(walkPoint))
+		if (Physics.Raycast(walkPoint, -transform.up, 2.0f, groundLayer) && IsPathAchievable(walkPoint))
 		{
 			// if (NavMesh.SamplePosition(walkPoint, out NavMeshHit hit, 4.0f, NavMesh.AllAreas))
 			// {
@@ -176,7 +176,7 @@ public class PatrolEnemy : MonoBehaviour
 			// 	isWalkPointSet = true;
 			// }
 
-			pathStatus = NavMeshPathStatus.PathComplete;
+			// pathStatus = NavMeshPathStatus.PathComplete;
 			isWalkPointSet = true;
 		}
     }
@@ -185,9 +185,11 @@ public class PatrolEnemy : MonoBehaviour
     {
 		if (IsPathAchievable(player.gameObject.transform.position))
 		{
-			pathStatus = NavMeshPathStatus.PathComplete;
+			isChasingPlayer = true;
+			isPatrolling = false;
 			enemyAgent.SetDestination(player.gameObject.transform.position);
-			alertCanvas.SetActive(true);
+			pathStatus = enemyAgent.path.status;
+			if (!alertCanvas.activeSelf) alertCanvas.SetActive(true);
 		}
     }
 

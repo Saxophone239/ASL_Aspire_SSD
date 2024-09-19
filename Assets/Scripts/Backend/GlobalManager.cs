@@ -41,13 +41,13 @@ public class GlobalManager : MonoBehaviour
 
 	// Map data
 	public List<bool> MapIconIsLockedStatus = new List<bool>();
-	public int TotalCoinsPlayerHas = 0;
-	public bool DisplayCoinsCollectedPanel = false;
-	public int CoinsRecentlyCollected = 0;
+	public int TotalTicketsPlayerHas = 0;
+	public bool DisplayTicketsCollectedPanel = false;
+	public int TicketsRecentlyCollected = 0;
 
 	[SerializeField] private IconManager iconManager;
 
-	public PlayfabGetManager getManager;
+	// public PlayfabGetManager getManager;
 
 
 	private void Awake()
@@ -68,11 +68,12 @@ public class GlobalManager : MonoBehaviour
 		return iconManager.GetIcon(id);
     }
 
-	public void UpdateGlobalCoins(int coinsToAdd)
+	public void UpdateGlobalTickets(int ticketsToAdd)
 	{
-		Debug.Log($"Updating global coins by {coinsToAdd}");
-		TotalCoinsPlayerHas += coinsToAdd;
-		CoinsRecentlyCollected += coinsToAdd;
-		DisplayCoinsCollectedPanel = true;
+		Debug.Log($"Updating global coins by {ticketsToAdd}");
+		TotalTicketsPlayerHas += ticketsToAdd;
+		TicketsRecentlyCollected += ticketsToAdd;
+		DisplayTicketsCollectedPanel = true;
+		PlayfabPostManager.Instance.PostTotalPlayerTickets(TotalTicketsPlayerHas);
 	}
 }

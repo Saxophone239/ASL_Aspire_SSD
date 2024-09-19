@@ -16,6 +16,8 @@ public class ArcadeStateManager : MonoBehaviour
 		SICIspinner.SetActive(false);
 		MRspinner.SetActive(false);
 		SSspinner.SetActive(false);
+
+		UpdateTicketText(GlobalManager.Instance.TotalTicketsPlayerHas);
 	}
 
     public void PlaySICI()
@@ -39,10 +41,9 @@ public class ArcadeStateManager : MonoBehaviour
 		StartCoroutine(LoadMyGameSceneAsync("StreetSigns", 2));
 	}
 
-	public void UpdateTicketText(int numberToChangeBy)
+	public void UpdateTicketText(int newNumberOfTickets)
 	{
-		GlobalManager.Instance.TotalCoinsPlayerHas += numberToChangeBy;
-		ticketText.text = GlobalManager.Instance.TotalCoinsPlayerHas.ToString();
+		ticketText.text = newNumberOfTickets.ToString();
 	}
 
 	private IEnumerator LoadMyGameSceneAsync(string sceneName, int gameID)
@@ -51,6 +52,11 @@ public class ArcadeStateManager : MonoBehaviour
 		session.arcadeGameID = gameID;
 		GlobalManager.Instance.currentLoginSession.gameSessionList.Add(session);
 		GlobalManager.Instance.GameStartTime = Time.realtimeSinceStartup;
+
+		if (GlobalManager.Instance.ReviewPreviousPackets)
+			yield return StartCoroutine(PlayfabGetManager.Instance.GetReviewDataCoroutine(GlobalManager.Instance.CurrentReview));
+		else
+			yield return StartCoroutine(PlayfabGetManager.Instance.GetLessonDataCoroutine(GlobalManager.Instance.CurrentPacket));
 
 		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
 

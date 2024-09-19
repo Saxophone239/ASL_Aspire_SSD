@@ -17,6 +17,10 @@ public class QuizButton : MapButton
 
 	public override void OnButtonClick()
 	{
+		// Update LoginSession
+		GlobalManager.Instance.currentLoginSession.packetsInteractedWith.Add(reviewNumber + 101000);
+		PlayfabPostManager.Instance.PostAllLoginSessions(GlobalManager.Instance.allLoginSessions);
+
 		// set backend to review packet and go to quiz
 		Debug.Log($"set backend to review {reviewNumber} and go to quiz");
 		TurnOnSpinner(true);

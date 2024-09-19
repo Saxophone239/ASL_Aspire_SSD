@@ -1693,13 +1693,14 @@ MonoBehaviour:
   enemyAnimator: {fileID: 2815956611923363872}
   alertCanvas: {fileID: 3398036391454214816}
   player: {fileID: 0}
-  whatIsGround:
+  groundLayer:
     serializedVersion: 2
     m_Bits: 512
-  whatIsPlayer:
+  playerLayer:
     serializedVersion: 2
     m_Bits: 256
   walkPoint: {x: 0, y: 0, z: 0}
+  isWalkPointSet: 0
   walkPointRange: 7
   renderRange: 50
   isPlayerInRenderRange: 0

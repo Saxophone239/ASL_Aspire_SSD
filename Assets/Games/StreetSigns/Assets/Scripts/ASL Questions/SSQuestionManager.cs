@@ -54,15 +54,32 @@ public class SSQuestionManager : MonoBehaviour
 			case SSQuestionType.ASLSignToEnglishWord:
 				Debug.Log($"Loading question type: ASLSignToEnglishWord: {CorrectEntry.English_Word}");
 				uiManager.UpdateQuestionVideoPanel("What is this sign?", CorrectEntry.ASL_Sign);
+
+				if (GlobalManager.Instance.ReviewPreviousPackets)
+					GlobalManager.Instance.currentReviewData.gameVocabCountDict[CorrectEntry.Vocabulary_ID]["ASL_Sign"] += 1;
+				else
+					GlobalManager.Instance.currentLessonData.gameVocabCountDict[CorrectEntry.Vocabulary_ID]["ASL_Sign"] += 1;
 				break;
+
 			case SSQuestionType.EnglishDefinitionToEnglishWord:
-			Debug.Log($"Loading question type: EnglishDefinitionToEnglishWord: {CorrectEntry.English_Word}");
+				Debug.Log($"Loading question type: EnglishDefinitionToEnglishWord: {CorrectEntry.English_Word}");
 				uiManager.UpdateQuestionOnlyPanel($"\"{CorrectEntry.English_Definition}\" means...");
+
+				if (GlobalManager.Instance.ReviewPreviousPackets)
+					GlobalManager.Instance.currentReviewData.gameVocabCountDict[CorrectEntry.Vocabulary_ID]["English_Definition"] += 1;
+				else
+					GlobalManager.Instance.currentLessonData.gameVocabCountDict[CorrectEntry.Vocabulary_ID]["English_Definition"] += 1;
 				break;
+
 			case SSQuestionType.IconToEnglishWord:
 				// uiManager.UpdateQuestionIconPanel("This image shows...", defaultIconToShow);
 				Debug.Log($"Loading question type: IconToEnglishWord: {CorrectEntry.English_Word}");
 				uiManager.UpdateQuestionIconPanel("This image shows...", GlobalManager.Instance.GetIcon(CorrectEntry.Vocabulary_ID));
+				
+				if (GlobalManager.Instance.ReviewPreviousPackets)
+					GlobalManager.Instance.currentReviewData.gameVocabCountDict[CorrectEntry.Vocabulary_ID]["Icon"] += 1;
+				else
+					GlobalManager.Instance.currentLessonData.gameVocabCountDict[CorrectEntry.Vocabulary_ID]["Icon"] += 1;
 				break;
 		}
 	}

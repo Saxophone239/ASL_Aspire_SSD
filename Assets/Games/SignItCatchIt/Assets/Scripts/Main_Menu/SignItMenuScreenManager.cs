@@ -78,6 +78,16 @@ public class SignItMenuScreenManager : MonoBehaviour
 			Time.realtimeSinceStartup - GlobalManager.Instance.GameStartTime;
 
 		PlayfabPostManager.Instance.PostAllLoginSessions(GlobalManager.Instance.allLoginSessions);
+		if (GlobalManager.Instance.ReviewPreviousPackets)
+		{
+			// We are a review
+			PlayfabPostManager.Instance.PostReview(GlobalManager.Instance.currentReviewData);
+		}
+		else
+		{
+			// We are a lesson
+			PlayfabPostManager.Instance.PostLesson(GlobalManager.Instance.currentLessonData);
+		}
 		
 		StartCoroutine(LoadMainSceneAsync());
     }

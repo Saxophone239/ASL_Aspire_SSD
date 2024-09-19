@@ -17,7 +17,7 @@ public class AfterArcadePopup : MonoBehaviour
 
     private void Start()
 	{
-		if (!GlobalManager.Instance.DisplayCoinsCollectedPanel) return;
+		if (!GlobalManager.Instance.DisplayTicketsCollectedPanel) return;
 
 		Color transparent = Color.white;
 		transparent.a = 0.0f;
@@ -25,7 +25,7 @@ public class AfterArcadePopup : MonoBehaviour
 		buttonImage.color = transparent;
 		button.interactable = false;
 
-        newCoins =  GlobalManager.Instance.CoinsRecentlyCollected;
+        newCoins =  GlobalManager.Instance.TicketsRecentlyCollected;
 		displayednewCoins = 0;
         coinsText.text = displayednewCoins.ToString();
 
@@ -53,15 +53,15 @@ public class AfterArcadePopup : MonoBehaviour
 	{
 		Debug.Log("Starting after arcade popup animation");
 		yield return new WaitForSeconds(0.75f);
-		Debug.Log("Finished waiting");
+		// Debug.Log("Finished waiting");
 
 		int increaseAmount = newCoins / 20;
 		if (increaseAmount <= 0) increaseAmount = 1;
-		Debug.Log($"increaseAmount = {increaseAmount}, displayednewCoins = {displayednewCoins}, newCoins = {newCoins}");
+		// Debug.Log($"increaseAmount = {increaseAmount}, displayednewCoins = {displayednewCoins}, newCoins = {newCoins}");
 
 		while (displayednewCoins != newCoins)
 		{
-			Debug.Log($"increaseAmount = {increaseAmount}, displayednewCoins = {displayednewCoins}, newCoins = {newCoins}");
+			// Debug.Log($"increaseAmount = {increaseAmount}, displayednewCoins = {displayednewCoins}, newCoins = {newCoins}");
 			displayednewCoins += increaseAmount;
 			displayednewCoins = Mathf.Clamp(displayednewCoins, 0, newCoins);
 			coinsText.text = displayednewCoins.ToString();
@@ -97,8 +97,8 @@ public class AfterArcadePopup : MonoBehaviour
 
     public void ContinueButton()
 	{
-		GlobalManager.Instance.DisplayCoinsCollectedPanel = false;
-        GlobalManager.Instance.CoinsRecentlyCollected = 0;
+		GlobalManager.Instance.DisplayTicketsCollectedPanel = false;
+        GlobalManager.Instance.TicketsRecentlyCollected = 0;
     }
       
 }
