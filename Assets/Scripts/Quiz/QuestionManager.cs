@@ -131,7 +131,8 @@ public class QuestionManager : MonoBehaviour
 		{
 			// Load questions from current review packet
 			VocabularyEntry entry = FindVocabularyEntryFromQuizQuestionObject(quizQuestionObject);
-			currentQuizVocabEntries.Add(entry);
+			if (entry != null) currentQuizVocabEntries.Add(entry);
+			else Debug.LogError($"Error: couldn't find VocabularyEntry from quizQuestionObject: {quizQuestionObject.vocabID}");
 		}
 		Debug.Log($"Sanity check! topThreeWorstQuestions size = {topThreeWorstQuestions.Count}, currentQuizVocabEntries size = {currentQuizVocabEntries.Count}, quizQuestionObjectList size = {GlobalManager.Instance.currentReviewData.quizQuestionObjectList.Count}");
 		
@@ -188,7 +189,8 @@ public class QuestionManager : MonoBehaviour
 				{
 					topThreeWorstQuestions.Add(reviewData.quizQuestionObjectList[idx]);
 					VocabularyEntry entry = FindVocabularyEntryFromQuizQuestionObject(reviewData.quizQuestionObjectList[idx]);
-					currentQuizVocabEntries.Add(entry);
+					if (entry != null) currentQuizVocabEntries.Add(entry);
+					else Debug.LogError($"Error: couldn't find VocabularyEntry from quizQuestionObjectList: {reviewData.quizQuestionObjectList[idx].vocabID}");
 					idx++;
 				}
 			}
@@ -204,7 +206,8 @@ public class QuestionManager : MonoBehaviour
 					{
 						topThreeWorstQuestions[i] = question;
 						VocabularyEntry entry = FindVocabularyEntryFromQuizQuestionObject(question);
-						currentQuizVocabEntries[i] = entry;
+						if (entry != null) currentQuizVocabEntries[i] = entry;
+						else Debug.LogError($"Error: couldn't find VocabularyEntry from question: {question.vocabID}");
 						break;
 					}
 				}
@@ -402,15 +405,17 @@ public class QuestionManager : MonoBehaviour
             speechBubble.gameObject.SetActive(true);
             lastAnswerCorrect = false;
 			QuizQuestionObject quizQuestionObject = FindQuizQuestionObjectFromVocabularyEntry(currentQuestion.vocabularyEntry);
-			quizQuestionObject.numAttempts += 1;
+			if (quizQuestionObject != null) quizQuestionObject.numAttempts += 1;
+			else Debug.LogWarning($"Warning: couldn't find QuizQuestionObject for entry {currentQuestion.vocabularyEntry.Vocabulary_ID}, if word is from other review packet this is normal");
         } else
         {
             lastAnswerCorrect = true;
 			QuizQuestionObject quizQuestionObject = FindQuizQuestionObjectFromVocabularyEntry(currentQuestion.vocabularyEntry);
-			quizQuestionObject.successfulAnswer = true;
+			if (quizQuestionObject != null) quizQuestionObject.successfulAnswer = true;
+			else Debug.LogWarning($"Warning: couldn't find QuizQuestionObject for entry {currentQuestion.vocabularyEntry.Vocabulary_ID}, if word is from other review packet this is normal");
         }
         answerButtons[currentQuestion.correctAnswer].HighlightCorrect();
-        // TODO: Disable all the buttons, move on to next question
+        // Disable all the buttons, move on to next question
         foreach (AnswerButton answerButton in answerButtons)
         {
             answerButton.GetComponent<Button>().enabled = false;
@@ -500,7 +505,7 @@ public class QuestionManager : MonoBehaviour
 
     public void ExitToMap()
     {
-        // TODO: Scene logic
+        // Scene logic
         SceneManager.LoadScene("MapLayoutScene");
     }
 }

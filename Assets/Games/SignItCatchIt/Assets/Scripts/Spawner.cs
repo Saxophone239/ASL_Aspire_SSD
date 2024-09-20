@@ -156,8 +156,6 @@ public class Spawner : MonoBehaviour
 
     public void ChangeCorrectWord()
     {
-        // List<string> levelVocabList = LevelOperator.CurrentLevelVocabList; // TODO: set levelVocabList to list of words to show
-		// List<string> levelVocabList = new List<string>{"mitochondria", "chromosome", "DNA"};
 		List<VocabularyEntry> levelVocabList = allPossibleVocabEntries;
         
         int randomWordIndex = Random.Range(0, levelVocabList.Count);

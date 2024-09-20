@@ -17,13 +17,12 @@ public class LoginManager : MonoBehaviour
     [SerializeField] Button loginButton;
 	[SerializeField] GameObject loadingWheel;
 
-    private StateManager stateManager;
+    // private StateManager stateManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        // TODO: Make this failsafe
-        stateManager = FindObjectOfType<StateManager>();
+        // stateManager = FindObjectOfType<StateManager>();
 
 		loadingWheel.SetActive(false);
 		loadingText.gameObject.SetActive(false);

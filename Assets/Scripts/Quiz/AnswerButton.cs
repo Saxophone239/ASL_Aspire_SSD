@@ -60,7 +60,7 @@ public class AnswerButton : MonoBehaviour
 
     public void ResetColor()
     {
-        // TODO: Handle null component because it's causing issues
+        // Handle null component because it's causing issues
         if (!buttonImage) return;
         StopAllCoroutines();
         buttonImage.color = defaultColor;
