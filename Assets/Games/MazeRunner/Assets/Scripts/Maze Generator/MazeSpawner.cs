@@ -4,7 +4,7 @@ using Unity.AI.Navigation;
 using System.Collections;
 using static MazeGlobals;
 using System.Threading.Tasks;
-using UnityEditor;
+// using UnityEditor; // Do not use UnityEditor otherwise WebGL build won't work
 // using System;
 
 //<summary>
@@ -261,7 +261,7 @@ public class MazeSpawner : MonoBehaviour {
 				GameObject tmp;
 				tmp = Instantiate(Floor,new Vector3(x,0,z), Quaternion.Euler(0,0,0)) as GameObject;
 				tmp.transform.parent = transform;
-				GameObjectUtility.SetStaticEditorFlags(tmp, StaticEditorFlags.NavigationStatic);
+				// GameObjectUtility.SetStaticEditorFlags(tmp, StaticEditorFlags.NavigationStatic);
 				if (row == 0 && column == 0)
 				{
 					spawnedPlayer.gameObject.SetActive(true);
@@ -271,25 +271,25 @@ public class MazeSpawner : MonoBehaviour {
 					tmp = Instantiate(Wall,new Vector3(x+CellWidth/2,0,z)+Wall.transform.position,Quaternion.Euler(0,90,0)) as GameObject;// right
 					tmp.transform.localScale += new Vector3((CellHeight - Floor.transform.localScale.x) / Floor.transform.localScale.x, 0, 0);
 					tmp.transform.parent = transform;
-					GameObjectUtility.SetStaticEditorFlags(tmp, StaticEditorFlags.NavigationStatic);
+					// GameObjectUtility.SetStaticEditorFlags(tmp, StaticEditorFlags.NavigationStatic);
 				}
 				if(cell.WallFront){
 					tmp = Instantiate(Wall,new Vector3(x,0,z+CellHeight/2)+Wall.transform.position,Quaternion.Euler(0,0,0)) as GameObject;// front
 					tmp.transform.localScale += new Vector3((CellWidth - Floor.transform.localScale.z) / Floor.transform.localScale.z, 0, 0);
 					tmp.transform.parent = transform;
-					GameObjectUtility.SetStaticEditorFlags(tmp, StaticEditorFlags.NavigationStatic);
+					// GameObjectUtility.SetStaticEditorFlags(tmp, StaticEditorFlags.NavigationStatic);
 				}
 				if(cell.WallLeft){
 					tmp = Instantiate(Wall,new Vector3(x-CellWidth/2,0,z)+Wall.transform.position,Quaternion.Euler(0,270,0)) as GameObject;// left
 					tmp.transform.localScale += new Vector3((CellHeight - Floor.transform.localScale.x) / Floor.transform.localScale.x, 0, 0);
 					tmp.transform.parent = transform;
-					GameObjectUtility.SetStaticEditorFlags(tmp, StaticEditorFlags.NavigationStatic);
+					// GameObjectUtility.SetStaticEditorFlags(tmp, StaticEditorFlags.NavigationStatic);
 				}
 				if(cell.WallBack){
 					tmp = Instantiate(Wall,new Vector3(x,0,z-CellHeight/2)+Wall.transform.position,Quaternion.Euler(0,180,0)) as GameObject;// back
 					tmp.transform.localScale += new Vector3((CellWidth - Floor.transform.localScale.z) / Floor.transform.localScale.z, 0, 0);
 					tmp.transform.parent = transform;
-					GameObjectUtility.SetStaticEditorFlags(tmp, StaticEditorFlags.NavigationStatic);
+					// GameObjectUtility.SetStaticEditorFlags(tmp, StaticEditorFlags.NavigationStatic);
 				}
 				if(cell.IsGoal && GoalPrefab != null && row != 0 && column != 0){
 					tmp = Instantiate(GoalPrefab,new Vector3(x,1,z), Quaternion.Euler(0,0,0)) as GameObject;
@@ -307,7 +307,7 @@ public class MazeSpawner : MonoBehaviour {
 					float z = row*(CellHeight+(AddGaps?.2f:0));
 					GameObject tmp = Instantiate(Pillar,new Vector3(x-CellWidth/2,0,z-CellHeight/2),Quaternion.identity) as GameObject;
 					tmp.transform.parent = transform;
-					GameObjectUtility.SetStaticEditorFlags(tmp, StaticEditorFlags.NavigationStatic);
+					// GameObjectUtility.SetStaticEditorFlags(tmp, StaticEditorFlags.NavigationStatic);
 				}
 			
 				yield return new WaitForSeconds(0.00001f);
@@ -351,13 +351,13 @@ public class MazeSpawner : MonoBehaviour {
 				{
 					GameObject tmp = Instantiate(SpikePrefabs[Random.Range(0, SpikePrefabs.Length)], new Vector3(x, 0.6f, z), Quaternion.Euler(0, 0, 0)) as GameObject;
 					tmp.transform.parent = transform;
-					GameObjectUtility.SetStaticEditorFlags(tmp, StaticEditorFlags.NavigationStatic);
+					// GameObjectUtility.SetStaticEditorFlags(tmp, StaticEditorFlags.NavigationStatic);
 					mazeCell.HasSpike = true;
 				} else if (mazeCell.WallLeft && mazeCell.WallRight)
 				{
 					GameObject tmp = Instantiate(SpikePrefabs[Random.Range(0, SpikePrefabs.Length)], new Vector3(x, 0.6f, z), Quaternion.Euler(0, 90, 0)) as GameObject;
 					tmp.transform.parent = transform;
-					GameObjectUtility.SetStaticEditorFlags(tmp, StaticEditorFlags.NavigationStatic);
+					// GameObjectUtility.SetStaticEditorFlags(tmp, StaticEditorFlags.NavigationStatic);
 					mazeCell.HasSpike = true;
 				}
 			}
